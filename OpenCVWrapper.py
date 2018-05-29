@@ -42,17 +42,24 @@ def initDevice(deviceId=0):
 # recognitionFunction - function to be executed after capture a single frame snapshot
 # e.g: the recognition algorithm
 def initVideoRecording(device: cv2.VideoCapture, snapshotTime: int, directory: str, recognitionFunction=0):
-    control = True
-    while(control):
-        count = 0
-        isRecording = True
-        while(isRecording):
-            device.set(cv2.CAP_PROP_POS_MSEC, (count * snapshotTime))
-            isRecording, snapshot = device.read()
-            saveImage(snapshot, directory + "\\frame%d" % count)
-            count += 1
+    frameRate = 8
+    frameCount = 0
+    device.set(cv2.CAP_PROP_FPS, frameRate)
+    count = 0
+    while(True):
+        isRecording, snapshot = device.read()
+        cv2.imshow("hahaha", snapshot)
+        frameCount += 1
+        if frameCount == (frameRate * snapshotTime):
+            frameCount = 0
+            saveImage(snapshot, "frame" + str(count))
+            print("hi")
+        count += 1
         if(not recognitionFunction == 0):
             control = recognitionFunction()
+        k = cv2.waitKey(30) & 0xff
+        if k == 27:
+            break
 
 # https://docs.opencv.org/trunk/d8/dfe/classcv_1_1VideoCapture.html#aa6480e6972ef4c00d74814ec841a2939
 def getVideoProperty(device : cv2.VideoCapture, propertyId):
@@ -69,4 +76,23 @@ def enableCVOptimizations():
     if(not cv2.useOptimized()):
         cv2.setUseOptimized(True)
 
+def addImages(imageOne: numpy.ndarray, imageTwo: numpy.ndarray):
+    return cv2.add(imageOne, imageTwo)
+
+def subtractImages(imageOne: numpy.ndarray, imageTwo: numpy.ndarray):
+    return cv2.subtract(imageOne, imageTwo)
+
+def convertToHSV(image: numpy.ndarray):
+    return cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+## Upscale an image given a new value for its row and columns
+def upsizeImage(image: numpy.ndarray, col: int, row: int):
+    return cv2.pyrUp(image, dstsize=(col, row))
+
+## Downscale an image given a new value for its row and columns
+def downsizeImage(image: numpy.ndarray, col: int, row: int):
+    return cv2.pyrDown(image, dstsize=(col, row))
+
 # Todo: Image processing modules
+
+initVideoRecording(initDevice(), 2, "")
