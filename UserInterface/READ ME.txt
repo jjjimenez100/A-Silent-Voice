@@ -1,0 +1,26 @@
+NEED:
+PYQT 5
+QT Designer
+
+Instructions:
+if you open the .ui files, it'll show xml code. 
+Convert it first into .py file by following these steps:
+1.) open cmd and change directory to the folder that has the .ui files
+2.) type this: pyuic5 -x insert_name_of_File_here.ui -o insert_output_name_of_File_here.py
+3.) press enter. It'll create the .py file on the directory.
+
+
+NOTE: 
+
+converting it into a .py file lets you know the objects to be called and used for editing.
+Example would be text fields.
+
+tl;dr
+you use the converted py file as a guideline for the objects you'll modify as you write the logic.
+
+WARNING!!!
+if you make changes on the .ui file, you must convert it again to the .py
+you are free to edit the .py as long as the design is finalized on the .ui file and you wont make any changes there anymore.
+This is purely for avoiding the hassle of converting it again and again every time you make changes with the .ui file.
+
+
