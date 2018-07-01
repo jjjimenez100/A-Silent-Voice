@@ -1,7 +1,6 @@
 import pandas
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-import tensorflow.contrib.learn.python.learn as x
 
 class Model:
     def __init__(self, dataset: str):
