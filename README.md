@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://lh5.googleusercontent.com/aNqldAd74sZGsWgYJ0W5wNhpa51vr166KcIMO7QczwIxVmIKtDJMlBSMYtR6RTMo_GNPVVRDVgJx5_VeHcKx=w1366-h662-rw" alt="A Silent Voice Logo" width="200" height="200">
+<img src="https://scontent.fmnl3-2.fna.fbcdn.net/v/t1.15752-9/36514933_1723104107727029_4093046074367803392_n.png?_nc_cat=0&_nc_eui2=AeH0RGsmWlezlH1302t1YeR3d9elVU6MsASj1piHaWjoDuALdwph1QXIrq-bp-34SUT-ssJkW5K-Ev-yBlpLNPGFdKsLNfOHx3DyhrGJ8rZFeA&oh=6b84f1833f1aa87b96ac713fbfb278ba&oe=5BE09802" alt="A Silent Voice Logo" width="200" height="200">
 </p>
 
 <h1 align="center">A Silent Voice</h1>
