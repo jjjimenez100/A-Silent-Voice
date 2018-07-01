@@ -1,9 +1,7 @@
-from pathlib import Path
-import cv2
-import numpy
-import os
-import time
-import platform
+from Modules.OpenCVWrapper import *
+import os, time, platform
+from Modules.CNN.Constants import *
+from keras.models import load_model
 
 # Constants
 
@@ -12,64 +10,19 @@ FRAME_RATE = 7
 OPERATING_SYSTEM = platform.system()
 # Get the current working directory of the python file
 PATH = os.path.dirname(os.path.realpath(__file__))
-FRAMES_SAVE_PATH = PATH + "\\frames\\"
+FRAMES_SAVE_PATH = PATH + "\\Frames\\"
 PREVIOUS_TIME = 0
 # Enable or disable printing of texts on console to help with debugging
 DEBUG_MODE = True
 
-BACKGROUND_MODEL = cv2.createBackgroundSubtractorKNN(5000, 20)
-
+BACKGROUND_MODEL = createKNNBackgroundSubtractor(5000, 20)
+CNN_MODEL = load_model(MODEL_PATH)
 # Region of interest, the bounding rectangle constants
 RECT_BEGIN_X = 0.5
 RECT_BEGIN_Y = 0.8
 
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
-
-# Check if given file exists
-# Returns: True if the specified file path exists
-# Throws a FileNotFoundError otherwise
-def fileExists(fileName: str):
-    if(Path(fileName).is_file()):
-        return True
-    else:
-        raise FileNotFoundError
-
-# Check if given directory exists
-# Returns: True if the specified directory path exists
-# Throws a NotADirectoryError otherwise
-def directoryExists(directoryName: str):
-    if(Path(directoryName).is_dir()):
-        return True
-    else:
-        raise NotADirectoryError
-
-# Load an image with a given file path, default mode is 0.
-# 0 - load grayscale image, 1 - default, -1 include alpha channels
-# Returns: an image represented by a numpy.ndarray if specified file path is valid
-# Otherwise, refer to fileExists function
-def loadImage(fileName: str, isGrayScale=0) -> numpy.ndarray:
-    if(fileExists(fileName)):
-        return cv2.imread(fileName, isGrayScale)
-
-# Display a captioned window containing the given image.
-def displayImage(image: numpy.ndarray, caption: str):
-    cv2.imshow(caption, image)
-
-# Saves the image with the given file extension
-def saveImage(image: numpy.ndarray, fileName: str, fileExtension=".png"):
-    cv2.imwrite((fileName+fileExtension), image)
-
-# Initializes video capturing device. Default deviceId is 0.
-# First one attached is labeled as 0, second as 1, etc..
-def initDevice(deviceId=0):
-    device = cv2.VideoCapture(deviceId)
-    # According to opencv docs, there are instances that the video stream
-    # is not initialized automatically.
-    if (not device.isOpened()):
-        device.open(deviceId)
-
-    return device
 
 # Initializes video recording given the specified recording type.
 # type 0 = taking snapshots every n seconds
@@ -104,10 +57,11 @@ def timeBasedRecording(device: cv2.VideoCapture, snapshotTime: int, recognitionF
             regionOfInterest = extractRegionofInterest(noBackground)
             grayscaleROI = convertToGrayscale(regionOfInterest)
             blurROI = blurImage(grayscaleROI)
-            saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
+            # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
+            #saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
         count += 1
-        if(not recognitionFunction == 0):
-            control = recognitionFunction()
+        #if(not recognitionFunction == 0):
+            #control = recognitionFunction()
         drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
         k = cv2.waitKey(30) & 0xff
@@ -126,10 +80,11 @@ def frameByFrameRecording(device: cv2.VideoCapture, recognitionFunction=0):
         regionOfInterest = extractRegionofInterest(removeBackground(snapshot))
         grayscaleROI = convertToGrayscale(regionOfInterest)
         blurROI = blurImage(grayscaleROI)
-        saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
+        # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
+        # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
         count += 1
-        #if (not recognitionFunction == 0):
-            #control = recognitionFunction()
+        # if (not recognitionFunction == 0):
+            # control = recognitionFunction()
         drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
         k = cv2.waitKey(30) & 0xff
@@ -147,7 +102,7 @@ def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFun
         isRecording, snapshot = device.read()
         noBackground = removeBackground(snapshot)
         # if (not recognitionFunction == 0):
-        # control = recognitionFunction()
+            # control = recognitionFunction()
         drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
         k = cv2.waitKey(30) & 0xff
@@ -157,15 +112,12 @@ def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFun
             regionOfInterest = extractRegionofInterest(removeBackground(noBackground))
             grayscaleROI = convertToGrayscale(regionOfInterest)
             blurROI = blurImage(grayscaleROI)
-            saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
-            print("Captured frame %d", (count))
+            # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
+            # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
+            # print("Captured frame %d", (count))
             count += 1
     if (DEBUG_MODE):
         prettyPrintElapsedTime()
-
-# Convert a given image to its grayscale equivalent
-def convertToGrayscale(snapshot):
-    return cv2.cvtColor(snapshot, cv2.COLOR_BGR2GRAY)
 
 # Draw a bounding rectangle on the image, specified by the RECT_BEGIN constants
 def drawBoundingRectangle(snapshot):
@@ -191,40 +143,23 @@ def removeBackground(frame):
     foregroundMask = cv2.erode(foregroundMask, kernel, iterations=2)
     return cv2.bitwise_and(frame, frame, mask=foregroundMask)
 
-# https://docs.opencv.org/trunk/d8/dfe/classcv_1_1VideoCapture.html#aa6480e6972ef4c00d74814ec841a2939
-def getVideoProperty(device : cv2.VideoCapture, propertyId):
-    return device.get(propertyId)
+def getPrediction(cnnModel, image):
+    processedImage = preprocessImage(image)
+    predictedProbability = cnnModel.predict(processedImage)[0]
+    highestPredictedWeight = max(predictedProbability)
+    predictedLabel = list(predictedProbability).index(highestPredictedWeight)
 
-# List of available video properties:
-# https://docs.opencv.org/trunk/d4/d15/group__videoio__flags__base.html#gaeb8dd9c89c10a5c63c139bf7c4f5704d
-# Change video width, height, playback etc.
-def changeVideoProperty(device : cv2.VideoCapture, propertyId, newValue):
-    device.set(propertyId, newValue)
+    return highestPredictedWeight, predictedLabel
 
-# In case the compiled binaries are defaulted to False
-def enableCVOptimizations():
-    if(not cv2.useOptimized()):
-        cv2.setUseOptimized(True)
+def getPredictedTextEquivalent(predictedLabel):
+    return LABELS[int(predictedLabel)]
 
-# Add two image matrices
-def addImages(imageOne: numpy.ndarray, imageTwo: numpy.ndarray):
-    return cv2.add(imageOne, imageTwo)
+def preprocessImage(image):
+    img = cv2.resize(image, (IMAGE_WIDTH, IMAGE_HEIGHT))
+    img = numpy.array(img, dtype=numpy.float32)
+    img = numpy.reshape(img, (1, IMAGE_WIDTH, IMAGE_HEIGHT, 1))
 
-# Subtract two image matrices
-def subtractImages(imageOne: numpy.ndarray, imageTwo: numpy.ndarray):
-    return cv2.subtract(imageOne, imageTwo)
-
-# Convert a given image to its HSV equivalent
-def convertToHSV(image: numpy.ndarray):
-    return cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
-# Upscale an image given a new value for its row and columns
-def upsizeImage(image: numpy.ndarray, col: int, row: int):
-    return cv2.pyrUp(image, dstsize=(col, row))
-
-# Downscale an image given a new value for its row and columns
-def downsizeImage(image: numpy.ndarray, col: int, row: int):
-    return cv2.pyrDown(image, dstsize=(col, row))
+    return image
 
 # Get current system time
 def getTime():
@@ -246,6 +181,7 @@ def prettyPrintElapsedTime():
     print(time.strftime("%H:%M:%S", time.gmtime(getElapsedTime())))
 
 def main():
+    # from Algorithms.CNN import CreateDataset, TrainModel
     enableCVOptimizations()
     initVideoRecording(initDevice(), 2)
 
