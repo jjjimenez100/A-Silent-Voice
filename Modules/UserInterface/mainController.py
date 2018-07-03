@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QMainWindow, QStatusBar, QApplication, QPushButton, 
 from PyQt5.uic import loadUi
 from PyQt5.uic.properties import QtGui
 from loginController import *
-from OpenCVWrapper import *
-import cv2
+#from OpenCVWrapper import *
+#import cv2
 import iconpack
 
 class MainForm(QMainWindow):

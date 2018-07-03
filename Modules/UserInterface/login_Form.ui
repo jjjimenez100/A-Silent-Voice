@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>877</width>
     <height>625</height>
    </rect>
   </property>
@@ -42,111 +42,145 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="loginForm">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
      <property name="spacing">
       <number>0</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="Title">
-       <property name="topMargin">
-        <number>20</number>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
        </property>
        <item>
-        <widget class="QLabel" name="label_3">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>0</height>
-          </size>
+        <layout class="QVBoxLayout" name="Logo">
+         <property name="spacing">
+          <number>0</number>
          </property>
-         <property name="font">
-          <font>
-           <family>Trebuchet MS</family>
-           <pointsize>37</pointsize>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-          </font>
+         <property name="leftMargin">
+          <number>40</number>
          </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);
-font: 37pt &quot;Trebuchet MS&quot;;</string>
+         <property name="rightMargin">
+          <number>40</number>
          </property>
-         <property name="text">
-          <string>A Silent Voice</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>400</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Logo?</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="logoIMG">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>400</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Login Screen/logo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="logoName">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Trebuchet MS</family>
+             <pointsize>32</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);
+font: 32pt &quot;Trebuchet MS&quot;;</string>
+           </property>
+           <property name="text">
+            <string>A Silent Voice</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QFrame" name="verticalFrame">
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(236, 240, 241);</string>
+          <string notr="true">background-color: rgb(255, 255, 255);</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="spacing">
-           <number>5</number>
+           <number>10</number>
+          </property>
+          <property name="leftMargin">
+           <number>60</number>
           </property>
           <property name="topMargin">
-           <number>10</number>
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>60</number>
           </property>
           <property name="bottomMargin">
-           <number>10</number>
+           <number>0</number>
           </property>
           <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="username">
+            <property name="spacing">
+             <number>6</number>
+            </property>
             <property name="rightMargin">
-             <number>10</number>
+             <number>0</number>
             </property>
             <item>
              <widget class="QLabel" name="label">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Trebuchet MS</family>
-                <pointsize>14</pointsize>
-                <weight>50</weight>
-                <italic>false</italic>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;</string>
-              </property>
               <property name="text">
-               <string>Username</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Login Screen/Icons/username.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -164,6 +198,18 @@ font: 37pt &quot;Trebuchet MS&quot;;</string>
               <property name="styleSheet">
                <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;</string>
               </property>
+              <property name="text">
+               <string>Username</string>
+              </property>
+              <property name="frame">
+               <bool>false</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -171,39 +217,12 @@ font: 37pt &quot;Trebuchet MS&quot;;</string>
           <item>
            <layout class="QHBoxLayout" name="password">
             <property name="rightMargin">
-             <number>10</number>
+             <number>0</number>
             </property>
             <item>
              <widget class="QLabel" name="label_2">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>100</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Trebuchet MS</family>
-                <pointsize>14</pointsize>
-                <weight>50</weight>
-                <italic>false</italic>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;</string>
-              </property>
               <property name="text">
-               <string>Password</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Login Screen/Icons/pass.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -230,6 +249,18 @@ font: 37pt &quot;Trebuchet MS&quot;;</string>
               <property name="inputMethodHints">
                <set>Qt::ImhHiddenText|Qt::ImhSensitiveData</set>
               </property>
+              <property name="text">
+               <string>Password</string>
+              </property>
+              <property name="frame">
+               <bool>false</bool>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
            </layout>
@@ -238,13 +269,13 @@ font: 37pt &quot;Trebuchet MS&quot;;</string>
            <widget class="QPushButton" name="loginBtn">
             <property name="minimumSize">
              <size>
-              <width>465</width>
+              <width>320</width>
               <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>465</width>
+              <width>30000</width>
               <height>16777215</height>
              </size>
             </property>
@@ -258,8 +289,11 @@ font: 37pt &quot;Trebuchet MS&quot;;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
-background-color: rgb(236, 240, 241);</string>
+             <string notr="true">color: rgb(35, 35, 35);
+font: 14pt &quot;Trebuchet MS&quot;;
+background-color: rgb(200, 200, 200);
+alternate-background-color: rgb(34, 52, 66);
+Text-align: center;</string>
             </property>
             <property name="text">
              <string>Log In</string>
@@ -269,15 +303,101 @@ background-color: rgb(236, 240, 241);</string>
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </widget>
        </item>
       </layout>
      </item>
+     <item>
+      <widget class="QProgressBar" name="progressBar">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>3000</width>
+         <height>3000</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QProgressBar{
+    border: 0px solid grey;
+    border-radius: 5px;
+    text-align: center
+}
+QProgressBar::chunk {
+    background-color: white;
+    width: 10px;
+    margin: 1px;
+}
+</string>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="textVisible">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="iconpack.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>userText</sender>
+   <signal>selectionChanged()</signal>
+   <receiver>userText</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>544</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>passText</sender>
+   <signal>selectionChanged()</signal>
+   <receiver>passText</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>544</x>
+     <y>292</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
