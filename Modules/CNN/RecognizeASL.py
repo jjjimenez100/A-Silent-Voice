@@ -15,14 +15,51 @@ PREVIOUS_TIME = 0
 # Enable or disable printing of texts on console to help with debugging
 DEBUG_MODE = True
 
-BACKGROUND_MODEL = createKNNBackgroundSubtractor(5000, 20)
-CNN_MODEL = load_model(MODEL_PATH)
+## Deprecated
+# BACKGROUND_MODEL = createKNNBackgroundSubtractor(5000, 20)
+
+# Uncomment for neural net
+# CNN_MODEL = load_model(MODEL_PATH)
+
 # Region of interest, the bounding rectangle constants
 RECT_BEGIN_X = 0.5
 RECT_BEGIN_Y = 0.8
 
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
+
+# New background subtraction algorithm. Reduces pixel values that are in specified HSV range to 0, which is black.
+def thresholdHSVBackground(image):
+    l_h = cv2.getTrackbarPos('L - h', 'HSV Values')
+    u_h = cv2.getTrackbarPos('U - h', 'HSV Values')
+    l_s = cv2.getTrackbarPos('L - s', 'HSV Values')
+    u_s = cv2.getTrackbarPos('U - s', 'HSV Values')
+    l_v = cv2.getTrackbarPos('L - v', 'HSV Values')
+    u_v = cv2.getTrackbarPos('U - v', 'HSV Values')
+
+    MIN_HSV = numpy.array([l_h, l_s, l_v])
+    MAX_HSV = numpy.array([u_h, u_s, u_v])
+
+    imageMask = cv2.inRange(image, MIN_HSV, MAX_HSV)
+    noBackground = cv2.bitwise_and(image, image, mask=imageMask)
+    blurImage = cv2.medianBlur(cv2.GaussianBlur(noBackground, (11,11), 0), 15)
+    # [0] - H, [1] - S, [2] - V
+    greyscaleImage = numpy.dsplit(blurImage, blurImage.shape[-1])[2]
+    ret, thresh = cv2.threshold(greyscaleImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    return thresh
+
+# Function to create HSV trackbars
+def createHSVTrackBars():
+    createNewWindow("HSV Values")
+    createTrackbar('L - h', 'HSV Values', 0, 179)
+    createTrackbar('U - h', 'HSV Values', 179, 179)
+    # Ideal value - 21
+    createTrackbar('L - s', 'HSV Values', 0, 255)
+    createTrackbar('U - s', 'HSV Values', 255, 255)
+
+    createTrackbar('L - v', 'HSV Values', 0, 255)
+    createTrackbar('U - v', 'HSV Values', 255, 255)
 
 # Initializes video recording given the specified recording type.
 # type 0 = taking snapshots every n seconds
@@ -51,14 +88,16 @@ def timeBasedRecording(device: cv2.VideoCapture, snapshotTime: int, recognitionF
     while(True):
         isRecording, snapshot = device.read()
         frameCount += 1
-        noBackground = removeBackground(snapshot)
+        # noBackground = removeBackground(snapshot)
         if frameCount == (FRAME_RATE * snapshotTime):
             frameCount = 0
-            regionOfInterest = extractRegionofInterest(noBackground)
-            grayscaleROI = convertToGrayscale(regionOfInterest)
-            blurROI = blurImage(grayscaleROI)
+            ###### regionOfInterest = extractRegionofInterest(snapshot)
+            # grayscaleROI = convertToGrayscale(regionOfInterest)
+            # blurROI = blurImage(grayscaleROI)
+            noBackground = thresholdHSVBackground(snapshot)
+            displayImage(noBackground, "no bg")
             # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
-            #saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
+            # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
         count += 1
         #if(not recognitionFunction == 0):
             #control = recognitionFunction()
@@ -77,9 +116,11 @@ def frameByFrameRecording(device: cv2.VideoCapture, recognitionFunction=0):
         setInitialTime()
     while (True):
         isRecording, snapshot = device.read()
-        regionOfInterest = extractRegionofInterest(removeBackground(snapshot))
-        grayscaleROI = convertToGrayscale(regionOfInterest)
-        blurROI = blurImage(grayscaleROI)
+        ###### regionOfInterest = extractRegionofInterest(snapshot)
+        noBackground = thresholdHSVBackground(snapshot)
+        displayImage(noBackground, "no bg")
+        # grayscaleROI = convertToGrayscale(regionOfInterest)
+        # blurROI = blurImage(grayscaleROI)
         # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
         # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
         count += 1
@@ -100,7 +141,7 @@ def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFun
         setInitialTime()
     while (True):
         isRecording, snapshot = device.read()
-        noBackground = removeBackground(snapshot)
+        # noBackground = removeBackground(snapshot)
         # if (not recognitionFunction == 0):
             # control = recognitionFunction()
         drawBoundingRectangle(snapshot)
@@ -109,9 +150,11 @@ def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFun
         if (k == 27):
             break
         if (k == captureKey):
-            regionOfInterest = extractRegionofInterest(removeBackground(noBackground))
-            grayscaleROI = convertToGrayscale(regionOfInterest)
-            blurROI = blurImage(grayscaleROI)
+            ###### regionOfInterest = extractRegionofInterest(snapshot)
+            # grayscaleROI = convertToGrayscale(regionOfInterest)
+            # blurROI = blurImage(grayscaleROI)
+            noBackground = thresholdHSVBackground(snapshot)
+            displayImage(noBackground, "no bg")
             # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
             # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
             # print("Captured frame %d", (count))
@@ -134,14 +177,16 @@ def blurImage(regionOfInterest):
     return cv2.GaussianBlur(regionOfInterest, (BLUR_VALUE, BLUR_VALUE), 0)
 
 # Remove unnecessary noise and background
+# Deprecated
 def removeBackground(frame):
-    foregroundMask = BACKGROUND_MODEL.apply(frame)
-    # White rectangle
-    kernel = numpy.ones((3, 3), numpy.uint8)
-    # Convolve it with the mask
-    # Two iteration of erosion provides better results
-    foregroundMask = cv2.erode(foregroundMask, kernel, iterations=2)
-    return cv2.bitwise_and(frame, frame, mask=foregroundMask)
+    # foregroundMask = BACKGROUND_MODEL.apply(frame)
+    # # White rectangle
+    # kernel = numpy.ones((3, 3), numpy.uint8)
+    # # Convolve it with the mask
+    # # Two iteration of erosion provides better results
+    # foregroundMask = cv2.erode(foregroundMask, kernel, iterations=2)
+    # return cv2.bitwise_and(frame, frame, mask=foregroundMask)
+    pass
 
 def getPrediction(cnnModel, image):
     processedImage = preprocessImage(image)
@@ -183,7 +228,8 @@ def prettyPrintElapsedTime():
 def main():
     # from Algorithms.CNN import CreateDataset, TrainModel
     enableCVOptimizations()
-    initVideoRecording(initDevice(), 2)
+    createHSVTrackBars()
+    initVideoRecording(initDevice(), 1)
 
 # Init a silent voice project
 if(__name__ == "__main__"):
