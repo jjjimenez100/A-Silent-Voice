@@ -19,11 +19,15 @@ DEBUG_MODE = True
 # BACKGROUND_MODEL = createKNNBackgroundSubtractor(5000, 20)
 
 # Uncomment for neural net
-# CNN_MODEL = load_model(MODEL_PATH)
+CNN_MODEL = load_model(MODEL_PATH)
 
 # Region of interest, the bounding rectangle constants
-RECT_BEGIN_X = 0.5
-RECT_BEGIN_Y = 0.8
+RECT_BEGIN_X = 0.25
+RECT_BEGIN_Y = 0.7
+BOX_Y = 80
+BOX_X = 300
+BOX_WIDTH = 300
+BOX_HEIGHT = 300
 
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
@@ -85,27 +89,42 @@ def timeBasedRecording(device: cv2.VideoCapture, snapshotTime: int, recognitionF
     frameCount = 0
     if(DEBUG_MODE):
         setInitialTime()
+    start = False
+
     while(True):
-        isRecording, snapshot = device.read()
-        frameCount += 1
-        # noBackground = removeBackground(snapshot)
-        if frameCount == (FRAME_RATE * snapshotTime):
+        k = cv2.waitKey(5) & 0xFF
+        if k == 27:
+            start = True
+        if start:
+            isRecording, snapshot = device.read()
+            frameCount += 1
+            # noBackground = removeBackground(snapshot)
+            #if frameCount == (FRAME_RATE * snapshotTime):
             frameCount = 0
-            ###### regionOfInterest = extractRegionofInterest(snapshot)
+            roi = extractRegionofInterest(snapshot)
             # grayscaleROI = convertToGrayscale(regionOfInterest)
             # blurROI = blurImage(grayscaleROI)
-            noBackground = thresholdHSVBackground(snapshot)
+            noBackground = thresholdHSVBackground(roi)
             displayImage(noBackground, "no bg")
-            # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
-            # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
-        count += 1
-        #if(not recognitionFunction == 0):
-            #control = recognitionFunction()
-        drawBoundingRectangle(snapshot)
-        displayImage(snapshot, "Original")
-        k = cv2.waitKey(30) & 0xff
-        if k == 27:
-            break
+
+
+            _,pred = getPrediction(CNN_MODEL, noBackground)
+            word = getPredictedTextEquivalent(pred)
+            cv2.putText(snapshot, word, (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+                    cv2.LINE_AA)
+
+
+                # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
+                # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
+            count += 1
+            #if(not recognitionFunction == 0):
+                #control = recognitionFunction()
+            snapshot = drawBoundingRectangle(snapshot)
+            displayImage(snapshot, "Original")
+            k = cv2.waitKey(30) & 0xff
+            if k == 27:
+                start = False
+                break
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
@@ -162,15 +181,26 @@ def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFun
     if (DEBUG_MODE):
         prettyPrintElapsedTime()
 
+# Turns grayscale to black and white
+# NOTE: dunno if it will lag
+def blackWhite(img, threshold = 25):
+    for i in img:
+        i[i>threshold]=255
+        i[i<=threshold]=0
+    return img
+
 # Draw a bounding rectangle on the image, specified by the RECT_BEGIN constants
 def drawBoundingRectangle(snapshot):
-    return cv2.rectangle(snapshot, (int(RECT_BEGIN_X * snapshot.shape[1]), 0),
-                  (snapshot.shape[1], int(RECT_BEGIN_Y * snapshot.shape[0])), (255, 0, 0), 2)
+    #return cv2.rectangle(snapshot, (int(RECT_BEGIN_X * snapshot.shape[1]), 0),
+    #              (snapshot.shape[1], int(RECT_BEGIN_Y * snapshot.shape[0])), (255, 0, 0), 2)
+    return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
+                         (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
 
 # Extract region of interest specified by the bounding rectangle.
 def extractRegionofInterest(snapshot):
-    return snapshot[0:int(RECT_BEGIN_Y * snapshot.shape[0]),
-              int(RECT_BEGIN_X * snapshot.shape[1]):snapshot.shape[1]]
+    #return snapshot[0:int(RECT_BEGIN_Y * snapshot.shape[0]),
+    #          int(RECT_BEGIN_X * snapshot.shape[1]):snapshot.shape[1]]
+    return snapshot[BOX_Y:BOX_Y+BOX_HEIGHT,BOX_X:BOX_X+BOX_WIDTH]
 
 # Try to smooth the given image by blurring it out
 def blurImage(regionOfInterest):
@@ -190,6 +220,7 @@ def removeBackground(frame):
 
 def getPrediction(cnnModel, image):
     processedImage = preprocessImage(image)
+    #displayImage(processedImage, "processed")
     predictedProbability = cnnModel.predict(processedImage)[0]
     highestPredictedWeight = max(predictedProbability)
     predictedLabel = list(predictedProbability).index(highestPredictedWeight)
@@ -201,10 +232,10 @@ def getPredictedTextEquivalent(predictedLabel):
 
 def preprocessImage(image):
     img = cv2.resize(image, (IMAGE_WIDTH, IMAGE_HEIGHT))
+    displayImage(img,"lul")
     img = numpy.array(img, dtype=numpy.float32)
     img = numpy.reshape(img, (1, IMAGE_WIDTH, IMAGE_HEIGHT, 1))
-
-    return image
+    return img
 
 # Get current system time
 def getTime():
