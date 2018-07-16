@@ -2,6 +2,8 @@ from Modules.OpenCVWrapper import *
 import os, time, platform
 from Modules.CNN.Constants import *
 from keras.models import load_model
+#VideoRecorder
+import Modules.tests.VideoRecorder as vr
 
 # Constants
 
@@ -74,19 +76,14 @@ def createHSVTrackBars():
 # The default exit key is "esc"
 def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recognitionFunction=0, captureKey=99):
     device.set(cv2.CAP_PROP_FPS, FRAME_RATE)
-    if(type == 0):
-        timeBasedRecording(device, snapshotTime)
-    elif(type == 1):
-        frameByFrameRecording(device)
-    elif(type == 2):
-        userInteractedRecording(device, captureKey)
+    startVideoCapture(device, snapshotTime)
 
 #  Take snapshots from video recording every n seconds
-def timeBasedRecording(device: cv2.VideoCapture, snapshotTime: int, recognitionFunction=0):
-    # Keep track of total frame #
-    count = 0
-    # Predict frames per second
-    frameCount = 0
+def startVideoCapture(device: cv2.VideoCapture, enableRecording=False):
+    if enableRecording:
+        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]))
+        recordStart = False
+
     if(DEBUG_MODE):
         setInitialTime()
     start = False
@@ -97,89 +94,33 @@ def timeBasedRecording(device: cv2.VideoCapture, snapshotTime: int, recognitionF
             start = True
         if start:
             isRecording, snapshot = device.read()
-            frameCount += 1
-            # noBackground = removeBackground(snapshot)
-            #if frameCount == (FRAME_RATE * snapshotTime):
-            frameCount = 0
+
+            if enableRecording:
+                if recordStart:
+                    record.recordFrame(snapshot)
+                    cv2.putText(snapshot, "REC", (len(snapshot[1])-100, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                                cv2.LINE_AA)
             roi = extractRegionofInterest(snapshot)
-            # grayscaleROI = convertToGrayscale(regionOfInterest)
-            # blurROI = blurImage(grayscaleROI)
             noBackground = thresholdHSVBackground(roi)
             displayImage(noBackground, "no bg")
 
-
-            _,pred = getPrediction(CNN_MODEL, noBackground)
+            acc,pred = getPrediction(CNN_MODEL, noBackground)
             word = getPredictedTextEquivalent(pred)
-            cv2.putText(snapshot, word, (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+            if(acc>=0.8):
+                cv2.putText(snapshot, word + " " + str(acc), (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
                     cv2.LINE_AA)
-
-
-                # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
-                # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
-            count += 1
-            #if(not recognitionFunction == 0):
-                #control = recognitionFunction()
             snapshot = drawBoundingRectangle(snapshot)
             displayImage(snapshot, "Original")
             k = cv2.waitKey(30) & 0xff
             if k == 27:
-                start = False
                 break
+                record.onDone()
+            if enableRecording:
+                if k == ord('r'):
+                    recordStart = True
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
-# Take snapshots every video frame
-def frameByFrameRecording(device: cv2.VideoCapture, recognitionFunction=0):
-    count = 0
-    if (DEBUG_MODE):
-        setInitialTime()
-    while (True):
-        isRecording, snapshot = device.read()
-        ###### regionOfInterest = extractRegionofInterest(snapshot)
-        noBackground = thresholdHSVBackground(snapshot)
-        displayImage(noBackground, "no bg")
-        # grayscaleROI = convertToGrayscale(regionOfInterest)
-        # blurROI = blurImage(grayscaleROI)
-        # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
-        # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
-        count += 1
-        # if (not recognitionFunction == 0):
-            # control = recognitionFunction()
-        drawBoundingRectangle(snapshot)
-        displayImage(snapshot, "Original")
-        k = cv2.waitKey(30) & 0xff
-        if(k==27):
-            break
-    if (DEBUG_MODE):
-        prettyPrintElapsedTime()
-
-# Take snapshots only if a certain key was pressed
-def userInteractedRecording(device: cv2.VideoCapture, captureKey, recognitionFunction=0):
-    count = 0
-    if (DEBUG_MODE):
-        setInitialTime()
-    while (True):
-        isRecording, snapshot = device.read()
-        # noBackground = removeBackground(snapshot)
-        # if (not recognitionFunction == 0):
-            # control = recognitionFunction()
-        drawBoundingRectangle(snapshot)
-        displayImage(snapshot, "Original")
-        k = cv2.waitKey(30) & 0xff
-        if (k == 27):
-            break
-        if (k == captureKey):
-            ###### regionOfInterest = extractRegionofInterest(snapshot)
-            # grayscaleROI = convertToGrayscale(regionOfInterest)
-            # blurROI = blurImage(grayscaleROI)
-            noBackground = thresholdHSVBackground(snapshot)
-            displayImage(noBackground, "no bg")
-            # RECOGNITION FUNCTION GOES HERE. FEED THE getPrediction() FUNCTION WITH THE BLUR ROI IMAGE.
-            # saveImage(blurROI, (FRAMES_SAVE_PATH + "frame" + str(count)))
-            # print("Captured frame %d", (count))
-            count += 1
-    if (DEBUG_MODE):
-        prettyPrintElapsedTime()
 
 # Turns grayscale to black and white
 # NOTE: dunno if it will lag
