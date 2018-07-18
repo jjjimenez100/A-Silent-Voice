@@ -79,9 +79,9 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
     startVideoCapture(device, snapshotTime)
 
 #  Take snapshots from video recording every n seconds
-def startVideoCapture(device: cv2.VideoCapture, enableRecording=False):
-    if enableRecording:
-        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]))
+def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
+    if enableRecording or enableFrameSaving:
+        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation="F:\School Folder\Thesis P3\Modules/tests/")
         recordStart = False
 
     if(DEBUG_MODE):
@@ -102,6 +102,12 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False):
                                 cv2.LINE_AA)
             roi = extractRegionofInterest(snapshot)
             noBackground = thresholdHSVBackground(roi)
+            if enableFrameSaving:
+                if recordStart:
+                    record.saveFrame(roi, 'RGB')
+                    record.saveFrame(noBackground, 'GREY')
+                    cv2.putText(snapshot, "SNAPSHOT REC", (len(snapshot[1])-150, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                                cv2.LINE_AA)
             displayImage(noBackground, "no bg")
 
             acc,pred = getPrediction(CNN_MODEL, noBackground)
@@ -115,9 +121,12 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False):
             if k == 27:
                 break
                 record.onDone()
-            if enableRecording:
+            if enableRecording or enableFrameSaving:
                 if k == ord('r'):
                     recordStart = True
+            if recordStart:
+                if k == ord('p'):
+                    recordStart = False
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
@@ -173,7 +182,6 @@ def getPredictedTextEquivalent(predictedLabel):
 
 def preprocessImage(image):
     img = cv2.resize(image, (IMAGE_WIDTH, IMAGE_HEIGHT))
-    displayImage(img,"lul")
     img = numpy.array(img, dtype=numpy.float32)
     img = numpy.reshape(img, (1, IMAGE_WIDTH, IMAGE_HEIGHT, 1))
     return img
