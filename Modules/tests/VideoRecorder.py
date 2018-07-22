@@ -29,7 +29,7 @@ class Recorder:
         self.out.write(frame)
 
     def saveFrame(self, frame, type='RGB'):
-        frame = cv2.resize(frame, (150, 150))
+        frame = cv2.resize(frame, (50, 50))
         if type=='RGB':
             cv2.imwrite(self.dir[2]+"/"+self.frameName+str(self.frameCountRGB)+".png", frame)
             self.frameCountRGB +=1
