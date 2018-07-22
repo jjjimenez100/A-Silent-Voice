@@ -1,4 +1,4 @@
-MODEL_PATH = "CnnModelKeras.h5"
+MODEL_PATH = "D:\GitHub\A-Silent-Voice\cnn_model_keras2.h5"
 MODEL_VISUALIZATION_PATH = "CnnModel.png"
 TRAIN_IMAGES_PATH = "trainImages.dataset"
 TRAIN_LABELS_PATH = "trainLabels.dataset"

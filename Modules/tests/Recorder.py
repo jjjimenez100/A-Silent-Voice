@@ -1,6 +1,7 @@
 import cv2 as cv
 import Modules.CNN.RecognizeASL as asl
 
+
 #vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
 vid = cv.VideoCapture(0)
 
