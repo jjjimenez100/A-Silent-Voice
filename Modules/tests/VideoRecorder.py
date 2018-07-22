@@ -3,8 +3,17 @@ import os
 
 class Recorder:
     def __init__(self, width, height, saveLocation="", frameName=''):
-        self.dir = [os.path.dirname(saveLocation), os.path.dirname(saveLocation + "/frames/"), os.path.dirname(saveLocation + "/frames/rgb/"),
-                    os.path.dirname(saveLocation + "/frames/processed/"), os.path.dirname(saveLocation + "/frames/greyscale/")]
+        self.dir = [saveLocation, saveLocation+"/frames/"]
+        for i in range(27):
+            if i == 26:
+                self.dir.append(os.path.dirname(self.dir[1] + "ily/"))
+                self.dir.append(os.path.dirname(self.dir[1] + "ily"+"/processed/"))
+                self.dir.append(os.path.dirname(self.dir[1] + "ily"+"/greyscale/"))
+            else:
+                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/"))
+                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/processed/"))
+                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/greyscale/"))
+
         self.__checkSaveLocation__(self.dir)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         self.out = cv2.VideoWriter(saveLocation+"/"+'output.mp4', fourcc, 20.0, (width, height))
@@ -28,16 +37,16 @@ class Recorder:
     def recordFrame(self, frame):
         self.out.write(frame)
 
-    def saveFrame(self, frame, type='RGB'):
+    def saveFrame(self, frame, type='RGB', letter=65):
         frame = cv2.resize(frame, (50, 50))
         if type=='RGB':
-            cv2.imwrite(self.dir[2]+"/"+self.frameName+str(self.frameCountRGB)+".png", frame)
+            cv2.imwrite(self.dir[2+(letter-65)*3]+"/"+self.frameName+str(self.frameCountRGB)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountRGB +=1
         if type=='BW':
-            cv2.imwrite(self.dir[3]+"/"+self.frameName+str(self.frameCountGREY)+".png", frame)
+            cv2.imwrite(self.dir[3+(letter-65)*3]+"/"+self.frameName+str(self.frameCountGREY)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountGREY +=1
         if type=='GREY':
-            cv2.imwrite(self.dir[4]+"/"+self.frameName+str(self.frameCountBW)+".png", frame)
+            cv2.imwrite(self.dir[4+(letter-65)*3]+"/"+self.frameName+str(self.frameCountBW)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountBW +=1
 
     def onDone(self):

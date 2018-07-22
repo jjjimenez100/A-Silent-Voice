@@ -31,8 +31,14 @@ BOX_X = 300
 BOX_WIDTH = 100 #300
 BOX_HEIGHT = 100 #300
 
+#Frame snapshot counter
+FRAME_SAVE_MAX = 30
+
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
+
+#DIRECTORIES TO SAVE IN
+MAIN_DIR = "F:\School Folder\Thesis P3\Modules/tests"
 
 # New background subtraction algorithm. Reduces pixel values that are in specified HSV range to 0, which is black.
 def thresholdHSVBackground(image):
@@ -81,8 +87,11 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
 #  Take snapshots from video recording every n seconds
 def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
     if enableRecording or enableFrameSaving:
-        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation="D:\moreframs")
+        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
         recordStart = False
+
+    flipped = False
+    currrent=64
 
     if(DEBUG_MODE):
         setInitialTime()
@@ -96,6 +105,8 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             start = True
         if start:
             isRecording, snapshot = device.read()
+            if flipped:
+                cv2.flip(snapshot, 1)
 
             if enableRecording:
                 if recordStart:
@@ -105,18 +116,18 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             roi = extractRegionofInterest(snapshot)
             noBackground = thresholdHSVBackground(roi)
             if enableFrameSaving:
-                if recordedCount >= 300:
-                    print("done with",totalCount,"files")
+                if recordedCount >= FRAME_SAVE_MAX:
+                    print("done with",totalCount,"files",chr(currrent))
                     recordedCount = 0
                     recordStart = False
                 if recordStart:
                     recordedCount += 1
                     totalCount += 1
                     print(recordedCount)
-                    record.saveFrame(roi, 'RGB')
-                    record.saveFrame(noBackground, 'BW')
-                    record.saveFrame(convertToGrayscale(roi), 'GREY')
-                    cv2.putText(snapshot, "SNAPSHOT REC", (len(snapshot[1])-300, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                    record.saveFrame(roi, 'RGB', letter=currrent)
+                    record.saveFrame(noBackground, 'BW', letter=currrent)
+                    record.saveFrame(convertToGrayscale(roi), 'GREY', letter=currrent)
+                    cv2.putText(snapshot, "SNAPSHOT REC ["+chr(currrent)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-330, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
                                 cv2.LINE_AA)
             displayImage(noBackground, "no bg")
 
@@ -126,14 +137,15 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
                 cv2.putText(snapshot, word + " " + str(acc), (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
                     cv2.LINE_AA)
             snapshot = drawBoundingRectangle(snapshot)
-            displayImage(cv2.flip(snapshot,1), "Original")
+            displayImage(snapshot, "Original")
             k = cv2.waitKey(30) & 0xff
             if k == 27:
                 break
                 record.onDone()
             if enableRecording or enableFrameSaving:
                 if k == ord('r'):
-                    record.countStart(totalCount+1)
+                    record.countStart(0)
+                    currrent+=1
                     recordStart = True
             if recordStart:
                 if k == ord('p'):
