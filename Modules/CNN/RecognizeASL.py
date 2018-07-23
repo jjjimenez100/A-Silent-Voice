@@ -2,6 +2,7 @@ from Modules.OpenCVWrapper import *
 import os, time, platform
 from Modules.CNN.Constants import *
 from keras.models import load_model
+from Modules.CNN.TFModel import TFModel
 #VideoRecorder
 import Modules.tests.VideoRecorder as vr
 
@@ -86,6 +87,7 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
 
 #  Take snapshots from video recording every n seconds
 def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
+    model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_results")
     if enableRecording or enableFrameSaving:
         record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
         recordStart = False
@@ -106,6 +108,8 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             start = True
         if start:
             isRecording, snapshot = device.read()
+            cv2.imwrite("haha.jpg", cv2.resize(snapshot, (150,150)))
+            model.predict("haha.jpg")
             if flipped:
                 cv2.flip(snapshot, 1)
 
