@@ -91,7 +91,8 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
         recordStart = False
 
     flipped = False
-    currrent=64
+    current=65
+    paused = False
 
     if(DEBUG_MODE):
         setInitialTime()
@@ -117,25 +118,33 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             noBackground = thresholdHSVBackground(roi)
             if enableFrameSaving:
                 if recordedCount >= FRAME_SAVE_MAX:
-                    print("done with",totalCount,"files",chr(currrent))
+                    print("done with",totalCount,"files",chr(current))
                     recordedCount = 0
                     recordStart = False
+                    current+=1
                 if recordStart:
                     recordedCount += 1
                     totalCount += 1
                     print(recordedCount)
-                    record.saveFrame(roi, 'RGB', letter=currrent)
-                    record.saveFrame(noBackground, 'BW', letter=currrent)
-                    record.saveFrame(convertToGrayscale(roi), 'GREY', letter=currrent)
-                    cv2.putText(snapshot, "SNAPSHOT REC ["+chr(currrent)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-330, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                    record.saveFrame(roi, 'RGB', letter=current)
+                    record.saveFrame(noBackground, 'BW', letter=current)
+                    record.saveFrame(convertToGrayscale(roi), 'GREY', letter=current)
+                    cv2.putText(snapshot, "SNAPSHOT REC ["+chr(current)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-430, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                                cv2.LINE_AA)
+                if paused and not recordStart:
+                    cv2.putText(snapshot,
+                                "PAUSED SNAPSHOT REC [" + chr(current) + "]" + str(recordedCount / FRAME_SAVE_MAX * 100),
+                                (len(snapshot[1]) - 600, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
                                 cv2.LINE_AA)
             displayImage(noBackground, "no bg")
 
-            acc,pred = getPrediction(CNN_MODEL, noBackground)
-            word = getPredictedTextEquivalent(pred)
-            if(acc>=0.8):
-                cv2.putText(snapshot, word + " " + str(acc), (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
-                    cv2.LINE_AA)
+            # PREDICTION FUNC
+            # acc,pred = getPrediction(CNN_MODEL, noBackground)
+            # word = getPredictedTextEquivalent(pred)
+            # if(acc>=0.8):
+            #     cv2.putText(snapshot, word + " " + str(acc), (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+            #         cv2.LINE_AA)
+
             snapshot = drawBoundingRectangle(snapshot)
             displayImage(snapshot, "Original")
             k = cv2.waitKey(30) & 0xff
@@ -145,11 +154,12 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             if enableRecording or enableFrameSaving:
                 if k == ord('r'):
                     record.countStart(0)
-                    currrent+=1
                     recordStart = True
+                    paused = False
             if recordStart:
                 if k == ord('p'):
                     recordStart = False
+                    paused = True
             if k == ord('b'):
                 global BOX_HEIGHT, BOX_WIDTH
                 BOX_HEIGHT = 300
