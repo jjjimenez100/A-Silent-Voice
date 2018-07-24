@@ -16,6 +16,7 @@ class TFModel:
         self.outputNameLayer = "import/" + self.outputLayer
         self.inputOperation = self.graph.get_operation_by_name(self.inputNameLayer)
         self.outputOperation = self.graph.get_operation_by_name(self.outputNameLayer)
+        self.sess = tf.Session(graph=self.graph)
 
     def loadGraph(self):
         graph = tf.Graph()
@@ -61,11 +62,11 @@ class TFModel:
 
     def predict(self, imagePath: str):
         tensor = self.readTensor(imagePath)
-        with tf.Session(graph=self.graph) as sess:
-            results = sess.run(self.outputOperation.outputs[0], {
-                self.inputOperation.outputs[0]: tensor
-            })
+        results = self.sess.run(self.outputOperation.outputs[0], {
+            self.inputOperation.outputs[0]: tensor
+        })
         results = np.squeeze(results)
         topResults = results.argsort()[-1:][::-1]
-        for i in topResults:
-            print(self.labels[i], results[i])
+        return self.labels[topResults[0]], results[topResults[0]]
+        #for i in topResults:
+            #print(self.labels[i], results[i])

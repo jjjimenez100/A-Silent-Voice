@@ -5,6 +5,7 @@ from keras.models import load_model
 from Modules.CNN.TFModel import TFModel
 #VideoRecorder
 import Modules.tests.VideoRecorder as vr
+import Modules.RecognitionThread as rt
 
 # Constants
 
@@ -29,8 +30,8 @@ RECT_BEGIN_X = 0.25
 RECT_BEGIN_Y = 0.7
 BOX_Y = 80
 BOX_X = 300
-BOX_WIDTH = 100 #300
-BOX_HEIGHT = 100 #300
+BOX_WIDTH = 300 #300
+BOX_HEIGHT = 300 #300
 
 #Frame snapshot counter
 FRAME_SAVE_MAX = 30
@@ -88,30 +89,34 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
 #  Take snapshots from video recording every n seconds
 def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
     model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
+    thread = rt.Recoginize(model)
+
     if enableRecording or enableFrameSaving:
         record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
-        recordStart = False
+        current=65
+        recordedCount = 0
+        totalCount = 0
 
-    flipped = False
-    current=65
+    recordStart = False
+
+    flipped = True
     paused = False
 
     if(DEBUG_MODE):
         setInitialTime()
     start = False
-    recordedCount = 0
-    totalCount = 0
 
     while(True):
         k = cv2.waitKey(5) & 0xFF
-        if k == 27:
+        if k == 27 and not start:
             start = True
+            thread.daemon = True
+            thread.start()
         if start:
             isRecording, snapshot = device.read()
-            cv2.imwrite("haha.jpg", cv2.resize(snapshot, (150,150)))
-            model.predict("haha.jpg")
+
             if flipped:
-                cv2.flip(snapshot, 1)
+                snapshot = cv2.flip(snapshot, 1)
 
             if enableRecording:
                 if recordStart:
@@ -119,6 +124,10 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
                     cv2.putText(snapshot, "REC", (len(snapshot[1])-100, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
                                 cv2.LINE_AA)
             roi = extractRegionofInterest(snapshot)
+            thread.predict(roi)
+
+
+            #PART OF FRAME/VIDEO RECORDING
             noBackground = thresholdHSVBackground(roi)
             if enableFrameSaving:
                 if recordedCount >= FRAME_SAVE_MAX:
@@ -140,14 +149,12 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
                                 "PAUSED SNAPSHOT REC [" + chr(current) + "]" + str(recordedCount / FRAME_SAVE_MAX * 100),
                                 (len(snapshot[1]) - 600, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
                                 cv2.LINE_AA)
-            displayImage(noBackground, "no bg")
+            #displayImage(noBackground, "no bg")
 
-            # PREDICTION FUNC
-            # acc,pred = getPrediction(CNN_MODEL, noBackground)
-            # word = getPredictedTextEquivalent(pred)
-            # if(acc>=0.8):
-            #     cv2.putText(snapshot, word + " " + str(acc), (50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
-            #         cv2.LINE_AA)
+            pred,acc = thread.getPrediction()
+            cv2.putText(snapshot, pred+" "+ str(acc),(50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+                     cv2.LINE_AA)
+
 
             snapshot = drawBoundingRectangle(snapshot)
             displayImage(snapshot, "Original")
@@ -160,14 +167,10 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
                     record.countStart(0)
                     recordStart = True
                     paused = False
-            if recordStart:
-                if k == ord('p'):
-                    recordStart = False
-                    paused = True
-            if k == ord('b'):
-                global BOX_HEIGHT, BOX_WIDTH
-                BOX_HEIGHT = 300
-                BOX_WIDTH = 300
+                if recordStart:
+                    if k == ord('p'):
+                        recordStart = False
+                        paused = True
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
