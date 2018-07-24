@@ -87,7 +87,7 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
 
 #  Take snapshots from video recording every n seconds
 def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
-    model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_results")
+    model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
     if enableRecording or enableFrameSaving:
         record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
         recordStart = False
