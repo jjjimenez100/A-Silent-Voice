@@ -3,16 +3,17 @@ import os
 
 class Recorder:
     def __init__(self, width, height, saveLocation="", frameName=''):
-        self.dir = [saveLocation, saveLocation+"/frames/"]
+        self.dir = [saveLocation, saveLocation+"/frames/", saveLocation+"/frames/rgb/",
+                    saveLocation + "/frames/greyscale/", saveLocation+"/frames/processed/"]
         for i in range(27):
             if i == 26:
-                self.dir.append(os.path.dirname(self.dir[1] + "ily/"))
-                self.dir.append(os.path.dirname(self.dir[1] + "ily"+"/processed/"))
-                self.dir.append(os.path.dirname(self.dir[1] + "ily"+"/greyscale/"))
+                self.dir.append(os.path.dirname(self.dir[2] + "ily/"))
+                self.dir.append(os.path.dirname(self.dir[3] + "ily/"))
+                self.dir.append(os.path.dirname(self.dir[4] + "ily/"))
             else:
-                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/"))
-                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/processed/"))
-                self.dir.append(os.path.dirname(self.dir[1] + chr(i + 65)+"/greyscale/"))
+                self.dir.append(os.path.dirname(self.dir[2] + chr(i + 65)+"/"))
+                self.dir.append(os.path.dirname(self.dir[3] + chr(i + 65)+"/"))
+                self.dir.append(os.path.dirname(self.dir[4] + chr(i + 65)+"/"))
 
         self.__checkSaveLocation__(self.dir)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -40,13 +41,13 @@ class Recorder:
     def saveFrame(self, frame, type='RGB', letter=65):
         frame = cv2.resize(frame, (150, 150))
         if type=='RGB':
-            cv2.imwrite(self.dir[2+(letter-65)*3]+"/"+self.frameName+str(self.frameCountRGB)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
+            cv2.imwrite(self.dir[5+(letter-65)*3]+"/"+self.frameName+str(self.frameCountRGB)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountRGB +=1
         if type=='BW':
-            cv2.imwrite(self.dir[3+(letter-65)*3]+"/"+self.frameName+str(self.frameCountGREY)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
+            cv2.imwrite(self.dir[7+(letter-65)*3]+"/"+self.frameName+str(self.frameCountGREY)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountGREY +=1
         if type=='GREY':
-            cv2.imwrite(self.dir[4+(letter-65)*3]+"/"+self.frameName+str(self.frameCountBW)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
+            cv2.imwrite(self.dir[6+(letter-65)*3]+"/"+self.frameName+str(self.frameCountBW)+".jpg", frame, [cv2.IMWRITE_JPEG_QUALITY, 100])
             self.frameCountBW +=1
 
     def onDone(self):
