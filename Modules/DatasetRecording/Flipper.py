@@ -1,4 +1,4 @@
-import Modules.tests.ImageFlipper as imgfli
+import Modules.DatasetRecording.ImageFlipper as imgfli
 
 
 DIRECTORY = "D:\moreframs/frames"

@@ -1,11 +1,12 @@
 from Modules.OpenCVWrapper import *
 import os, time, platform
 from Modules.CNN.Constants import *
-from keras.models import load_model
+#from keras.models import load_model
 from Modules.CNN.TFModel import TFModel
 #VideoRecorder
-import Modules.tests.VideoRecorder as vr
 import Modules.RecognitionThread as rt
+import Modules.ProcessImage as process
+
 
 # Constants
 
@@ -14,7 +15,6 @@ FRAME_RATE = 7
 OPERATING_SYSTEM = platform.system()
 # Get the current working directory of the python file
 PATH = os.path.dirname(os.path.realpath(__file__))
-FRAMES_SAVE_PATH = PATH + "\\Frames\\"
 PREVIOUS_TIME = 0
 # Enable or disable printing of texts on console to help with debugging
 DEBUG_MODE = True
@@ -23,57 +23,10 @@ DEBUG_MODE = True
 # BACKGROUND_MODEL = createKNNBackgroundSubtractor(5000, 20)
 
 # Uncomment for neural net
-CNN_MODEL = load_model(MODEL_PATH)
-
-# Region of interest, the bounding rectangle constants
-RECT_BEGIN_X = 0.25
-RECT_BEGIN_Y = 0.7
-BOX_Y = 80
-BOX_X = 300
-BOX_WIDTH = 300 #300
-BOX_HEIGHT = 300 #300
-
-#Frame snapshot counter
-FRAME_SAVE_MAX = 30
+#CNN_MODEL = load_model(MODEL_PATH)
 
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
-
-#DIRECTORIES TO SAVE IN
-MAIN_DIR = "F:\School Folder\Thesis P3\Modules/tests"
-
-# New background subtraction algorithm. Reduces pixel values that are in specified HSV range to 0, which is black.
-def thresholdHSVBackground(image):
-    l_h = cv2.getTrackbarPos('L - h', 'HSV Values')
-    u_h = cv2.getTrackbarPos('U - h', 'HSV Values')
-    l_s = cv2.getTrackbarPos('L - s', 'HSV Values')
-    u_s = cv2.getTrackbarPos('U - s', 'HSV Values')
-    l_v = cv2.getTrackbarPos('L - v', 'HSV Values')
-    u_v = cv2.getTrackbarPos('U - v', 'HSV Values')
-
-    MIN_HSV = numpy.array([l_h, l_s, l_v])
-    MAX_HSV = numpy.array([u_h, u_s, u_v])
-
-    imageMask = cv2.inRange(image, MIN_HSV, MAX_HSV)
-    noBackground = cv2.bitwise_and(image, image, mask=imageMask)
-    blurImage = cv2.medianBlur(cv2.GaussianBlur(noBackground, (11,11), 0), 15)
-    # [0] - H, [1] - S, [2] - V
-    greyscaleImage = numpy.dsplit(blurImage, blurImage.shape[-1])[2]
-    ret, thresh = cv2.threshold(greyscaleImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    return thresh
-
-# Function to create HSV trackbars
-def createHSVTrackBars():
-    createNewWindow("HSV Values")
-    createTrackbar('L - h', 'HSV Values', 0, 179)
-    createTrackbar('U - h', 'HSV Values', 179, 179)
-    # Ideal value - 21
-    createTrackbar('L - s', 'HSV Values', 0, 255)
-    createTrackbar('U - s', 'HSV Values', 255, 255)
-
-    createTrackbar('L - v', 'HSV Values', 0, 255)
-    createTrackbar('U - v', 'HSV Values', 255, 255)
 
 # Initializes video recording given the specified recording type.
 # type 0 = taking snapshots every n seconds
@@ -87,20 +40,13 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
     startVideoCapture(device, snapshotTime)
 
 #  Take snapshots from video recording every n seconds
-def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFrameSaving=False):
+def startVideoCapture(device: cv2.VideoCapture):
     model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
     thread = rt.Recoginize(model)
 
-    if enableRecording or enableFrameSaving:
-        record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
-        current=65
-        recordedCount = 0
-        totalCount = 0
-
-    recordStart = False
+    #builder = wb.WordBuilder()
 
     flipped = True
-    paused = False
 
     if(DEBUG_MODE):
         setInitialTime()
@@ -118,59 +64,27 @@ def startVideoCapture(device: cv2.VideoCapture, enableRecording=False, enableFra
             if flipped:
                 snapshot = cv2.flip(snapshot, 1)
 
-            if enableRecording:
-                if recordStart:
-                    record.recordFrame(snapshot)
-                    cv2.putText(snapshot, "REC", (len(snapshot[1])-100, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
-                                cv2.LINE_AA)
-            roi = extractRegionofInterest(snapshot)
+            roi = process.extractRegionofInterest(snapshot)
             thread.predict(roi)
 
-
-            #PART OF FRAME/VIDEO RECORDING
-            noBackground = thresholdHSVBackground(roi)
-            if enableFrameSaving:
-                if recordedCount >= FRAME_SAVE_MAX:
-                    print("done with",totalCount,"files",chr(current))
-                    recordedCount = 0
-                    recordStart = False
-                    current+=1
-                if recordStart:
-                    recordedCount += 1
-                    totalCount += 1
-                    print(recordedCount)
-                    record.saveFrame(roi, 'RGB', letter=current)
-                    record.saveFrame(noBackground, 'BW', letter=current)
-                    record.saveFrame(convertToGrayscale(roi), 'GREY', letter=current)
-                    cv2.putText(snapshot, "SNAPSHOT REC ["+chr(current)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-430, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
-                                cv2.LINE_AA)
-                if paused and not recordStart:
-                    cv2.putText(snapshot,
-                                "PAUSED SNAPSHOT REC [" + chr(current) + "]" + str(recordedCount / FRAME_SAVE_MAX * 100),
-                                (len(snapshot[1]) - 600, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
-                                cv2.LINE_AA)
+            #noBackground = thresholdHSVBackground(roi)
             #displayImage(noBackground, "no bg")
 
+
+            #PREDICTION
             pred,acc = thread.getPrediction()
+            word = builder.checkLetter(pred)
             cv2.putText(snapshot, pred+" "+ str(acc),(50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
                      cv2.LINE_AA)
+            cv2.putText(snapshot, word, (50, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+                        cv2.LINE_AA)
 
-
-            snapshot = drawBoundingRectangle(snapshot)
+            snapshot = process.drawBoundingRectangle(snapshot)
             displayImage(snapshot, "Original")
             k = cv2.waitKey(30) & 0xff
             if k == 27:
                 break
                 record.onDone()
-            if enableRecording or enableFrameSaving:
-                if k == ord('r'):
-                    record.countStart(0)
-                    recordStart = True
-                    paused = False
-                if recordStart:
-                    if k == ord('p'):
-                        recordStart = False
-                        paused = True
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
@@ -182,19 +96,6 @@ def blackWhite(img, threshold = 25):
         i[i>threshold]=255
         i[i<=threshold]=0
     return img
-
-# Draw a bounding rectangle on the image, specified by the RECT_BEGIN constants
-def drawBoundingRectangle(snapshot):
-    #return cv2.rectangle(snapshot, (int(RECT_BEGIN_X * snapshot.shape[1]), 0),
-    #              (snapshot.shape[1], int(RECT_BEGIN_Y * snapshot.shape[0])), (255, 0, 0), 2)
-    return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
-                         (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
-
-# Extract region of interest specified by the bounding rectangle.
-def extractRegionofInterest(snapshot):
-    #return snapshot[0:int(RECT_BEGIN_Y * snapshot.shape[0]),
-    #          int(RECT_BEGIN_X * snapshot.shape[1]):snapshot.shape[1]]
-    return snapshot[BOX_Y:BOX_Y+BOX_HEIGHT,BOX_X:BOX_X+BOX_WIDTH]
 
 # Try to smooth the given image by blurring it out
 def blurImage(regionOfInterest):
@@ -253,7 +154,6 @@ def prettyPrintElapsedTime():
 def main():
     # from Algorithms.CNN import CreateDataset, TrainModel
     enableCVOptimizations()
-    createHSVTrackBars()
     initVideoRecording(initDevice(), 1)
 
 # Init a silent voice project
