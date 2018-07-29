@@ -1,12 +1,14 @@
 <RCC>
   <qresource prefix="Black Icons">
+    <file>Icons/recognition_1.png</file>
     <file>Icons/about_1.png</file>
     <file>Icons/contacts_1.png</file>
-    <file>Icons/home_1.png</file>
     <file>Icons/logout_1.png</file>
     <file>Icons/settings_1.png</file>
   </qresource>
   <qresource prefix="Login Screen">
+    <file>load.mp4</file>
+    <file>loading.gif</file>
     <file>logo.png</file>
   </qresource>
   <qresource prefix="SettingsIcons">
@@ -15,11 +17,10 @@
     <file>Icons/general.png</file>
   </qresource>
   <qresource prefix="White Icons">
+    <file>Icons/recognition.png</file>
     <file>Icons/about.png</file>
     <file>Icons/contacts.png</file>
-    <file>Icons/home.png</file>
     <file>Icons/logout.png</file>
     <file>Icons/settings.png</file>
-    <file>Icons/user.png</file>
   </qresource>
 </RCC>
