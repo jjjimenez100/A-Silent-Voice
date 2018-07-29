@@ -16,9 +16,7 @@ class LogInForm(QDialog):
         movie = QMovie("loading.gif")
         self.logoIMG.setMovie(movie)
         movie.start()
-        timer = QTimer()
-        timer.timeout.connect(self.openMainForm)
-        timer.start(6)
+        self.button_skip.clicked.connect(self.openMainForm)
 
     def openMainForm(self): #for calling the main menu
         from mainController import MainForm

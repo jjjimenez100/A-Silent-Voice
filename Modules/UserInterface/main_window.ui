@@ -71,75 +71,6 @@
          <number>10</number>
         </property>
         <item>
-         <widget class="QFrame" name="userStatus">
-          <property name="minimumSize">
-           <size>
-            <width>200</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>100</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(45, 204, 112);</string>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <property name="spacing">
-            <number>10</number>
-           </property>
-           <property name="leftMargin">
-            <number>10</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <property name="rightMargin">
-            <number>0</number>
-           </property>
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_userImg">
-             <property name="minimumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/White Icons/Icons/user.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_name">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 255, 255);
-font: 12pt &quot;Trebuchet MS&quot;;</string>
-             </property>
-             <property name="text">
-              <string>Fname Lname</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="homeButton">
           <property name="minimumSize">
            <size>
@@ -165,11 +96,11 @@ Text-align: left;
 padding-left: 15px</string>
           </property>
           <property name="text">
-           <string> Home</string>
+           <string> Recognition</string>
           </property>
           <property name="icon">
            <iconset resource="iconpack.qrc">
-            <normaloff>:/White Icons/Icons/home.png</normaloff>:/White Icons/Icons/home.png</iconset>
+            <normaloff>:/White Icons/Icons/recognition.png</normaloff>:/White Icons/Icons/recognition.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -181,52 +112,6 @@ padding-left: 15px</string>
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>true</bool>
-          </property>
-          <property name="autoExclusive">
-           <bool>true</bool>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="contactsButton">
-          <property name="minimumSize">
-           <size>
-            <width>200</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>200</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);
-font: 14pt &quot;Trebuchet MS&quot;;
-background-color: rgb(34, 52, 66);
-alternate-background-color: rgb(34, 52, 66);
-Text-align: left;
-padding-left: 15px</string>
-          </property>
-          <property name="text">
-           <string> Contacts</string>
-          </property>
-          <property name="icon">
-           <iconset resource="iconpack.qrc">
-            <normaloff>:/White Icons/Icons/contacts.png</normaloff>:/White Icons/Icons/contacts.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>35</width>
-            <height>35</height>
-           </size>
-          </property>
-          <property name="checkable">
            <bool>true</bool>
           </property>
           <property name="autoExclusive">
@@ -374,7 +259,7 @@ Text-align: left;
 padding-left: 15px</string>
           </property>
           <property name="text">
-           <string> Log out</string>
+           <string> Quit</string>
           </property>
           <property name="icon">
            <iconset resource="iconpack.qrc">
@@ -419,7 +304,7 @@ padding-left: 15px</string>
            <string notr="true">background-color: rgb(236, 240, 241);</string>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="homePage">
            <property name="styleSheet">
@@ -440,6 +325,18 @@ padding-left: 15px</string>
             </property>
             <item>
              <widget class="QFrame" name="homeHeader">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>59</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>59</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">border-bottom: 1.3px solid gray;
 background: white;</string>
@@ -479,7 +376,7 @@ background: white;</string>
                   <string notr="true"/>
                  </property>
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/home_1.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/recognition_1.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
@@ -504,7 +401,7 @@ margin-bottom: 1.3px;
 border-bottom: 0px;</string>
                  </property>
                  <property name="text">
-                  <string>Home</string>
+                  <string>Recognition</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -517,17 +414,50 @@ border-bottom: 0px;</string>
             <item>
              <layout class="QHBoxLayout" name="homeLayout">
               <item>
-               <spacer name="verticalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="spacing">
+                 <number>5</number>
                 </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
+                <property name="leftMargin">
+                 <number>5</number>
                 </property>
-               </spacer>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="videoLabel">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(255, 255, 255);</string>
+                  </property>
+                  <property name="text">
+                   <string>Video Feed</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="letterLabel">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>75</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Recognized Letter?</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
@@ -555,6 +485,18 @@ border-bottom: 0px;</string>
             </property>
             <item>
              <widget class="QFrame" name="settingsHeader">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>59</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>59</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">border-bottom: 1.3px solid gray;
 background: white;</string>
@@ -1232,39 +1174,8 @@ border: 0px;</string>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="page">
-           <property name="minimumSize">
-            <size>
-             <width>794</width>
-             <height>696</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>696</height>
-            </size>
-           </property>
-           <widget class="QWidget" name="verticalLayoutWidget">
-            <property name="geometry">
-             <rect>
-              <x>340</x>
-              <y>210</y>
-              <width>160</width>
-              <height>80</height>
-             </rect>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2"/>
-           </widget>
-          </widget>
-          <widget class="QWidget" name="contactsPage">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(236, 240, 241);</string>
-           </property>
+          <widget class="QWidget" name="aboutPage">
            <layout class="QVBoxLayout" name="verticalLayout_5">
-            <property name="spacing">
-             <number>0</number>
-            </property>
             <property name="leftMargin">
              <number>0</number>
             </property>
@@ -1278,107 +1189,68 @@ border: 0px;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QFrame" name="contactsHeader">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>51</height>
-               </size>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>0</number>
               </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>51</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border-bottom: 1.3px solid gray;
+              <item>
+               <widget class="QFrame" name="horizontalFrame">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>59</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>59</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">border-bottom: 1.3px solid gray;
 background: white;</string>
-              </property>
-              <layout class="QHBoxLayout" name="aboutHeader">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_14">
-                 <property name="minimumSize">
-                  <size>
-                   <width>40</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>40</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">border: 0px;</string>
-                 </property>
-                 <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/contacts_1.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_3">
-                 <property name="minimumSize">
-                  <size>
-                   <width>40</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>50</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font: 24pt &quot;Trebuchet MS&quot;;
+                </property>
+                <layout class="QHBoxLayout" name="header">
+                 <item>
+                  <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_3">
+                   <property name="styleSheet">
+                    <string notr="true">border: 0px</string>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/about_1.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_14">
+                   <property name="styleSheet">
+                    <string notr="true">font: 24pt &quot;Trebuchet MS&quot;;
 text-align: right;
 margin-bottom: 1.3px;
 border-bottom: 0px;</string>
-                 </property>
-                 <property name="text">
-                  <string>Contacts</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="aboutLayout">
+                   </property>
+                   <property name="text">
+                    <string>About</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
               <item>
                <spacer name="verticalSpacer">
                 <property name="orientation">
@@ -1404,6 +1276,7 @@ border-bottom: 0px;</string>
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionClose">
    <property name="text">
     <string>Close</string>

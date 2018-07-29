@@ -145,6 +145,13 @@ font: 10pt &quot;Trebuchet MS&quot;;
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="button_skip">
+           <property name="text">
+            <string>SKIP</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer_4">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
