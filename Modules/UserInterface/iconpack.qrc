@@ -6,6 +6,12 @@
     <file>Icons/logout_1.png</file>
     <file>Icons/settings_1.png</file>
   </qresource>
+  <qresource prefix="Title Bar">
+    <file>Icons/close.png</file>
+    <file>Icons/hide.png</file>
+    <file>Icons/max.png</file>
+    <file>Icons/min.png</file>
+  </qresource>
   <qresource prefix="Login Screen">
     <file>load.mp4</file>
     <file>loading.gif</file>

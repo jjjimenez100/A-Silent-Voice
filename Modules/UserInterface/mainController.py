@@ -38,11 +38,22 @@ class MainForm(QMainWindow):
         self.homeButton.clicked.connect(self.showHomePage)
         self.settingsButton.clicked.connect(self.showSettingsPage)
         self.aboutButton.clicked.connect(self.showAbout)
+        self.quitButton.clicked.connect(self.logoutAction)
+        self.hideButton.clicked.connect(self.showMinimized)
+        self.minmaxButton.clicked.connect(self.minmaxWindow)
         print(self.videoLabel.width())
         th = Thread(self)
         th.changePixmap.connect(self.setImage)
         th.start()
         self.loginWindow = logWindow
+
+    def minmaxWindow(self):
+        if self.minmaxButton.isChecked():
+            self.showMaximized()
+        else:
+            self.showNormal()
+
+
 
     def mousePressEvent(self, event):
         self.offset = event.pos()
@@ -70,6 +81,3 @@ class MainForm(QMainWindow):
     @pyqtSlot()
     def logoutAction(self):
         self.close()
-        self.loginWindow.show()
-        self.loginWindow.passText.clear()
-        self.loginWindow.userText.clear()

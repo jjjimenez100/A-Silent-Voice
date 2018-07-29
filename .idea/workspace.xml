@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5552bac7-2422-453c-8ec6-9257dd6b3388" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ASilentVoice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ASilentVoice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/UserInterface/Icons/pass.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/UserInterface/Icons/username.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/UserInterface/iconpack.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/iconpack.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/UserInterface/iconpack.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/iconpack.qrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/UserInterface/loginController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/loginController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/UserInterface/login_Form.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/login_Form.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/UserInterface/mainController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/mainController.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/UserInterface/main_window.ui" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/UserInterface/main_window.ui" afterDir="false" />
     </list>
@@ -43,8 +36,8 @@
       <file leaf-file-name="mainController.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Modules/UserInterface/mainController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+            <state relative-caret-position="395">
+              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -304,7 +297,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1234375" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -488,8 +480,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Modules/UserInterface/mainController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
+        <state relative-caret-position="395">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
