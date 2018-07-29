@@ -53,8 +53,6 @@ class MainForm(QMainWindow):
         else:
             self.showNormal()
 
-
-
     def mousePressEvent(self, event):
         self.offset = event.pos()
 

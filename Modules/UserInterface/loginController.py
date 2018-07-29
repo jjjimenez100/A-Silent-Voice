@@ -13,7 +13,7 @@ class LogInForm(QDialog):
         super().__init__()
         loadUi('login_Form.ui', self)
         self.setFixedSize(420, 550)
-        movie = QMovie("loading.gif")
+        movie = QMovie("Icons\loading.gif")
         self.logoIMG.setMovie(movie)
         movie.start()
         self.button_skip.clicked.connect(self.openMainForm)

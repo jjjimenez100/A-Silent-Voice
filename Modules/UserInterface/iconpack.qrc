@@ -2,20 +2,15 @@
   <qresource prefix="Black Icons">
     <file>Icons/recognition_1.png</file>
     <file>Icons/about_1.png</file>
-    <file>Icons/contacts_1.png</file>
     <file>Icons/logout_1.png</file>
     <file>Icons/settings_1.png</file>
   </qresource>
   <qresource prefix="Title Bar">
+    <file>Icons/app_icon.png</file>
     <file>Icons/close.png</file>
     <file>Icons/hide.png</file>
     <file>Icons/max.png</file>
     <file>Icons/min.png</file>
-  </qresource>
-  <qresource prefix="Login Screen">
-    <file>load.mp4</file>
-    <file>loading.gif</file>
-    <file>logo.png</file>
   </qresource>
   <qresource prefix="SettingsIcons">
     <file>Icons/misc.png</file>
@@ -25,7 +20,6 @@
   <qresource prefix="White Icons">
     <file>Icons/recognition.png</file>
     <file>Icons/about.png</file>
-    <file>Icons/contacts.png</file>
     <file>Icons/logout.png</file>
     <file>Icons/settings.png</file>
   </qresource>
