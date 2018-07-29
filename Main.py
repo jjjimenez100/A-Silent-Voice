@@ -1,1 +1,3 @@
-# TODO: Put main function caller
+from Modules.CNN.RecognizeASL import *
+
+startVideoCapture()
