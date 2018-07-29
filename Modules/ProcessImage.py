@@ -46,8 +46,3 @@ def extractRegionofInterest(snapshot):
 def drawBoundingRectangle(snapshot):
     return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
                          (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
-
-def extractRegionofInterest(snapshot):
-    #return snapshot[0:int(RECT_BEGIN_Y * snapshot.shape[0]),
-    #          int(RECT_BEGIN_X * snapshot.shape[1]):snapshot.shape[1]]
-    return snapshot[BOX_Y:BOX_Y+BOX_HEIGHT,BOX_X:BOX_X+BOX_WIDTH]

@@ -7,23 +7,30 @@ from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtWidgets import QMainWindow, QStatusBar, QApplication, QPushButton, QLabel
 from PyQt5.uic import loadUi
 from PyQt5.uic.properties import QtGui
-from loginController import *
+from Modules.UserInterface.loginController import *
+import Modules.CNN.RecognizeASL as recognition
+from Modules.ProcessImage import extractRegionofInterest, drawBoundingRectangle
 #from OpenCVWrapper import *
 #import cv2
-import iconpack
+import Modules.UserInterface.iconpack
 
 
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage)
+    thread = recognition.Recognition()
 
     def run(self):
         cap = cv2.VideoCapture(0)
         while True:
             ret, frame = cap.read()
+            frame = drawBoundingRectangle(frame)
             rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
             self.changePixmap.emit(p)
+            frame = extractRegionofInterest(frame)
+            letter = self.thread.predict(frame)
+            print(letter)
 
 
 class MainForm(QMainWindow):
