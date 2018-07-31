@@ -61,6 +61,8 @@ def initVideoRecording(device: cv2.VideoCapture, type=0, snapshotTime=0, recogni
 def startVideoCapture(device: cv2.VideoCapture):
     model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
     thread = rt.Recoginize(model)
+    thread.daemon = True
+    thread.start()
 
     #builder = wb.WordBuilder()
 
@@ -68,41 +70,34 @@ def startVideoCapture(device: cv2.VideoCapture):
 
     if(DEBUG_MODE):
         setInitialTime()
-    start = False
 
     while(True):
-        k = cv2.waitKey(5) & 0xFF
-        if k == 27 and not start:
-            start = True
-            thread.daemon = True
-            thread.start()
-        if start:
-            isRecording, snapshot = device.read()
+        isRecording, snapshot = device.read()
 
-            if flipped:
-                snapshot = cv2.flip(snapshot, 1)
+        if flipped:
+            snapshot = cv2.flip(snapshot, 1)
 
-            roi = process.extractRegionofInterest(snapshot)
-            thread.predict(roi)
+        roi = process.extractRegionofInterest(snapshot)
+        thread.predict(roi)
 
-            #noBackground = thresholdHSVBackground(roi)
-            #displayImage(noBackground, "no bg")
+        #noBackground = thresholdHSVBackground(roi)
+        #displayImage(noBackground, "no bg")
 
 
-            #PREDICTION
-            pred,acc = thread.getPrediction()
-            word = builder.checkLetter(pred)
-            cv2.putText(snapshot, pred+" "+ str(acc),(50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
-                     cv2.LINE_AA)
-            cv2.putText(snapshot, word, (50, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
-                        cv2.LINE_AA)
+        #PREDICTION
+        pred,acc = thread.getPrediction()
+        # word = builder.checkLetter(pred)
+        cv2.putText(snapshot, pred+" "+ str(acc),(50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+                 cv2.LINE_AA)
+        # cv2.putText(snapshot, word, (50, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+        #             cv2.LINE_AA)
 
-            snapshot = process.drawBoundingRectangle(snapshot)
-            displayImage(snapshot, "Original")
-            k = cv2.waitKey(30) & 0xff
-            if k == 27:
-                break
-                record.onDone()
+        snapshot = process.drawBoundingRectangle(snapshot)
+        displayImage(snapshot, "Original")
+        k = cv2.waitKey(30) & 0xff
+        if k == 27:
+            break
+            record.onDone()
     if(DEBUG_MODE):
         prettyPrintElapsedTime()
 
