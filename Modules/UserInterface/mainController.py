@@ -33,7 +33,6 @@ class Thread(QThread):
             print(letter)
 
 
-
 class MainForm(QMainWindow):
 
     def __init__(self, logWindow):
