@@ -17,7 +17,7 @@ from Modules.ProcessImage import extractRegionofInterest, drawBoundingRectangle
 
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage)
-    thread = recognition.Recognition()
+    #thread = recognition.Recognition()
 
     def run(self):
         cap = cv2.VideoCapture(0)
@@ -28,9 +28,9 @@ class Thread(QThread):
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
             self.changePixmap.emit(p)
-            frame = extractRegionofInterest(frame)
-            letter = self.thread.predict(frame)
-            print(letter)
+            #frame = extractRegionofInterest(frame)
+            #letter = self.thread.predict(frame)
+            #print(letter)
 
 
 class MainForm(QMainWindow):
@@ -40,7 +40,7 @@ class MainForm(QMainWindow):
         loadUi('main_window.ui', self)
         #self.camera = cv2.VideoCapture(0)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         self.logoutButton.clicked.connect(self.logoutAction)
         self.homeButton.clicked.connect(self.showHomePage)
         self.settingsButton.clicked.connect(self.showSettingsPage)

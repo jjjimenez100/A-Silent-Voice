@@ -14,23 +14,22 @@ class LogInForm(QDialog):
     def __init__(self):
         super().__init__()
         loadUi('login_Form.ui', self)
-        self.setFixedSize(420, 550)
+        self.setFixedSize(340, 450)
         movie = QMovie("loading.gif")
         self.logoIMG.setMovie(movie)
         movie.start()
-        #self.loadMainForm()
-        #self.button_skip.clicked.connect(self.openMainForm)
-        self.button_skip.clicked.connect(self.loadMainForm)
+        self.loadMainForm()
+        self.button_skip.clicked.connect(self.openMainForm)
+        #self.button_skip.clicked.connect(self.loadMainForm)
 
     def loadMainForm(self): #for calling the main menu
         from mainController import MainForm
         self.window = MainForm(self)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-        self.hide()
-        self.window.show()
 
     def openMainForm(self):
-        pass
+        self.hide()
+        self.window.show()
 
 if __name__ == '__main__':
     import sys

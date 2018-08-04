@@ -12,8 +12,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
-    <height>558</height>
+    <width>344</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,7 +26,7 @@
    <string>A Silent Voice</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(52, 73, 94);</string>
+   <string notr="true">background-color: rgb(50, 71, 92);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -60,10 +60,10 @@
           <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>40</number>
+          <number>20</number>
          </property>
          <property name="rightMargin">
-          <number>40</number>
+          <number>20</number>
          </property>
          <item>
           <spacer name="verticalSpacer_3">
@@ -83,13 +83,13 @@
            <property name="minimumSize">
             <size>
              <width>300</width>
-             <height>350</height>
+             <height>300</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>350</width>
-             <height>350</height>
+             <width>300</width>
+             <height>300</height>
             </size>
            </property>
            <property name="text">
@@ -111,7 +111,7 @@
            <property name="font">
             <font>
              <family>Trebuchet MS</family>
-             <pointsize>32</pointsize>
+             <pointsize>28</pointsize>
              <weight>50</weight>
              <italic>false</italic>
              <bold>false</bold>
@@ -119,7 +119,7 @@
            </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
-font: 32pt &quot;Trebuchet MS&quot;;</string>
+font: 28pt &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>A Silent Voice</string>
