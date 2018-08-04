@@ -33,7 +33,7 @@ def randomize(location):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--location", help="Location of dataset files") #python NameRandomizer.py --location "C:\Dataset Aug 3\"
+    parser.add_argument("--location", help="Location of dataset files") #python NameRandomizer.py --location "F:\School Folder\Thesis Images\Images/"
     args = parser.parse_args()
     loc = ''
     if args.location:
