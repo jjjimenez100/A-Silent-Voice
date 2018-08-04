@@ -10,7 +10,6 @@ import iconpack
 from PyQt5.QtCore import QThread, pyqtSignal
 import PyQt5.QtGui as gui
 from PyQt5.uic.properties import QtCore
-import Modules.UserInterface.ImageThread as load
 from Modules.CNN.TFModel import TFModel
 from Modules.UserInterface.mainController import MainForm
 

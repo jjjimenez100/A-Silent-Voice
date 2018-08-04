@@ -1,7 +1,6 @@
 
 from PyQt5.QtGui import QImage, QPixmap, QIcon
 import PyQt5.QtGui as gui
-import Modules.UserInterface.ImageThread as Thread
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
 from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest
@@ -48,6 +47,9 @@ class MainForm(QMainWindow):
         self.thread = Thread(model)
         self.thread.changePixmap.connect(self.setImage)
         self.loginWindow = logWindow
+
+    #def setFormWords(self):
+
 
     def event(self, ev):
         if type(ev) == gui.QShowEvent:
