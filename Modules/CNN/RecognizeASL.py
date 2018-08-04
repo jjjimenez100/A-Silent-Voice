@@ -6,7 +6,7 @@ from Modules.CNN.TFModel import TFModel
 #VideoRecorder
 import Modules.RecognitionThread as rt
 import Modules.ProcessImage as process
-
+import Modules.WordBuilder as wb
 
 # Constants
 
@@ -64,7 +64,7 @@ def startVideoCapture(device: cv2.VideoCapture):
     thread.daemon = True
     thread.start()
 
-    #builder = wb.WordBuilder()
+    builder = wb.WordBuilder()
 
     flipped = True
 
@@ -86,11 +86,11 @@ def startVideoCapture(device: cv2.VideoCapture):
 
         #PREDICTION
         pred,acc = thread.getPrediction()
-        # word = builder.checkLetter(pred)
+        word = builder.checkLetter(pred)
         cv2.putText(snapshot, pred+" "+ str(acc),(50,50),cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
                  cv2.LINE_AA)
-        # cv2.putText(snapshot, word, (50, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
-        #             cv2.LINE_AA)
+        cv2.putText(snapshot, word, (50, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2,
+                    cv2.LINE_AA)
 
         snapshot = process.drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
