@@ -1,6 +1,8 @@
 from pathlib import Path
-import cv2, numpy, os, time, platform
+import cv2, numpy
 
+namedWindows = []
+trackbarLabels = []
 # Check if given file exists
 # Returns: True if the specified file path exists
 # Throws a FileNotFoundError otherwise
@@ -38,17 +40,40 @@ def saveImage(image: numpy.ndarray, fileName: str, fileExtension=".png"):
 # Initializes video capturing device. Default deviceId is 0.
 # First one attached is labeled as 0, second as 1, etc..
 def initDevice(deviceId=0):
-    device = cv2.VideoCapture(deviceId)
+    device = cv2.VideoCapture("../../1.mp4")
     # According to opencv docs, there are instances that the video stream
     # is not initialized automatically.
-    if (not device.isOpened()):
-        device.open(deviceId)
+    # if (not device.isOpened()):
+        # device.open(deviceId)
 
     return device
 
 # Convert a given image to its grayscale equivalent
 def convertToGrayscale(snapshot):
     return cv2.cvtColor(snapshot, cv2.COLOR_BGR2GRAY)
+
+# Creates a new cv window
+def createNewWindow(windowName: str):
+    cv2.namedWindow(windowName)
+    namedWindows.append(windowName)
+
+# Event handler for trackbar actions
+def onTrackBarAction(event):
+    pass
+
+# Creates a generic trackbar with specified minimum and maximum value, attached to a cv window handler.
+def createTrackbar(label: str, windowName: str, minVal: int, maxVal: int):
+    if(windowName in namedWindows):
+        cv2.createTrackbar(label, windowName, minVal, maxVal, onTrackBarAction)
+        return True
+    else:
+        return False
+
+def getTrackbarValues(label: str, windowName: str):
+    if(windowName in namedWindows and label in trackbarLabels):
+        return cv2.getTrackbarPos(label, windowName)
+    else:
+        return -1
 
 # https://docs.opencv.org/trunk/d8/dfe/classcv_1_1VideoCapture.html#aa6480e6972ef4c00d74814ec841a2939
 def getVideoProperty(device : cv2.VideoCapture, propertyId):

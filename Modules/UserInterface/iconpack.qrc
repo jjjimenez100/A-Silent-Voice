@@ -1,9 +1,13 @@
 <RCC>
   <qresource prefix="Black Icons">
+    <file>Icons/help_1.png</file>
     <file>Icons/recognition_1.png</file>
     <file>Icons/about_1.png</file>
     <file>Icons/logout_1.png</file>
     <file>Icons/settings_1.png</file>
+  </qresource>
+  <qresource prefix="Icon">
+    <file>Icons/app_icon_resized.png</file>
   </qresource>
   <qresource prefix="Title Bar">
     <file>Icons/app_icon.png</file>
@@ -18,6 +22,7 @@
     <file>Icons/general.png</file>
   </qresource>
   <qresource prefix="White Icons">
+    <file>Icons/information.png</file>
     <file>Icons/recognition.png</file>
     <file>Icons/about.png</file>
     <file>Icons/logout.png</file>

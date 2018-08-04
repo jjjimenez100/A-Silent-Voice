@@ -1,3 +1,5 @@
 .idea
 venv/
 pycache/
+output_graph.pb
+output_labels.txt
