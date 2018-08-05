@@ -6,10 +6,16 @@ class WordBuilder:
         self.currentLetter = ""
         self.consecutiveCount = 0
 
+    def changeRate(self, rate):
+        self.tts.setRate(rate)
+
+    def changeVolume(self, volume):
+        self.tts.setVolume(volume)
+
     def checkLetter(self, letter):
         if self.currentLetter == "":
             self.currentLetter = letter
-        elif self.consecutiveCount>=25:
+        elif self.consecutiveCount>=40:
             self.currentWord += self.currentLetter
             self.currentLetter = ""
             self.consecutiveCount = 0

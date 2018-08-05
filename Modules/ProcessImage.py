@@ -54,3 +54,6 @@ def drawBoundingRectangle(snapshot):
     return snapshot
     #return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
     #                     (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
+
+def convertToGrayscale(snapshot):
+    return cv2.cvtColor(snapshot, cv2.COLOR_BGR2GRAY)
