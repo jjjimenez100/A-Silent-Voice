@@ -36,7 +36,6 @@ class Thread(QThread):
             frame = convertToGrayscale(frame)
             self.thread.predict(frame)
             letter, acc = self.thread.getPrediction()
-            print('letter:',letter)
             self.changePixmap.emit(p, letter, acc)
 
 class MainForm(QMainWindow):
@@ -115,16 +114,32 @@ class MainForm(QMainWindow):
         self.thread.terminate()
         self.thread.wait()
         if self.thread.isFinished():
-            print(cam)
             self.createThread(int(self.fps), cam)
 
     def sliderValueChange(self):
         self.rate = self.speakingRateSlider.value()
-        self.volume = self.speakingVolumeSlider.value()
-        self.audioinvolumeLabel.setText(str(self.rate)+"%")
-        self.audiooutvolumeLabel.setText(str(self.volume)+"%")
+        self.volume = self.speakingVolumeSlider.value()/100
+        self.audioinvolumeLabel.setText(str(self.rate*5)+" WPM")
+        self.audiooutvolumeLabel.setText(str(self.volume*100)+"%")
         self.wordBuilder.changeVolume(self.volume)
-        self.wordBuilder.changeRate(self.rate)
+        self.wordBuilder.changeRate(self.rate*5)
+
+    def sayWord(self):
+        self.wordBuilder.sayWord()
+        self.wordBuilder.setWord("")
+
+    def removeLetter(self):
+        word = self.wordBuilder.getWord()
+        if word:
+            self.wordBuilder.setWord(word[:-1])
+
+    def keyPressEvent(self, evt):
+        if type(evt) == gui.QKeyEvent:
+            if evt.key() == Qt.Key_Return:
+                self.sayWord()
+
+            elif evt.key() == Qt.Key_Backspace:
+                self.removeLetter()
 
 
     def checkCheckBoxes(self):
@@ -162,7 +177,6 @@ class MainForm(QMainWindow):
         word = ''
         if self.showWord:
             word = self.wordBuilder.checkLetter(letter)
-            print(word)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
             self.letterLabel.setText("Recognized Letter: "+letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)

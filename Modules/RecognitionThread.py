@@ -21,7 +21,6 @@ class Recoginize(Thread):
             if type(self.img) == type(np.ndarray(0)):
                 cv.imwrite("img.jpg", cv.resize(self.img, (150,150)))
                 pred,acc = self.model.classifyImage("img.jpg")
-                print("pred: ",pred,acc, flush=True)
                 self.predictedLetter = pred
                 self.acc = acc
                 self.img = ''

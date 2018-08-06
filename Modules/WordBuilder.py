@@ -24,5 +24,14 @@ class WordBuilder:
         else:
             self.currentLetter = ""
             self.consecutiveCount = 0
-        print(self.currentWord, letter)
         return self.currentWord
+
+    def getWord(self):
+        return self.currentWord
+
+    def sayWord(self):
+        self.tts.setText(self.currentWord)
+        self.tts.sayText()
+
+    def setWord(self, word):
+        self.currentWord = word
