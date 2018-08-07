@@ -4,44 +4,62 @@ import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
 from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
-import iconpack
+import Modules.UserInterface.iconpack
 import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 import Modules.WordBuilder as wb
 import Modules.UserInterface.RunBatchFile as rbf
-import sys
+import sys, os, queue
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage, str, float)
-    def __init__(self, model, fps=7, camera=0):
+    def __init__(self, model, fps=7, camera=0,):# recognitionThread=rt.Recoginize):
         super(Thread, self).__init__()
-        self.thread = rt.Recoginize(model)
-        self.thread.daemon =  True
+        self.queue = queue.Queue()
+        self.thread = rt.Recoginize(model, self.queue)
+        self.thread.daemon = True
         self.fps = fps
         self.camera = camera
+        self.cap = cv2.VideoCapture
 
     def run(self):
         self.thread.start()
-        print(self.camera)
-        cap = cv2.VideoCapture(self.camera)
-        cap.set(cv2.CAP_PROP_FPS, self.fps)
+        self.cap = cv2.VideoCapture(self.camera)
+        self.cap.set(cv2.CAP_PROP_FPS, self.fps)
         while True:
-            ret, frame = cap.read()
-            frame = drawBoundingRectangle(frame)
-            rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            ret, frame = self.cap.read()
+            frame = cv2.flip(frame, 1)
+            roi = extractRegionofInterest(frame)
+            gs = convertToGrayscale(roi)
+            # self.thread.predict(gs)
+            self.queue.put(gs)
+            rect = drawBoundingRectangle(frame)
+            rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-            frame = extractRegionofInterest(frame)
-            frame = convertToGrayscale(frame)
-            self.thread.predict(frame)
             letter, acc = self.thread.getPrediction()
             self.changePixmap.emit(p, letter, acc)
 
 class MainForm(QMainWindow):
-    def __init__(self, logWindow, model, cameraCount):
+    def __init__(self, model, cameraCount):
         super().__init__()
-        loadUi('main_window.ui', self)
+        if getattr(sys, 'frozen', False):
+            ui = 'main_window.ui'
+            loadUi(resource_path(ui), self)
+        else:
+            ui = 'Modules/UserInterface/main_window.ui'
+            loadUi(ui, self)
         #self.camera = cv2.VideoCapture(0)
         self.stackedWidget.setCurrentIndex(3)
         self.logoutButton.clicked.connect(self.logoutAction)
@@ -62,11 +80,9 @@ class MainForm(QMainWindow):
         self.cameraDeviceCombobox.currentIndexChanged.connect(self.onComboBoxChange)
         self.cameraFPSCombobox.currentIndexChanged.connect(self.onComboBoxChange)
         self.recognitionSpeedComboBox.currentIndexChanged.connect(self.onComboBoxChange)
-        print("WALAO")
 
         self.wordBuilder = wb.WordBuilder()
         self.model = model
-        self.loginWindow = logWindow
         self.rate = 0
         self.volume = 0
         self.fps = 7
@@ -82,9 +98,10 @@ class MainForm(QMainWindow):
 
         #def setFormWords(self):
     def createThread(self, fps=7, camera=0):
-        self.thread = Thread(self.model, fps, camera)
-        self.thread.changePixmap.connect(self.setImage)
-        self.thread.start()
+        if self.cameraCount > 0:
+            self.thread = Thread(self.model, fps, camera)
+            self.thread.changePixmap.connect(self.setImage)
+            self.thread.start()
 
     def fixInstallation(self):
         rbf.install()
@@ -197,5 +214,7 @@ class MainForm(QMainWindow):
 
     @pyqtSlot()
     def logoutAction(self):
+        self.thread.cap.release()
+        self.thread.terminate()
+        self.thread.wait()
         self.close()
-        self.loginWindow.show()

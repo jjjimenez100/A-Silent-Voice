@@ -3,7 +3,7 @@ import numpy
 from Modules.OpenCVWrapper import createNewWindow, createTrackbar
 
 BOX_Y = 80
-BOX_X = 300
+BOX_X = 80
 BOX_WIDTH = 300 #300
 BOX_HEIGHT = 300 #300
 
