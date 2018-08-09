@@ -1,3 +1,5 @@
+print("Initializing")
+
 import Modules.UserInterface.loginController as login
 from PyQt5.QtWidgets import QApplication as app
 

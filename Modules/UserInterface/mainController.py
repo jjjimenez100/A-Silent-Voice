@@ -42,8 +42,8 @@ class Thread(QThread):
             frame = cv2.flip(frame, 1)
             roi = extractRegionofInterest(frame)
             gs = convertToGrayscale(roi)
-            # self.thread.predict(gs)
-            self.queue.put(gs)
+            self.thread.predict(gs)
+            # self.queue.put(gs)
             rect = drawBoundingRectangle(frame)
             rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
@@ -93,7 +93,6 @@ class MainForm(QMainWindow):
         self.cameraDevice = 0
 
         self.setComboBoxes()
-        print("WALAO")
         self.createThread()
 
         #def setFormWords(self):
@@ -142,8 +141,8 @@ class MainForm(QMainWindow):
         self.wordBuilder.changeRate(self.rate*5)
 
     def sayWord(self):
-        self.wordBuilder.sayWord()
-        self.wordBuilder.setWord("")
+        if self.wordBuilder.sayWord():
+            self.wordBuilder.setWord("")
 
     def removeLetter(self):
         word = self.wordBuilder.getWord()

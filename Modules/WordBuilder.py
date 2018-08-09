@@ -4,6 +4,7 @@ class WordBuilder:
         self.currentWord = ""
         self.tts = tts.TextToSpeech(rate=130)
         self.currentLetter = ""
+        self.talking = False
         self.consecutiveCount = 0
 
     def changeRate(self, rate):
@@ -30,8 +31,15 @@ class WordBuilder:
         return self.currentWord
 
     def sayWord(self):
-        self.tts.setText(self.currentWord)
-        self.tts.sayText()
+        if not self.talking:
+            self.talking = True
+            print("speaking")
+            self.tts.setText(self.currentWord)
+            self.tts.sayText()
+            self.talking = False
+            print("done speaking")
+            return True
+        return False
 
     def setWord(self, word):
         self.currentWord = word

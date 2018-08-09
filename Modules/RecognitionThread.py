@@ -8,7 +8,7 @@ class Recoginize(Thread):
         self.model = model
         self.predictedLetter = ''
         self.acc = 0
-        self.img = ''
+        self.img = 0
         self.queue = queue
 
 
@@ -20,14 +20,12 @@ class Recoginize(Thread):
 
     def run(self):
         while True:
-            self.img = self.queue.get()
             if type(self.img) == type(np.ndarray(0)):
-                print("walao")
                 cv.imwrite("img.jpg", cv.resize(self.img, (150,150)))
                 pred,acc = self.model.classifyImage("img.jpg")
                 self.predictedLetter = pred
                 self.acc = acc
-                self.img = ''
-                self.queue.task_done()
-            if self.img == "kill":
+                self.img = 0
+                # self.queue.task_done()
+            if type(self.img) == type(""):
                 break

@@ -1,17 +1,17 @@
 import random, time
 
-from PyQt5.QtCore import pyqtSlot, QByteArray, QTimer, Qt
+from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-import sys, os
+from os import path
+import sys
 #os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 from PyQt5.QtCore import QThread, pyqtSignal
-import PyQt5.QtGui as gui
-from PyQt5.uic.properties import QtCore
 from Modules.CNN.TFModel import TFModel
 from Modules.UserInterface.mainController import MainForm
-import cv2, numpy, queue
+from cv2 import VideoCapture
+from queue import Queue
 import Modules.RecognitionThread as rt
 
 def resource_path(relative_path):
@@ -20,9 +20,9 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = path.abspath(".")
 
-    return os.path.join(base_path, relative_path)
+    return path.join(base_path, relative_path)
 
 class Loading(QThread):
 
@@ -38,20 +38,20 @@ class Loading(QThread):
         count = 0
         available = []
         while True:
-            test = cv2.VideoCapture(count)
+            test = VideoCapture(count)
             if test is None or not test.isOpened():
                 break
             available.append(count)
             count += 1
-        vid = cv2.VideoCapture(0)
+        vid = VideoCapture(0)
         _, frame = vid.read()
 
-        que = queue.Queue()
+        que = Queue()
         load = rt.Recoginize(model, que)
         que.put(frame)
         load.daemon = False
         load.start()
-        que.put("kill")
+        load.predict("kill")
         load.join()
 
         vid.release()
@@ -62,6 +62,7 @@ class Loading(QThread):
 
 class LogInForm(QDialog):
     def __init__(self):
+        print("start splash")
         super().__init__()
         if getattr(sys, 'frozen', False):
             ui = 'login_Form.ui'
@@ -104,10 +105,3 @@ class LogInForm(QDialog):
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
         self.close()
-
-
-if __name__ == '__main__':
-    import sys
-    app = QApplication(sys.argv)
-    window = LogInForm()
-    sys.exit(app.exec_())# program still runs even if you quit on login window
