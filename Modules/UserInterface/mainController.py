@@ -1,23 +1,19 @@
-import cv2
-import sys
 
-from PyQt5 import Qt
-from PyQt5.QtCore import QTimer, pyqtSlot, QSize, pyqtSignal, QThread
 from PyQt5.QtGui import QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import QMainWindow, QStatusBar, QApplication, QPushButton, QLabel
+import PyQt5.QtGui as gui
+from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
+import cv2
+from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest
+import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
-from PyQt5.uic.properties import QtGui
-from Modules.UserInterface.loginController import *
-import Modules.CNN.RecognizeASL as recognition
-from Modules.ProcessImage import extractRegionofInterest, drawBoundingRectangle
-#from OpenCVWrapper import *
-#import cv2
-#import Modules.UserInterface.iconpack
-
+from PyQt5.QtWidgets import *
 
 class Thread(QThread):
-    changePixmap = pyqtSignal(QImage)
-    thread = recognition.Recognition()
+    changePixmap = pyqtSignal(QImage, str)
+    def __init__(self, model):
+        super(Thread, self).__init__()
+        self.thread = rt.Recoginize(model)
+        self.thread.start()
 
     def run(self):
         cap = cv2.VideoCapture(0)
@@ -27,21 +23,19 @@ class Thread(QThread):
             rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-            self.changePixmap.emit(p)
             frame = extractRegionofInterest(frame)
-            letter = self.thread.predict(frame)
-            print(letter)
-
-
+            self.thread.predict(frame)
+            letter, acc = self.thread.getPrediction()
+            print('letter:',letter)
+            self.changePixmap.emit(p, letter)
 
 class MainForm(QMainWindow):
 
-    def __init__(self, logWindow):
+    def __init__(self, logWindow, model):
         super().__init__()
         loadUi('main_window.ui', self)
         #self.camera = cv2.VideoCapture(0)
-
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         self.logoutButton.clicked.connect(self.logoutAction)
         self.homeButton.clicked.connect(self.showHomePage)
         self.settingsButton.clicked.connect(self.showSettingsPage)
@@ -50,11 +44,17 @@ class MainForm(QMainWindow):
         self.quitButton.clicked.connect(self.logoutAction)
         self.hideButton.clicked.connect(self.showMinimized)
         self.minmaxButton.clicked.connect(self.minmaxWindow)
-        print(self.videoLabel.width())
-        th = Thread(self)
-        th.changePixmap.connect(self.setImage)
-        th.start()
+        self.thread = Thread(model)
+        self.thread.changePixmap.connect(self.setImage)
         self.loginWindow = logWindow
+
+    #def setFormWords(self):
+
+
+    def event(self, ev):
+        if type(ev) == gui.QShowEvent:
+            self.thread.start()
+        return super(MainForm, self).event(ev)
 
     def minmaxWindow(self):
         if self.minmaxButton.isChecked():
@@ -72,9 +72,10 @@ class MainForm(QMainWindow):
         y_w = self.offset.y()
         self.move(x - x_w, y - y_w)
 
-    @pyqtSlot(QImage)
-    def setImage(self, image):
+    @pyqtSlot(QImage, str)
+    def setImage(self, image, letter):
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
+        self.letterLabel.setText("Recognized Letter: "+letter)
 
     def showHomePage(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -92,5 +93,3 @@ class MainForm(QMainWindow):
     def logoutAction(self):
         self.close()
         self.loginWindow.show()
-        self.loginWindow.passText.clear()
-        self.loginWindow.userText.clear()

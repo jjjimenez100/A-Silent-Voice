@@ -17,9 +17,9 @@
     <file>Icons/min.png</file>
   </qresource>
   <qresource prefix="SettingsIcons">
-    <file>Icons/misc.png</file>
-    <file>Icons/camera.png</file>
-    <file>Icons/general.png</file>
+    <file>Icons/settings-cog.png</file>
+    <file>Icons/speaker.png</file>
+    <file>Icons/webcam.png</file>
   </qresource>
   <qresource prefix="White Icons">
     <file>Icons/information.png</file>

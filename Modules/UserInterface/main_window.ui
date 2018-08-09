@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
-    <height>700</height>
+    <width>900</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -55,18 +55,18 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>40</height>
+          <height>90</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>40</height>
+          <height>90</height>
          </size>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -75,7 +75,7 @@
           <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>2</number>
+          <number>5</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -91,18 +91,71 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_18">
-           <property name="styleSheet">
-            <string notr="true">color: rgb(255, 255, 255);
-font: 12pt &quot;Trebuchet MS&quot;;
-padding-left: 3;</string>
+          <widget class="QFrame" name="horizontalFrame">
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>0</height>
+            </size>
            </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;A Silent Voice&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_14">
+            <item>
+             <spacer name="verticalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_18">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);
+font: 15pt &quot;Trebuchet MS&quot;;
+margin-left: 5;</string>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A Silent Voice&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;Trebuchet MS&quot;;
+margin-left: 5;</string>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;An application of Convolutional Neural Networks along with various computer vision algorithms for recognizing American Sign Language&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -221,284 +274,292 @@ Text-align: center;</string>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <layout class="QVBoxLayout" name="sidepanel_layout">
-          <property name="spacing">
-           <number>10</number>
+         <widget class="QFrame" name="SidePanelFrame">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(68, 85, 102);</string>
           </property>
-          <property name="sizeConstraint">
-           <enum>QLayout::SetMinAndMaxSize</enum>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>10</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="homeButton">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
+          <layout class="QVBoxLayout" name="sidepanel_layout">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinAndMaxSize</enum>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="homeButton">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
 padding-left: 15px</string>
-            </property>
-            <property name="text">
-             <string> Recognition</string>
-            </property>
-            <property name="icon">
-             <iconset resource="iconpack.qrc">
-              <normaloff>:/White Icons/Icons/recognition.png</normaloff>:/White Icons/Icons/recognition.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>35</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <property name="autoExclusive">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="settingsButton">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
+             </property>
+             <property name="text">
+              <string> Recognition</string>
+             </property>
+             <property name="icon">
+              <iconset resource="iconpack.qrc">
+               <normaloff>:/White Icons/Icons/recognition.png</normaloff>:/White Icons/Icons/recognition.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>35</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="settingsButton">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
 padding-left: 15px</string>
-            </property>
-            <property name="text">
-             <string> Settings</string>
-            </property>
-            <property name="icon">
-             <iconset resource="iconpack.qrc">
-              <normaloff>:/White Icons/Icons/settings.png</normaloff>:/White Icons/Icons/settings.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>35</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="autoExclusive">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="helpButton">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
+             </property>
+             <property name="text">
+              <string> Settings</string>
+             </property>
+             <property name="icon">
+              <iconset resource="iconpack.qrc">
+               <normaloff>:/White Icons/Icons/settings.png</normaloff>:/White Icons/Icons/settings.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>35</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="helpButton">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
 padding-left: 15px</string>
-            </property>
-            <property name="text">
-             <string> Help</string>
-            </property>
-            <property name="icon">
-             <iconset resource="iconpack.qrc">
-              <normaloff>:/White Icons/Icons/information.png</normaloff>:/White Icons/Icons/information.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>35</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-            <property name="autoExclusive">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="aboutButton">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
+             </property>
+             <property name="text">
+              <string> Help</string>
+             </property>
+             <property name="icon">
+              <iconset resource="iconpack.qrc">
+               <normaloff>:/White Icons/Icons/information.png</normaloff>:/White Icons/Icons/information.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>35</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="aboutButton">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
 padding-left: 15px</string>
-            </property>
-            <property name="text">
-             <string> About</string>
-            </property>
-            <property name="icon">
-             <iconset resource="iconpack.qrc">
-              <normaloff>:/White Icons/Icons/about.png</normaloff>:/White Icons/Icons/about.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>35</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="shortcut">
-             <string/>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="autoExclusive">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="logoutButton">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>60</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>100</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
+             </property>
+             <property name="text">
+              <string> About</string>
+             </property>
+             <property name="icon">
+              <iconset resource="iconpack.qrc">
+               <normaloff>:/White Icons/Icons/about.png</normaloff>:/White Icons/Icons/about.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>35</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="shortcut">
+              <string/>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="logoutButton">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>60</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
 padding-left: 15px</string>
-            </property>
-            <property name="text">
-             <string> Quit</string>
-            </property>
-            <property name="icon">
-             <iconset resource="iconpack.qrc">
-              <normaloff>:/White Icons/Icons/logout.png</normaloff>:/White Icons/Icons/logout.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>35</width>
-              <height>35</height>
-             </size>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="flat">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
+             </property>
+             <property name="text">
+              <string> Quit</string>
+             </property>
+             <property name="icon">
+              <iconset resource="iconpack.qrc">
+               <normaloff>:/White Icons/Icons/logout.png</normaloff>:/White Icons/Icons/logout.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>35</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
          <layout class="QVBoxLayout" name="main_layout">
@@ -523,7 +584,7 @@ padding-left: 15px</string>
              <string notr="true">background-color: rgb(236, 240, 241);</string>
             </property>
             <property name="currentIndex">
-             <number>3</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="homePage">
              <property name="styleSheet">
@@ -658,13 +719,17 @@ border-bottom: 0px;</string>
                      </size>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">font: 18pt &quot;Trebuchet MS&quot;;
+                     <string notr="true">font: 16pt &quot;Trebuchet MS&quot;;
 text-align: right;
 margin-bottom: 1.3px;
-border-bottom: 0px;</string>
+border-bottom: 0px;
+margin-right: 10;</string>
                     </property>
                     <property name="text">
                      <string>Recognized Letter: A</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -849,111 +914,156 @@ border-bottom: 0px;</string>
                    <number>5</number>
                   </property>
                   <item>
-                   <widget class="QFrame" name="settingsgeneralVerticalFrame">
-                    <property name="styleSheet">
-                     <string notr="true">border: 1.3px solid gray;
+                   <widget class="QFrame" name="verticalFrame_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>400</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="settingsgeneralVerticalFrame">
+                       <property name="styleSheet">
+                        <string notr="true">border: 1.3px solid gray;
 border-radius: 2px;
 background: white;</string>
-                    </property>
-                    <layout class="QVBoxLayout" name="settingsCol1">
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_5">
-                       <item>
-                        <widget class="QLabel" name="label_15">
-                         <property name="maximumSize">
-                          <size>
-                           <width>28</width>
-                           <height>30</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">border: 0px;</string>
-                         </property>
-                         <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/general.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_4">
-                         <property name="maximumSize">
-                          <size>
-                           <width>16777215</width>
-                           <height>30</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Trebuchet MS</family>
-                           <pointsize>14</pointsize>
-                           <weight>50</weight>
-                           <italic>false</italic>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
+                       </property>
+                       <layout class="QVBoxLayout" name="settingsCol1">
+                        <property name="spacing">
+                         <number>10</number>
+                        </property>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_5">
+                          <item>
+                           <widget class="QLabel" name="label_15">
+                            <property name="maximumSize">
+                             <size>
+                              <width>28</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">border: 0px;</string>
+                            </property>
+                            <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/settings-cog.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_4">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Trebuchet MS</family>
+                              <pointsize>14</pointsize>
+                              <weight>50</weight>
+                              <italic>false</italic>
+                              <bold>false</bold>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
 border: 0px;</string>
-                         </property>
-                         <property name="text">
-                          <string>General Settings</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="stayloggedinCheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">border:0px;
+                            </property>
+                            <property name="text">
+                             <string>General Settings</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="formWordCheckbox">
+                          <property name="styleSheet">
+                           <string notr="true">border:0px;
 font: 10pt &quot;Trebuchet MS&quot;;
 margin-left: 40;</string>
-                       </property>
-                       <property name="text">
-                        <string>Stay logged in</string>
-                       </property>
+                          </property>
+                          <property name="text">
+                           <string>Form Words</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QCheckBox" name="showAccuracyCheckbox">
+                          <property name="styleSheet">
+                           <string notr="true">border:0px;
+font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 40;</string>
+                          </property>
+                          <property name="text">
+                           <string>Show Accuracy</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="fixInstallationButton">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 40;</string>
+                          </property>
+                          <property name="text">
+                           <string>Fix Installaion</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="updateInstallationButton">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 40;</string>
+                          </property>
+                          <property name="text">
+                           <string>Update Installation</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QCheckBox" name="friendonlineCheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">border:0px;
-font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 40;</string>
+                      <spacer name="horizontalSpacer_8">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
                        </property>
-                       <property name="text">
-                        <string>Notify when friend goes
-online</string>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
                        </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="hideonlineCheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">border:0px;
-font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 40;</string>
-                       </property>
-                       <property name="text">
-                        <string>Hide online status</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="consentCheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">border:0px;
-font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 40;</string>
-                       </property>
-                       <property name="text">
-                        <string>Improve recognition by
-sending hand samples</string>
-                       </property>
-                      </widget>
+                      </spacer>
                      </item>
                      <item>
                       <spacer name="verticalSpacer_4">
@@ -968,401 +1078,246 @@ sending hand samples</string>
                        </property>
                       </spacer>
                      </item>
-                     <item>
-                      <spacer name="horizontalSpacer">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
                     </layout>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QFrame" name="settingsvideoaudioVerticalFrame_2">
-                    <property name="styleSheet">
-                     <string notr="true">border: 1.3px solid gray;
-border-radius: 2px;
-background: white;</string>
+                   <widget class="QFrame" name="verticalFrame_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
                     </property>
-                    <layout class="QVBoxLayout" name="settingsvideoaudioVerticalFrame">
+                    <property name="maximumSize">
+                     <size>
+                      <width>400</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_11">
                      <property name="spacing">
-                      <number>10</number>
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
                      </property>
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_7">
-                       <item>
-                        <widget class="QLabel" name="label_16">
-                         <property name="minimumSize">
-                          <size>
-                           <width>24</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>30</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">border: 0px</string>
-                         </property>
-                         <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/camera.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_5">
-                         <property name="maximumSize">
-                          <size>
-                           <width>16777215</width>
-                           <height>30</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Trebuchet MS</family>
-                           <pointsize>14</pointsize>
-                           <weight>50</weight>
-                           <italic>false</italic>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
-border: 0px;</string>
-                         </property>
-                         <property name="text">
-                          <string>Video &amp; Audio</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_7">
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>15</height>
-                        </size>
-                       </property>
+                      <widget class="QFrame" name="settingsvideoaudioVerticalFrame_2">
                        <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Video Device</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="videodeviceComboBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;</string>
-                       </property>
-                       <property name="currentText">
-                        <string/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_8">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Audio In Device</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="audioindeviceComboBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_9">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Audio Out Device</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QComboBox" name="audiooutdeviceComboBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_10">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Audio In Volume</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QFrame" name="audioInFrame">
-                       <property name="styleSheet">
-                        <string notr="true">margin-left:20;
-border: 0px;</string>
-                       </property>
-                       <layout class="QHBoxLayout" name="AudioInLayout">
-                        <item>
-                         <widget class="QSlider" name="audioinvolumeSlider">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="audioinvolumeLabel">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-padding:2</string>
-                          </property>
-                          <property name="text">
-                           <string>0%</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="audioInmuteCheckBox">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-padding:2</string>
-                          </property>
-                          <property name="text">
-                           <string>Mute</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_11">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Audio Out Volume</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QFrame" name="audioOutFrame">
-                       <property name="styleSheet">
-                        <string notr="true">margin-left:20;
-border: 0px;</string>
-                       </property>
-                       <layout class="QHBoxLayout" name="AudioOutLayout">
-                        <item>
-                         <widget class="QSlider" name="auiooutvolumeComboBox">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                          </property>
-                          <property name="orientation">
-                           <enum>Qt::Horizontal</enum>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QLabel" name="audiooutvolumeLabel">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-padding:2</string>
-                          </property>
-                          <property name="text">
-                           <string>0%</string>
-                          </property>
-                         </widget>
-                        </item>
-                        <item>
-                         <widget class="QCheckBox" name="audiooutmuteCheckBox">
-                          <property name="styleSheet">
-                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-padding:2</string>
-                          </property>
-                          <property name="text">
-                           <string>Mute</string>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QFrame" name="settingsmiscVerticalFrame_2">
-                    <property name="styleSheet">
-                     <string notr="true">border: 1.3px solid gray;
+                        <string notr="true">border: 1.3px solid gray;
 border-radius: 2px;
 background: white;</string>
-                    </property>
-                    <layout class="QVBoxLayout" name="settingsmiscVerticalFrame">
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_8">
-                       <item>
-                        <widget class="QLabel" name="label_17">
-                         <property name="maximumSize">
-                          <size>
-                           <width>30</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">border: 0px</string>
-                         </property>
-                         <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/misc.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="label_6">
-                         <property name="maximumSize">
-                          <size>
-                           <width>16777215</width>
-                           <height>30</height>
-                          </size>
-                         </property>
-                         <property name="font">
-                          <font>
-                           <family>Trebuchet MS</family>
-                           <pointsize>14</pointsize>
-                           <weight>50</weight>
-                           <italic>false</italic>
-                           <bold>false</bold>
-                          </font>
-                         </property>
-                         <property name="styleSheet">
-                          <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
+                       </property>
+                       <layout class="QVBoxLayout" name="settingsvideoaudioVerticalFrame">
+                        <property name="spacing">
+                         <number>10</number>
+                        </property>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_7">
+                          <item>
+                           <widget class="QLabel" name="label_16">
+                            <property name="minimumSize">
+                             <size>
+                              <width>24</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>24</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">border: 0px</string>
+                            </property>
+                            <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/webcam.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_5">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Trebuchet MS</family>
+                              <pointsize>14</pointsize>
+                              <weight>50</weight>
+                              <italic>false</italic>
+                              <bold>false</bold>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
 border: 0px;</string>
-                         </property>
-                         <property name="text">
-                          <string>Misc.</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="allalgorithmsCheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+                            </property>
+                            <property name="text">
+                             <string>Camera</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_7">
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>15</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
 margin-left: 20;
 border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Show All Algorithms</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="algo1CheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+                          </property>
+                          <property name="text">
+                           <string>Camera</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QComboBox" name="cameraDeviceCombobox">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;</string>
+                          </property>
+                          <property name="currentText">
+                           <string>0 - A4Tech</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>0 - A4Tech</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>1 - Dell Integrated Camera</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_8">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
 margin-left: 20;
 border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Show Algo 1</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="algo2CheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+                          </property>
+                          <property name="text">
+                           <string>Recognition Speed</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QComboBox" name="recognitionSpeedComboBox">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>1 - Slowest</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>2</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>3</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>4</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>5 - Fastest</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_9">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
 margin-left: 20;
 border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Show Algo 2</string>
-                       </property>
+                          </property>
+                          <property name="text">
+                           <string>Camera FPS (Frames Per Second)</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QComboBox" name="cameraFPSCombobox">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>30</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>25</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>20</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>15</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>10</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>5</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>1</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                       </layout>
                       </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="algo3CheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Show Algo 3</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QCheckBox" name="algo4CheckBox">
-                       <property name="styleSheet">
-                        <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
-margin-left: 20;
-border: 0px;</string>
-                       </property>
-                       <property name="text">
-                        <string>Show Algo 4</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer_6">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
                      </item>
                      <item>
                       <spacer name="horizontalSpacer_2">
@@ -1377,23 +1332,314 @@ border: 0px;</string>
                        </property>
                       </spacer>
                      </item>
+                     <item>
+                      <spacer name="verticalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
                     </layout>
                    </widget>
                   </item>
+                  <item>
+                   <widget class="QFrame" name="verticalFrame">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>400</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="settingsmiscVerticalFrame_2">
+                       <property name="styleSheet">
+                        <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="settingsmiscVerticalFrame">
+                        <property name="spacing">
+                         <number>10</number>
+                        </property>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_8">
+                          <item>
+                           <widget class="QLabel" name="label_17">
+                            <property name="maximumSize">
+                             <size>
+                              <width>30</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">border: 0px</string>
+                            </property>
+                            <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/SettingsIcons/Icons/speaker.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_6">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>30</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>Trebuchet MS</family>
+                              <pointsize>14</pointsize>
+                              <weight>50</weight>
+                              <italic>false</italic>
+                              <bold>false</bold>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">font: 14pt &quot;Trebuchet MS&quot;;
+border: 0px;</string>
+                            </property>
+                            <property name="text">
+                             <string>Audio</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_25">
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>15</height>
+                           </size>
+                          </property>
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;
+border: 0px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Speaker Device</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QComboBox" name="speakerDeviceCombobox">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;</string>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>0 - Speakers (Realtek)</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>1 - NVIDIA High Definition Audio</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_10">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;
+border: 0px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Speaking Rate</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="audioInFrame">
+                          <property name="styleSheet">
+                           <string notr="true">margin-left:20;
+border: 0px;</string>
+                          </property>
+                          <layout class="QHBoxLayout" name="AudioInLayout">
+                           <property name="leftMargin">
+                            <number>20</number>
+                           </property>
+                           <item>
+                            <widget class="QSlider" name="speakingRateSlider">
+                             <property name="styleSheet">
+                              <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;
+border: 0px;</string>
+                             </property>
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="audioinvolumeLabel">
+                             <property name="styleSheet">
+                              <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+padding:2</string>
+                             </property>
+                             <property name="text">
+                              <string>0%</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_11">
+                          <property name="styleSheet">
+                           <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;
+border: 0px;</string>
+                          </property>
+                          <property name="text">
+                           <string>Speaking Volume</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QFrame" name="audioOutFrame">
+                          <property name="styleSheet">
+                           <string notr="true">margin-left:20;
+border: 0px;</string>
+                          </property>
+                          <layout class="QHBoxLayout" name="AudioOutLayout">
+                           <property name="leftMargin">
+                            <number>20</number>
+                           </property>
+                           <item>
+                            <widget class="QSlider" name="speakingVolumeSlider">
+                             <property name="styleSheet">
+                              <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+margin-left: 20;
+border: 0px;</string>
+                             </property>
+                             <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QLabel" name="audiooutvolumeLabel">
+                             <property name="styleSheet">
+                              <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+padding:2</string>
+                             </property>
+                             <property name="text">
+                              <string>0%</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QCheckBox" name="speakingVolumeMuteCheckbox">
+                             <property name="styleSheet">
+                              <string notr="true">font: 10pt &quot;Trebuchet MS&quot;;
+padding:2</string>
+                             </property>
+                             <property name="text">
+                              <string>Mute</string>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_3">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_10">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
                  </layout>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_3">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                </layout>
               </item>
@@ -1477,66 +1723,114 @@ border-bottom: 0px;</string>
               <item>
                <layout class="QVBoxLayout" name="helpContent">
                 <item>
-                 <widget class="QLabel" name="label_22">
-                  <property name="styleSheet">
-                   <string notr="true">font: 16pt &quot;Trebuchet MS&quot;;
+                 <widget class="QScrollArea" name="scrollArea_2">
+                  <property name="widgetResizable">
+                   <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>0</y>
+                     <width>684</width>
+                     <height>421</height>
+                    </rect>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_23">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_22">
+                      <item>
+                       <widget class="QLabel" name="label_22">
+                        <property name="styleSheet">
+                         <string notr="true">font: 16pt &quot;Trebuchet MS&quot;;
 text-align: right;
 margin-bottom: 1.3px;
 border-bottom: 0px;</string>
-                  </property>
-                  <property name="text">
-                   <string>Basic Steps</string>
-                  </property>
+                        </property>
+                        <property name="text">
+                         <string>Basic Steps</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="help_step1">
+                        <property name="styleSheet">
+                         <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                        </property>
+                        <layout class="QHBoxLayout" name="step1">
+                         <item>
+                          <widget class="QLabel" name="label_23">
+                           <property name="styleSheet">
+                            <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
+margin-left: 15px;
+text-align: right;
+margin-bottom: 1.3px;
+border-bottom: 0px;
+border: 0;
+border-radius: 0;
+margin: 10</string>
+                           </property>
+                           <property name="text">
+                            <string>1. Make sure that your webcam is connected</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="help_step2">
+                        <property name="styleSheet">
+                         <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                        </property>
+                        <layout class="QHBoxLayout" name="step2">
+                         <item>
+                          <widget class="QLabel" name="label_24">
+                           <property name="styleSheet">
+                            <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
+margin-left: 15px;
+text-align: right;
+margin-bottom: 1.3px;
+border-bottom: 0px;
+border: 0;
+border-radius: 0;
+margin: 10</string>
+                           </property>
+                           <property name="text">
+                            <string>2. Press the recognition button to get started</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="verticalSpacer_2">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>40</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                   <zorder>label_24</zorder>
+                   <zorder>label_23</zorder>
+                   <zorder>help_step2</zorder>
+                   <zorder>help_step1</zorder>
+                   <zorder>verticalLayoutWidget_2</zorder>
+                  </widget>
                  </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="step1">
-                  <item>
-                   <widget class="QLabel" name="label_23">
-                    <property name="styleSheet">
-                     <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
-margin-left: 15px;
-text-align: right;
-margin-bottom: 1.3px;
-border-bottom: 0px;</string>
-                    </property>
-                    <property name="text">
-                     <string>1. Make sure that your webcam is connected</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="step2">
-                  <item>
-                   <widget class="QLabel" name="label_24">
-                    <property name="styleSheet">
-                     <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
-margin-left: 15px;
-text-align: right;
-margin-bottom: 1.3px;
-border-bottom: 0px;</string>
-                    </property>
-                    <property name="text">
-                     <string>2. Press the recognition button to get started</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
                 </item>
                </layout>
               </item>
@@ -1628,27 +1922,192 @@ border-bottom: 0px;</string>
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>0</y>
-                     <width>765</width>
-                     <height>1106</height>
+                     <y>-489</y>
+                     <width>667</width>
+                     <height>910</height>
                     </rect>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
-                     <widget class="QLabel" name="aboutLabel">
-                      <property name="styleSheet">
-                       <string notr="true">margin: 20px;</string>
+                     <layout class="QVBoxLayout" name="verticalLayout_15">
+                      <property name="spacing">
+                       <number>10</number>
                       </property>
-                      <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;A Silent Voice&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icon/Icons/app_icon_resized.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;An application of Convolutional Neural Networks along with various computer vision algorithms for recognizing American Sign Language. The project serves as an undergraduate thesis of the developers in partial fulfillment of the requirements for the degree of Bachelor of Science in Computer Science at Holy Angel University.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Datasets&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;For each gesture, 1200 greyscaled and thresholded images were used to train the model. The developers have decided to flip 1200 of these images to give consideration to both right and left handed users. A total of 2400 images are used per gesture. Datasets are uploaded on google drive as the developers consider them too large to be uploaded on an online repository. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Developers&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;- Diaz, Jericho&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;- De Leon, Julius&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;- Jimenez, John Joshua&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;- Olsen, Ola&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;License&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;To be updated in the near future.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;Acknowledgements&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;To be updated in the near future.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                      </property>
-                      <property name="textFormat">
-                       <enum>Qt::RichText</enum>
-                      </property>
-                      <property name="wordWrap">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
+                      <item>
+                       <widget class="QFrame" name="verticalFrame_5">
+                        <property name="styleSheet">
+                         <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_20">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="aboutLabel">
+                           <property name="autoFillBackground">
+                            <bool>false</bool>
+                           </property>
+                           <property name="styleSheet">
+                            <string notr="true">border: 0;
+border-radius: 0;
+margin: 10</string>
+                           </property>
+                           <property name="text">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:600;&quot;&gt;A Silent Voice&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icon/Icons/app_icon_resized.png&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;An application of Convolutional Neural Networks along with various computer vision algorithms for recognizing American Sign Language. The project serves as an undergraduate thesis of the developers in partial fulfillment of the requirements for the degree of Bachelor of Science in Computer Science at Holy Angel University.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="textFormat">
+                            <enum>Qt::RichText</enum>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                           </property>
+                           <property name="wordWrap">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="verticalFrame_4">
+                        <property name="styleSheet">
+                         <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_19">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_27">
+                           <property name="styleSheet">
+                            <string notr="true">border: 0;
+border-radius: 0;
+margin: 10</string>
+                           </property>
+                           <property name="text">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Datasets&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For each gesture, 1200 greyscaled and thresholded images were used to train the model. The developers have decided to flip 1200 of these images to give consideration to both right and left handed users. A total of 2400 images are used per gesture. Datasets are uploaded on google drive as the developers consider them too large to be uploaded on an online repository.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                           </property>
+                           <property name="wordWrap">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="verticalFrame_2">
+                        <layout class="QHBoxLayout" name="horizontalLayout_11">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <property name="leftMargin">
+                          <number>1</number>
+                         </property>
+                         <item>
+                          <widget class="QFrame" name="verticalFrame_6">
+                           <property name="styleSheet">
+                            <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;
+margin-right:5</string>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_17">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <item>
+                             <widget class="QLabel" name="label_28">
+                              <property name="styleSheet">
+                               <string notr="true">border: 0;
+border-radius: 0;
+margin: 10</string>
+                              </property>
+                              <property name="text">
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Developers&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Diaz, Jericho&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- De Leon, Julius&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Jimenez, John Joshua&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;- Olsen, Ola&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QFrame" name="verticalFrame_7">
+                           <property name="styleSheet">
+                            <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;
+margin-left:5</string>
+                           </property>
+                           <layout class="QVBoxLayout" name="verticalLayout_21">
+                            <property name="spacing">
+                             <number>0</number>
+                            </property>
+                            <property name="leftMargin">
+                             <number>1</number>
+                            </property>
+                            <item>
+                             <widget class="QLabel" name="label_29">
+                              <property name="styleSheet">
+                               <string notr="true">border: 0;
+border-radius: 0;
+margin: 10</string>
+                              </property>
+                              <property name="text">
+                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Acknowledgements&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;To be updated in the near future.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                              </property>
+                              <property name="alignment">
+                               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QFrame" name="verticalFrame_3">
+                        <property name="styleSheet">
+                         <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                        </property>
+                        <layout class="QVBoxLayout" name="verticalLayout_18">
+                         <property name="spacing">
+                          <number>0</number>
+                         </property>
+                         <item>
+                          <widget class="QLabel" name="label_30">
+                           <property name="styleSheet">
+                            <string notr="true">border: 0;
+border-radius: 0;
+margin: 10</string>
+                           </property>
+                           <property name="text">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;License&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;To be updated in the near future.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </widget>
+                      </item>
+                     </layout>
                     </item>
                    </layout>
                   </widget>
