@@ -16,7 +16,10 @@ class TFModel:
         self.outputNameLayer = "import/" + self.outputLayer
         self.inputOperation = self.graph.get_operation_by_name(self.inputNameLayer)
         self.outputOperation = self.graph.get_operation_by_name(self.outputNameLayer)
-        self.sess = tf.Session(graph=self.graph)
+        session_conf = tf.ConfigProto(
+            intra_op_parallelism_threads=1,
+            inter_op_parallelism_threads=1)
+        self.sess = tf.Session(graph=self.graph, config=session_conf)
 
     def loadGraph(self):
         graph = tf.Graph()
