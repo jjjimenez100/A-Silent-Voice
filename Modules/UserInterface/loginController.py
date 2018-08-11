@@ -1,5 +1,3 @@
-import random, time
-
 from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import *
@@ -34,7 +32,7 @@ class Loading(QThread):
     def run(self):
         print("starting", flush=True)
         model = TFModel(resource_path("output_graph.pb"), resource_path("output_labels.txt"), "Placeholder", "final_result")
-
+        print("model loaded")
         count = 0
         available = []
         while True:
@@ -43,18 +41,19 @@ class Loading(QThread):
                 break
             available.append(count)
             count += 1
-        vid = VideoCapture(0)
-        _, frame = vid.read()
+        if count>0:
+            vid = VideoCapture(0)
+            _, frame = vid.read()
 
-        que = Queue()
-        load = rt.Recoginize(model, que)
-        que.put(frame)
-        load.daemon = False
-        load.start()
-        load.predict("kill")
-        load.join()
-
-        vid.release()
+            que = Queue()
+            load = rt.Recoginize(model, que)
+            que.put(frame)
+            load.daemon = False
+            load.start()
+            load.predict("kill")
+            load.join()
+            vid.release()
+        print("donezo")
 
 
         self.progress.emit(model, len(available))
@@ -75,7 +74,6 @@ class LogInForm(QDialog):
         self.setFixedSize(340, 450)
         self.logoIMG.setMovie(movie)
         movie.start()
-        self.loadMainForm()
         print("loading main form")
         #self.button_skip.clicked.connect(self.openMainForm)
         self.task = Loading()
@@ -87,15 +85,14 @@ class LogInForm(QDialog):
         self.show()
         #self.button_skip.clicked.connect(self.loadMainForm)
 
-    def loadMainForm(self): #for calling the main menu
-        pass
-
-    @pyqtSlot("PyQt_PyObject")
-    def setMainForm(self, model):
+    @pyqtSlot("PyQt_PyObject", int)
+    def setMainForm(self, model, count):
         self.model = model
+        self.available = count
 
     def openMainForm(self):
-        self.window = MainForm(self, self.model)
+        print(self.available)
+        self.window = MainForm(self, self.model, self.available)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
         self.hide()

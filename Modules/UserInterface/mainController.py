@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QImage, QPixmap, QIcon
+from PyQt5.QtGui import QImage, QPixmap, QMovie
 import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
@@ -10,6 +10,8 @@ from PyQt5.QtWidgets import *
 import Modules.WordBuilder as wb
 import Modules.UserInterface.RunBatchFile as rbf
 import sys, os, queue
+from Modules.UserInterface.quitController import QuitPrompt
+from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -30,7 +32,7 @@ class Thread(QThread):
         self.thread.daemon = True
         self.fps = fps
         self.camera = camera
-        self.cap = cv2.VideoCapture
+        self.cap = ''
 
     def run(self):
         self.thread.start()
@@ -52,23 +54,26 @@ class Thread(QThread):
             self.thread.predict(frame)
             letter, acc = self.thread.getPrediction()
             #print('letter:',letter)
-            self.changePixmap.emit(p, letter)
+            self.changePixmap.emit(p, letter, acc)
 
 class MainForm(QMainWindow):
     def __init__(self, model, cameraCount):
+        print("mf")
         super().__init__()
         if getattr(sys, 'frozen', False):
             ui = 'main_window.ui'
             loadUi(resource_path(ui), self)
+            self.j_gesture = QMovie(resource_path("Icons/alphabet/J.gif"))
+            self.z_gesture = QMovie(resource_path("/Icons/alphabet/Z.gif"))
         else:
             ui = 'Modules/UserInterface/main_window.ui'
             loadUi(ui, self)
+            self.j_gesture = QMovie("Modules/UserInterface/Icons/alphabet/J.gif")
+            self.z_gesture = QMovie("Modules/UserInterface/Icons/alphabet/Z.gif")
         self.tab_history = [0]
         #self.camera = cv2.VideoCapture(0)
         self.stackedWidget.setCurrentIndex(2)
-        self.j_gesture = QMovie("Icons/alphabet/J.gif")
         self.jLabel.setMovie(self.j_gesture)
-        self.z_gesture = QMovie("Icons/alphabet/Z.gif")
         self.zLabel.setMovie(self.z_gesture)
         self.logoutButton.clicked.connect(self.logoutAction)
         self.homeButton.clicked.connect(self.showHomePage)
@@ -110,7 +115,6 @@ class MainForm(QMainWindow):
         self.Z_button.clicked.connect(self.showLetterZ)
         self.thread = Thread(model)
         self.thread.changePixmap.connect(self.setImage)
-        self.loginWindow = logWindow
         self.first_launch = True
         self.formWordCheckbox.stateChanged.connect(self.checkCheckBoxes)
         self.showAccuracyCheckbox.stateChanged.connect(self.checkCheckBoxes)
@@ -122,7 +126,7 @@ class MainForm(QMainWindow):
         self.cameraCount = cameraCount
         self.cameraDevice = 0
 
-        self.setComboBoxes()
+        #self.setComboBoxes()
         self.createThread()
 
         #def setFormWords(self):
@@ -132,48 +136,6 @@ class MainForm(QMainWindow):
             self.thread.changePixmap.connect(self.setImage)
             self.thread.start()
 
-    def fixInstallation(self):
-        rbf.install()
-
-    def setComboBoxes(self):
-        for i in range(7,16):
-            self.cameraFPSCombobox.addItem(str(i))
-        self.recognitionSpeedComboBox.addItems(["1 - Fastest", "2 - Normal", "3 - Slowest"])
-
-        if self.cameraCount>0:
-            self.cameraDeviceCombobox.addItem("Primary Camera")
-            if self.cameraCount>1:
-                self.cameraDeviceCombobox.addItem("Secondary Camera")
-        else:
-            self.cameraDeviceCombobox.addItem("NO CAMERA DETECTED")
-        self.speakerDeviceCombobox.addItem("DEFAULT OUTPUT DEVICE")
-
-    def onComboBoxChange(self):
-        self.fps = self.cameraFPSCombobox.currentText()
-        self.speed = self.recognitionSpeedComboBox.currentText()
-        cam = self.cameraDeviceCombobox.currentText()
-        if cam == "Primary Camera":
-            cam = 0
-        elif cam == "Secondary Camera":
-            cam = 1
-        self.cameraDevice = cam
-        self.thread.terminate()
-        self.thread.wait()
-        if self.thread.isFinished():
-            self.createThread(int(self.fps), cam)
-
-    def sliderValueChange(self):
-        self.rate = self.speakingRateSlider.value()
-        self.volume = self.speakingVolumeSlider.value()/100
-        self.audioinvolumeLabel.setText(str(self.rate*5)+" WPM")
-        self.audiooutvolumeLabel.setText(str(self.volume*100)+"%")
-        self.wordBuilder.changeVolume(self.volume)
-        self.wordBuilder.changeRate(self.rate*5)
-
-    def sayWord(self):
-        if self.wordBuilder.sayWord():
-            self.wordBuilder.setWord("")
-
     def removeLetter(self):
         word = self.wordBuilder.getWord()
         if word:
@@ -181,18 +143,11 @@ class MainForm(QMainWindow):
 
     def keyPressEvent(self, evt):
         if type(evt) == gui.QKeyEvent:
-            if evt.key() == Qt.Key_Return:
-                self.sayWord()
-
-            elif evt.key() == Qt.Key_Backspace:
+            if evt.key() == Qt.Key_Backspace:
                 self.removeLetter()
 
 
     def checkCheckBoxes(self):
-        if self.speakingVolumeMuteCheckbox.isChecked():
-            self.wordBuilder.changeVolume(0)
-        else:
-            self.wordBuilder.changeVolume(self.volume)
         if self.showAccuracyCheckbox.isChecked():
             self.showAcc = True
         else:
@@ -230,12 +185,12 @@ class MainForm(QMainWindow):
             self.letterLabel.setText("Recognized Letter: "+letter+"\t"+word)
 
     def showHomePage(self):
+        self.stackedWidget.setCurrentIndex(0)
         if self.first_launch:
             self.openFirstTimeDialog()
             self.first_launch = False
         if self.tab_history[-1] != 0:
             self.tab_history.append(0)
-        self.stackedWidget.setCurrentIndex(0)
         print(self.tab_history)
 
     def showASL(self):
@@ -337,23 +292,29 @@ class MainForm(QMainWindow):
 
     @pyqtSlot()
     def logoutAction(self):
-		self.thread.cap.release()
-        self.thread.terminate()
-        self.thread.wait()
-        self.close()
+        if self.openQuitDialog():
+            if self.thread.cap:
+                self.thread.cap.release()
+            self.thread.terminate()
+            self.thread.wait()
+            self.close()
+            print("asdf")
+        print("fdsa")
+        self.quitprompt.close()
         #self.close()
-        self.openQuitDialog()
         #self.loginWindow.show()
 
     def openQuitDialog(self):
-        self.window = QuitPrompt(self)
-        self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-        self.window.show()
+        self.quitprompt = QuitPrompt(self)
+        self.quitprompt.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        self.quitprompt.exec_()
+        return self.quitprompt.getButtonPressed()
 
     def openFirstTimeDialog(self):
         self.window = FirstTimePrompt(self)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
-        self.window.show()
+        self.window.exec_()
+        print("pressed ok")
 
     def backFunction(self):
         if len(self.tab_history) != 1:
