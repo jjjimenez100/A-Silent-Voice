@@ -5,7 +5,7 @@ from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="-1"
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 import iconpack
 from PyQt5.QtCore import QThread, pyqtSignal
 import PyQt5.QtGui as gui
@@ -40,6 +40,7 @@ class LogInForm(QDialog):
         self.task = Loading()
         self.task.progress.connect(self.setMainForm)
         self.task.finished.connect(self.openMainForm)
+        self.labelLoad.setText("Loading: Dependencies")
         self.task.start()
         #self.button_skip.clicked.connect(self.loadMainForm)
 

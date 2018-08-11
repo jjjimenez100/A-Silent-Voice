@@ -1,10 +1,43 @@
 <RCC>
   <qresource prefix="Black Icons">
+    <file>Icons/alphabet_1.png</file>
+    <file>Icons/back (1).png</file>
     <file>Icons/help_1.png</file>
     <file>Icons/recognition_1.png</file>
     <file>Icons/about_1.png</file>
     <file>Icons/logout_1.png</file>
     <file>Icons/settings_1.png</file>
+  </qresource>
+  <qresource prefix="Alphabet">
+    <file>Icons/alphabet/A.jpg</file>
+    <file>Icons/alphabet/B.jpg</file>
+    <file>Icons/alphabet/C.jpg</file>
+    <file>Icons/alphabet/D.jpg</file>
+    <file>Icons/alphabet/E.jpg</file>
+    <file>Icons/alphabet/F.jpg</file>
+    <file>Icons/alphabet/G.jpg</file>
+    <file>Icons/alphabet/H.jpg</file>
+    <file>Icons/alphabet/I.jpg</file>
+    <file>Icons/alphabet/J.jpg</file>
+    <file>Icons/alphabet/K.jpg</file>
+    <file>Icons/alphabet/L.jpg</file>
+    <file>Icons/alphabet/M.jpg</file>
+    <file>Icons/alphabet/N.jpg</file>
+    <file>Icons/alphabet/O.jpg</file>
+    <file>Icons/alphabet/P.jpg</file>
+    <file>Icons/alphabet/Q.jpg</file>
+    <file>Icons/alphabet/R.jpg</file>
+    <file>Icons/alphabet/S.jpg</file>
+    <file>Icons/alphabet/T.jpg</file>
+    <file>Icons/alphabet/U.jpg</file>
+    <file>Icons/alphabet/V.jpg</file>
+    <file>Icons/alphabet/W.jpg</file>
+    <file>Icons/alphabet/X.jpg</file>
+    <file>Icons/alphabet/Y.jpg</file>
+    <file>Icons/alphabet/Z.jpg</file>
+  </qresource>
+  <qresource prefix="Quit">
+    <file>Icons/app_icon_quit.png</file>
   </qresource>
   <qresource prefix="Icon">
     <file>Icons/app_icon_resized.png</file>
@@ -22,6 +55,7 @@
     <file>Icons/webcam.png</file>
   </qresource>
   <qresource prefix="White Icons">
+    <file>Icons/alphabet.png</file>
     <file>Icons/information.png</file>
     <file>Icons/recognition.png</file>
     <file>Icons/about.png</file>
