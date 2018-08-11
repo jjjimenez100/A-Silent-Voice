@@ -28,6 +28,18 @@ DEBUG_MODE = True
 # Blur value constant using KNN Gaussian
 BLUR_VALUE = 41
 
+class Recognition:
+    def __init__(self):
+        model = TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
+        self.thread = rt.Recoginize(model)
+        self.thread.daemon = True
+        self.thread.start()
+
+    def predict(self, image):
+        self.thread.predict(image)
+        return self.thread.getPrediction()
+
+
 # Initializes video recording given the specified recording type.
 # type 0 = taking snapshots every n seconds
 # type 1 = take snapshots every frame

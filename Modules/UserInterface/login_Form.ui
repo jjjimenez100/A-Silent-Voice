@@ -130,7 +130,7 @@ font: 28pt &quot;Trebuchet MS&quot;;</string>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="labelLoad">
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
 font: 10pt &quot;Trebuchet MS&quot;;
@@ -141,13 +141,6 @@ font: 10pt &quot;Trebuchet MS&quot;;
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="button_skip">
-           <property name="text">
-            <string>SKIP</string>
            </property>
           </widget>
          </item>

@@ -76,21 +76,29 @@ class LogInForm(QDialog):
         self.logoIMG.setMovie(movie)
         movie.start()
         self.loadMainForm()
-
         print("loading main form")
-
         #self.button_skip.clicked.connect(self.openMainForm)
         self.task = Loading()
         self.task.progress.connect(self.setMainForm)
         self.task.finished.connect(self.openMainForm)
+        self.labelLoad.setText("Loading: Dependencies")
         self.task.start()
-        #self.button_skip.clicked.connect(self.loadMainForm)
-        print("show loading")
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.show()
+        #self.button_skip.clicked.connect(self.loadMainForm)
 
     def loadMainForm(self): #for calling the main menu
         pass
+
+    @pyqtSlot("PyQt_PyObject")
+    def setMainForm(self, model):
+        self.model = model
+
+    def openMainForm(self):
+        self.window = MainForm(self, self.model)
+        self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        self.window.show()
+        self.hide()
 
     @pyqtSlot("PyQt_PyObject", int)
     def setMainForm(self, model, cameraCount):
