@@ -41,18 +41,21 @@ class Loading(QThread):
                 break
             available.append(count)
             count += 1
+        print(count)
         if count>0:
             vid = VideoCapture(0)
             _, frame = vid.read()
 
-            que = Queue()
-            load = rt.Recoginize(model, que)
-            que.put(frame)
-            load.daemon = False
+            load = rt.Recoginize(model)
+            load.daemon = True
             load.start()
+            load.predict(frame)
+            from time import sleep
+            sleep(1)
             load.predict("kill")
             load.join()
             vid.release()
+            print("model loaded")
         print("donezo")
 
 

@@ -31,18 +31,16 @@ class TFModel:
 
     def readTensor(self, imagePath):
         inputName = "file_reader"
-        fileReader = tf.read_file(imagePath, inputName)
+        fileReader = tf.read_file(imagePath)
         # castToFloat = tf.convert_to_tensor(imagePath, dtype=tf.float32)
         imageReader = tf.image.decode_jpeg(
             fileReader, channels=3, name="jpeg_reader")
         castToFloat = tf.cast(imageReader, tf.float32)
-        print(castToFloat)
         expandDims = tf.expand_dims(castToFloat, 0)
         resized = tf.image.resize_bilinear(expandDims, [self.inputHeight, self.inputWidth])
         normalized = tf.divide(tf.subtract(resized, [self.inputMean]), [self.inputStd])
         sess = tf.Session()
         result = sess.run(normalized)
-
         return result
 
     def loadLabels(self):

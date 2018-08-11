@@ -8,8 +8,7 @@ import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 import Modules.WordBuilder as wb
-import Modules.UserInterface.RunBatchFile as rbf
-import sys, os, queue
+import sys, os
 from Modules.UserInterface.quitController import QuitPrompt
 from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
 
@@ -27,8 +26,7 @@ class Thread(QThread):
     changePixmap = pyqtSignal(QImage, str, float)
     def __init__(self, model, fps=7, camera=0,):# recognitionThread=rt.Recoginize):
         super(Thread, self).__init__()
-        self.queue = queue.Queue()
-        self.thread = rt.Recoginize(model, self.queue)
+        self.thread = rt.Recoginize(model)
         self.thread.daemon = True
         self.fps = fps
         self.camera = camera
@@ -49,9 +47,9 @@ class Thread(QThread):
             rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-            frame = extractRegionofInterest(frame)
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            self.thread.predict(frame)
+            # frame = extractRegionofInterest(frame)
+            # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            # self.thread.predict(frame)
             letter, acc = self.thread.getPrediction()
             #print('letter:',letter)
             self.changePixmap.emit(p, letter, acc)
@@ -64,7 +62,7 @@ class MainForm(QMainWindow):
             ui = 'main_window.ui'
             loadUi(resource_path(ui), self)
             self.j_gesture = QMovie(resource_path("Icons/alphabet/J.gif"))
-            self.z_gesture = QMovie(resource_path("/Icons/alphabet/Z.gif"))
+            self.z_gesture = QMovie(resource_path("Icons/alphabet/Z.gif"))
         else:
             ui = 'Modules/UserInterface/main_window.ui'
             loadUi(ui, self)
@@ -156,6 +154,7 @@ class MainForm(QMainWindow):
             self.showWord = True
         else:
             self.showWord = False
+            self.wordBuilder.setWord("")
 
     def minmaxWindow(self):
         if self.minmaxButton.isChecked():
@@ -176,7 +175,7 @@ class MainForm(QMainWindow):
     @pyqtSlot(QImage, str, float)
     def setImage(self, image, letter, acc):
         word = ''
-        if self.showWord:
+        if self.showWord and self.tab_history[-1] == 0:
             word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
@@ -191,7 +190,6 @@ class MainForm(QMainWindow):
             self.first_launch = False
         if self.tab_history[-1] != 0:
             self.tab_history.append(0)
-        print(self.tab_history)
 
     def showASL(self):
         if self.tab_history[-1] != 1:
@@ -298,8 +296,7 @@ class MainForm(QMainWindow):
             self.thread.terminate()
             self.thread.wait()
             self.close()
-            print("asdf")
-        print("fdsa")
+            os.remove("img.jpg")
         self.quitprompt.close()
         #self.close()
         #self.loginWindow.show()

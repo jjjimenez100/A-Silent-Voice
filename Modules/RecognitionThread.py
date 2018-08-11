@@ -1,16 +1,14 @@
 from threading import Thread
 import cv2 as cv
 import numpy as np
-import sys, queue
+import sys
 class Recoginize(Thread):
-    def __init__(self, model, queue=queue.Queue):
+    def __init__(self, model):
         Thread.__init__(self)
         self.model = model
         self.predictedLetter = ''
         self.acc = 0
         self.img = 0
-        self.queue = queue
-
 
     def predict(self, img):
         self.img = img
@@ -26,7 +24,7 @@ class Recoginize(Thread):
                 pred,acc = self.model.classifyImage("img.jpg")
                 self.predictedLetter = pred
                 self.acc = acc
-                self.img = 0
                 # self.queue.task_done()
-            if type(self.img) == type(""):
+            elif type(self.img) == type(""):
+                print("killed", self.img)
                 break

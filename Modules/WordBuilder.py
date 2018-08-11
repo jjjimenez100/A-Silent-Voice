@@ -1,8 +1,8 @@
-import Modules.TextToSpeech as tts
+# import Modules.TextToSpeech as tts
 class WordBuilder:
     def __init__(self):
         self.currentWord = ""
-        self.tts = tts.TextToSpeech(rate=130)
+        # self.tts = tts.TextToSpeech(rate=130)
         self.currentLetter = ""
         self.talking = False
         self.consecutiveCount = 0
@@ -16,7 +16,7 @@ class WordBuilder:
     def checkLetter(self, letter):
         if self.currentLetter == "":
             self.currentLetter = letter
-        elif self.consecutiveCount>=40:
+        elif self.consecutiveCount>=100:
             self.currentWord += self.currentLetter
             self.currentLetter = ""
             self.consecutiveCount = 0
