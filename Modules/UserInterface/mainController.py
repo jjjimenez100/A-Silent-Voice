@@ -1,28 +1,50 @@
-
-from PyQt5.QtGui import QImage, QPixmap, QIcon, QMovie
+from PyQt5.QtGui import QImage, QPixmap, QIcon
 import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
-from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest
+from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
+import Modules.UserInterface.iconpack
 import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
-from Modules.UserInterface.quitController import QuitPrompt
-from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
+import Modules.WordBuilder as wb
+import Modules.UserInterface.RunBatchFile as rbf
+import sys, os, queue
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 class Thread(QThread):
-    changePixmap = pyqtSignal(QImage, str)
-    def __init__(self, model):
+    changePixmap = pyqtSignal(QImage, str, float)
+    def __init__(self, model, fps=7, camera=0,):# recognitionThread=rt.Recoginize):
         super(Thread, self).__init__()
-        self.thread = rt.Recoginize(model)
-        self.thread.start()
+        self.queue = queue.Queue()
+        self.thread = rt.Recoginize(model, self.queue)
+        self.thread.daemon = True
+        self.fps = fps
+        self.camera = camera
+        self.cap = cv2.VideoCapture
 
     def run(self):
-        cap = cv2.VideoCapture(0)
+        self.thread.start()
+        self.cap = cv2.VideoCapture(self.camera)
+        self.cap.set(cv2.CAP_PROP_FPS, self.fps)
         while True:
-            ret, frame = cap.read()
-            frame = drawBoundingRectangle(frame)
-            rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            ret, frame = self.cap.read()
+            frame = cv2.flip(frame, 1)
+            roi = extractRegionofInterest(frame)
+            gs = convertToGrayscale(roi)
+            self.thread.predict(gs)
+            # self.queue.put(gs)
+            rect = drawBoundingRectangle(frame)
+            rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
             frame = extractRegionofInterest(frame)
@@ -33,9 +55,14 @@ class Thread(QThread):
             self.changePixmap.emit(p, letter)
 
 class MainForm(QMainWindow):
-    def __init__(self, logWindow, model):
+    def __init__(self, model, cameraCount):
         super().__init__()
-        loadUi('main_window.ui', self)
+        if getattr(sys, 'frozen', False):
+            ui = 'main_window.ui'
+            loadUi(resource_path(ui), self)
+        else:
+            ui = 'Modules/UserInterface/main_window.ui'
+            loadUi(ui, self)
         self.tab_history = [0]
         #self.camera = cv2.VideoCapture(0)
         self.stackedWidget.setCurrentIndex(2)
@@ -85,14 +112,95 @@ class MainForm(QMainWindow):
         self.thread.changePixmap.connect(self.setImage)
         self.loginWindow = logWindow
         self.first_launch = True
+        self.formWordCheckbox.stateChanged.connect(self.checkCheckBoxes)
+        self.showAccuracyCheckbox.stateChanged.connect(self.checkCheckBoxes)
 
+        self.wordBuilder = wb.WordBuilder()
+        self.model = model
+        self.showAcc = False
+        self.showWord = False
+        self.cameraCount = cameraCount
+        self.cameraDevice = 0
 
-    #def setFormWords(self):
+        self.setComboBoxes()
+        self.createThread()
 
-    def event(self, ev):
-        if type(ev) == gui.QShowEvent:
+        #def setFormWords(self):
+    def createThread(self, fps=7, camera=0):
+        if self.cameraCount > 0:
+            self.thread = Thread(self.model, fps, camera)
+            self.thread.changePixmap.connect(self.setImage)
             self.thread.start()
-        return super(MainForm, self).event(ev)
+
+    def fixInstallation(self):
+        rbf.install()
+
+    def setComboBoxes(self):
+        for i in range(7,16):
+            self.cameraFPSCombobox.addItem(str(i))
+        self.recognitionSpeedComboBox.addItems(["1 - Fastest", "2 - Normal", "3 - Slowest"])
+
+        if self.cameraCount>0:
+            self.cameraDeviceCombobox.addItem("Primary Camera")
+            if self.cameraCount>1:
+                self.cameraDeviceCombobox.addItem("Secondary Camera")
+        else:
+            self.cameraDeviceCombobox.addItem("NO CAMERA DETECTED")
+        self.speakerDeviceCombobox.addItem("DEFAULT OUTPUT DEVICE")
+
+    def onComboBoxChange(self):
+        self.fps = self.cameraFPSCombobox.currentText()
+        self.speed = self.recognitionSpeedComboBox.currentText()
+        cam = self.cameraDeviceCombobox.currentText()
+        if cam == "Primary Camera":
+            cam = 0
+        elif cam == "Secondary Camera":
+            cam = 1
+        self.cameraDevice = cam
+        self.thread.terminate()
+        self.thread.wait()
+        if self.thread.isFinished():
+            self.createThread(int(self.fps), cam)
+
+    def sliderValueChange(self):
+        self.rate = self.speakingRateSlider.value()
+        self.volume = self.speakingVolumeSlider.value()/100
+        self.audioinvolumeLabel.setText(str(self.rate*5)+" WPM")
+        self.audiooutvolumeLabel.setText(str(self.volume*100)+"%")
+        self.wordBuilder.changeVolume(self.volume)
+        self.wordBuilder.changeRate(self.rate*5)
+
+    def sayWord(self):
+        if self.wordBuilder.sayWord():
+            self.wordBuilder.setWord("")
+
+    def removeLetter(self):
+        word = self.wordBuilder.getWord()
+        if word:
+            self.wordBuilder.setWord(word[:-1])
+
+    def keyPressEvent(self, evt):
+        if type(evt) == gui.QKeyEvent:
+            if evt.key() == Qt.Key_Return:
+                self.sayWord()
+
+            elif evt.key() == Qt.Key_Backspace:
+                self.removeLetter()
+
+
+    def checkCheckBoxes(self):
+        if self.speakingVolumeMuteCheckbox.isChecked():
+            self.wordBuilder.changeVolume(0)
+        else:
+            self.wordBuilder.changeVolume(self.volume)
+        if self.showAccuracyCheckbox.isChecked():
+            self.showAcc = True
+        else:
+            self.showAcc = False
+        if self.formWordCheckbox.isChecked():
+            self.showWord = True
+        else:
+            self.showWord = False
 
     def minmaxWindow(self):
         if self.minmaxButton.isChecked():
@@ -110,10 +218,16 @@ class MainForm(QMainWindow):
         y_w = self.offset.y()
         self.move(x - x_w, y - y_w)
 
-    @pyqtSlot(QImage, str)
-    def setImage(self, image, letter):
+    @pyqtSlot(QImage, str, float)
+    def setImage(self, image, letter, acc):
+        word = ''
+        if self.showWord:
+            word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
-        self.letterLabel.setText("Recognized Letter: "+letter)
+        if self.showAcc:
+            self.letterLabel.setText("Recognized Letter: "+letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)
+        else:
+            self.letterLabel.setText("Recognized Letter: "+letter+"\t"+word)
 
     def showHomePage(self):
         if self.first_launch:
@@ -223,6 +337,10 @@ class MainForm(QMainWindow):
 
     @pyqtSlot()
     def logoutAction(self):
+		self.thread.cap.release()
+        self.thread.terminate()
+        self.thread.wait()
+        self.close()
         #self.close()
         self.openQuitDialog()
         #self.loginWindow.show()

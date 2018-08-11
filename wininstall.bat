@@ -55,7 +55,6 @@ if errorlevel 1 echo Failed to download matplotlib
 echo ------------------------
 echo ------------------------
 echo Installation done
-pause
 goto:eof
 
 

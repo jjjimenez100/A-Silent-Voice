@@ -3,7 +3,7 @@ import numpy
 from Modules.OpenCVWrapper import createNewWindow, createTrackbar
 
 BOX_Y = 80
-BOX_X = 300
+BOX_X = 80
 BOX_WIDTH = 300 #300
 BOX_HEIGHT = 300 #300
 
@@ -54,3 +54,6 @@ def drawBoundingRectangle(snapshot):
     return snapshot
     #return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
     #                     (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
+
+def convertToGrayscale(snapshot):
+    return cv2.cvtColor(snapshot, cv2.COLOR_BGR2GRAY)

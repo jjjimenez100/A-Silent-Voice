@@ -40,12 +40,6 @@ class Recognition:
         return self.thread.getPrediction()
 
 
-
-
-
-
-
-
 # Initializes video recording given the specified recording type.
 # type 0 = taking snapshots every n seconds
 # type 1 = take snapshots every frame

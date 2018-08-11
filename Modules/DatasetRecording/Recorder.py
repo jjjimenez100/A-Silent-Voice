@@ -71,8 +71,8 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
         snapshot = process.drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
         if k == 27:
-            break
             record.onDone()
+            break
         if enableRecording or enableFrameSaving:
             if k == ord('r'):
                 record.countStart(0)
