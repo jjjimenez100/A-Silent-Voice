@@ -122,5 +122,5 @@ class LogInForm(QDialog):
         self.window = MainForm(self.model, self.cameraCount)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
-        self.window.openFirstTimeDialog()
         self.close()
+        self.window.openFirstTimeDialog()
