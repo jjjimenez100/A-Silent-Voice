@@ -117,7 +117,6 @@ class MainForm(QMainWindow):
         self.Z_button.clicked.connect(lambda: self.showLetters(25))
         self.thread = Thread(model)
         self.thread.changePixmap.connect(self.setImage)
-        self.first_launch = True
         self.formWordCheckbox.stateChanged.connect(self.checkCheckBoxes)
         self.showAccuracyCheckbox.stateChanged.connect(self.checkCheckBoxes)
 
@@ -270,9 +269,6 @@ class MainForm(QMainWindow):
             self.letterLabel.setText(letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)
         else:
             self.letterLabel.setText(letter+"\t"+word)
-        if self.first_launch:
-            self.first_launch = False
-            self.openFirstTimeDialog()
 
     def center(self, window):
         qr = window.frameGeometry()
@@ -327,7 +323,10 @@ class MainForm(QMainWindow):
             self.thread.terminate()
             self.thread.wait()
             self.close()
-            os.remove("img.jpg")
+            try:
+                os.remove("img.jpg")
+            except OSError:
+                pass
         self.quitprompt.close()
         #self.close()
         #self.loginWindow.show()
@@ -340,6 +339,7 @@ class MainForm(QMainWindow):
         return self.quitprompt.getButtonPressed()
 
     def openFirstTimeDialog(self):
+        print("FTD")
         self.window = FirstTimePrompt(self)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
         self.center(self.window)

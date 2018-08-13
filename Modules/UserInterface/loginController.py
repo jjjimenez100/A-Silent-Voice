@@ -101,13 +101,14 @@ class LogInForm(QDialog):
         self.model = model
         self.available = count
 
-    def openMainForm(self):
-        print(self.available)
-        self.window = MainForm(self, self.model, self.available)
-        self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-        self.window.show()
-        self.window.showHomePage()
-        self.hide()
+    # def openMainForm(self):
+    #     print(self.available)
+    #     self.window = MainForm(self, self.model, self.available)
+    #     self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+    #
+    #     self.window.show()
+    #     self.window.showHomePage()
+    #     self.hide()
 
     @pyqtSlot("PyQt_PyObject", int)
     def setMainForm(self, model, cameraCount):
@@ -121,4 +122,5 @@ class LogInForm(QDialog):
         self.window = MainForm(self.model, self.cameraCount)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
+        self.window.openFirstTimeDialog()
         self.close()
