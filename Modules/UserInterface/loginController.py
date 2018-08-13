@@ -22,17 +22,21 @@ def resource_path(relative_path):
 
     return path.join(base_path, relative_path)
 
+
 class Loading(QThread):
 
     progress = pyqtSignal("PyQt_PyObject", int)
 
-    def __init__(self):
+    def __init__(self, label):
         super(Loading, self).__init__()
+        self.label_load = label
 
     def run(self):
         print("starting", flush=True)
+        print("bueno")
         model = TFModel(resource_path("output_graph.pb"), resource_path("output_labels.txt"), "Placeholder", "final_result")
         print("model loaded")
+        self.label_load.setText("Loading: Model")
         count = 0
         available = []
         while True:
@@ -56,9 +60,9 @@ class Loading(QThread):
             load.join()
             vid.release()
             print("model loaded")
+            self.label_load.setText("Loaded Model")
         print("donezo")
-
-
+        self.label_load.setText("Finalizing")
         self.progress.emit(model, len(available))
 
 
@@ -77,16 +81,20 @@ class LogInForm(QDialog):
         self.setFixedSize(340, 450)
         self.logoIMG.setMovie(movie)
         movie.start()
+        self.update_loading("Loading: Graphical User Interface")
         print("loading main form")
         #self.button_skip.clicked.connect(self.openMainForm)
-        self.task = Loading()
+        self.task = Loading(self.labelLoad)
         self.task.progress.connect(self.setMainForm)
         self.task.finished.connect(self.openMainForm)
-        self.labelLoad.setText("Loading: Dependencies")
+        #self.labelLoad.setText("Loading: Dependencies")
         self.task.start()
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.show()
         #self.button_skip.clicked.connect(self.loadMainForm)
+
+    def update_loading(self, message):
+        self.labelLoad.setText(message)
 
     @pyqtSlot("PyQt_PyObject", int)
     def setMainForm(self, model, count):
@@ -98,6 +106,7 @@ class LogInForm(QDialog):
         self.window = MainForm(self, self.model, self.available)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
+        self.window.showHomePage()
         self.hide()
 
     @pyqtSlot("PyQt_PyObject", int)

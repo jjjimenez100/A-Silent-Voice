@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="Black Icons">
+    <file>Icons/sample_distance_large.png</file>
+    <file>Icons/sample_distance.png</file>
     <file>Icons/alphabet_1.png</file>
     <file>Icons/back (1).png</file>
     <file>Icons/help_1.png</file>

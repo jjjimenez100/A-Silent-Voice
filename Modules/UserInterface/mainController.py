@@ -2,6 +2,8 @@ from PyQt5.QtGui import QImage, QPixmap, QMovie
 import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
+from PyQt5.uic.properties import QtGui
+
 from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
 import Modules.UserInterface.iconpack
 import Modules.RecognitionThread as rt
@@ -9,6 +11,8 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 import Modules.WordBuilder as wb
 import sys, os
+
+from Modules.UserInterface.firsttime_guide import FirstTimeGuide
 from Modules.UserInterface.quitController import QuitPrompt
 from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
 
@@ -70,7 +74,7 @@ class MainForm(QMainWindow):
             self.z_gesture = QMovie("Modules/UserInterface/Icons/alphabet/Z.gif")
         self.tab_history = [0]
         #self.camera = cv2.VideoCapture(0)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         self.jLabel.setMovie(self.j_gesture)
         self.zLabel.setMovie(self.z_gesture)
         self.logoutButton.clicked.connect(self.logoutAction)
@@ -85,32 +89,32 @@ class MainForm(QMainWindow):
         self.backButton_3.clicked.connect(self.backFunction)
         self.backButton_4.clicked.connect(self.backFunction)
         self.aslButton.clicked.connect(self.showASL)
-        self.A_button.clicked.connect(self.showLetterA)
-        self.B_button.clicked.connect(self.showLetterB)
-        self.C_button.clicked.connect(self.showLetterC)
-        self.D_button.clicked.connect(self.showLetterD)
-        self.E_button.clicked.connect(self.showLetterE)
-        self.F_button.clicked.connect(self.showLetterF)
-        self.G_button.clicked.connect(self.showLetterG)
-        self.H_button.clicked.connect(self.showLetterH)
-        self.I_button.clicked.connect(self.showLetterI)
-        self.J_button.clicked.connect(self.showLetterJ)
-        self.K_button.clicked.connect(self.showLetterK)
-        self.L_button.clicked.connect(self.showLetterL)
-        self.M_button.clicked.connect(self.showLetterM)
-        self.N_button.clicked.connect(self.showLetterN)
-        self.O_button.clicked.connect(self.showLetterO)
-        self.P_button.clicked.connect(self.showLetterP)
-        self.Q_button.clicked.connect(self.showLetterQ)
-        self.R_button.clicked.connect(self.showLetterR)
-        self.S_button.clicked.connect(self.showLetterS)
-        self.T_button.clicked.connect(self.showLetterT)
-        self.U_button.clicked.connect(self.showLetterU)
-        self.V_button.clicked.connect(self.showLetterV)
-        self.W_button.clicked.connect(self.showLetterW)
-        self.X_button.clicked.connect(self.showLetterX)
-        self.Y_button.clicked.connect(self.showLetterY)
-        self.Z_button.clicked.connect(self.showLetterZ)
+        self.A_button.clicked.connect(lambda: self.showLetters(0))
+        self.B_button.clicked.connect(lambda: self.showLetters(1))
+        self.C_button.clicked.connect(lambda: self.showLetters(2))
+        self.D_button.clicked.connect(lambda: self.showLetters(3))
+        self.E_button.clicked.connect(lambda: self.showLetters(4))
+        self.F_button.clicked.connect(lambda: self.showLetters(5))
+        self.G_button.clicked.connect(lambda: self.showLetters(6))
+        self.H_button.clicked.connect(lambda: self.showLetters(7))
+        self.I_button.clicked.connect(lambda: self.showLetters(8))
+        self.J_button.clicked.connect(lambda: self.showLetters(9))
+        self.K_button.clicked.connect(lambda: self.showLetters(10))
+        self.L_button.clicked.connect(lambda: self.showLetters(11))
+        self.M_button.clicked.connect(lambda: self.showLetters(12))
+        self.N_button.clicked.connect(lambda: self.showLetters(13))
+        self.O_button.clicked.connect(lambda: self.showLetters(14))
+        self.P_button.clicked.connect(lambda: self.showLetters(15))
+        self.Q_button.clicked.connect(lambda: self.showLetters(16))
+        self.R_button.clicked.connect(lambda: self.showLetters(17))
+        self.S_button.clicked.connect(lambda: self.showLetters(18))
+        self.T_button.clicked.connect(lambda: self.showLetters(19))
+        self.U_button.clicked.connect(lambda: self.showLetters(20))
+        self.V_button.clicked.connect(lambda: self.showLetters(21))
+        self.W_button.clicked.connect(lambda: self.showLetters(22))
+        self.X_button.clicked.connect(lambda: self.showLetters(23))
+        self.Y_button.clicked.connect(lambda: self.showLetters(24))
+        self.Z_button.clicked.connect(lambda: self.showLetters(25))
         self.thread = Thread(model)
         self.thread.changePixmap.connect(self.setImage)
         self.first_launch = True
@@ -124,15 +128,100 @@ class MainForm(QMainWindow):
         self.cameraCount = cameraCount
         self.cameraDevice = 0
 
+        self.originial_buttons = self.aslButton.styleSheet()
+        self.originial_home = self.homePage.styleSheet()
+        self.original_label = self.letterFrame.styleSheet()
+        self.original_video = self.videoLabel.styleSheet()
+        self.original_checkbox = self.formWordCheckbox.styleSheet()
+        self.tutorial_stylesheet = "border: 3.5px solid red;"
+
         #self.setComboBoxes()
         self.createThread()
-
         #def setFormWords(self):
+        self.center(self)
+
     def createThread(self, fps=7, camera=0):
         if self.cameraCount > 0:
             self.thread = Thread(self.model, fps, camera)
             self.thread.changePixmap.connect(self.setImage)
             self.thread.start()
+
+    def firsttime_tutorial(self, number):
+        if number == 0:
+            self.stackedWidget.setCurrentIndex(0)
+            self.homeButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+            self.aslButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+            self.helpButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+            self.aboutButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+            self.logoutButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.homeButton.setStyleSheet(self.originial_buttons)
+            self.aslButton.setStyleSheet(self.originial_buttons)
+            self.helpButton.setStyleSheet(self.originial_buttons)
+            self.aboutButton.setStyleSheet(self.originial_buttons)
+            self.logoutButton.setStyleSheet(self.originial_buttons)
+        if number == 1:
+            self.stackedWidget.setCurrentIndex(0)
+            self.homeButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.homeButton.setStyleSheet(self.originial_buttons)
+        if number == 2:
+            self.stackedWidget.setCurrentIndex(1)
+            self.aslButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.aslButton.setStyleSheet(self.originial_buttons)
+        if number == 3 or number == 11:
+            self.stackedWidget.setCurrentIndex(2)
+            self.helpButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.helpButton.setStyleSheet(self.originial_buttons)
+        if number == 4:
+            self.stackedWidget.setCurrentIndex(3)
+            self.aboutButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.aboutButton.setStyleSheet(self.originial_buttons)
+        if number == 5:
+            self.stackedWidget.setCurrentIndex(0)
+            self.logoutButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
+        else:
+            self.logoutButton.setStyleSheet(self.originial_buttons)
+        if number == 6:
+            self.stackedWidget.setCurrentIndex(0)
+            self.homePage.setStyleSheet(self.originial_home + self.tutorial_stylesheet)
+        else:
+            self.homePage.setStyleSheet(self.originial_home)
+        if number == 7:
+            self.stackedWidget.setCurrentIndex(0)
+            self.letterFrame.setStyleSheet(self.original_label + self.tutorial_stylesheet)
+        else:
+            self.letterFrame.setStyleSheet(self.original_label)
+        if number == 8:
+            self.stackedWidget.setCurrentIndex(0)
+            self.videoLabel.setStyleSheet(self.original_video + self.tutorial_stylesheet)
+        else:
+            self.videoLabel.setStyleSheet(self.original_video)
+        if number == 9:
+            self.stackedWidget.setCurrentIndex(0)
+            self.formWordCheckbox.setStyleSheet(self.original_checkbox + self.tutorial_stylesheet)
+        else:
+            self.formWordCheckbox.setStyleSheet(self.original_checkbox)
+        if number == 10:
+            self.stackedWidget.setCurrentIndex(0)
+            self.showAccuracyCheckbox.setStyleSheet(self.original_checkbox + self.tutorial_stylesheet)
+        else:
+            self.showAccuracyCheckbox.setStyleSheet(self.original_checkbox)
+        if number == 11:
+            self.stackedWidget.setCurrentIndex(0)
+            self.homeButton.setStyleSheet(self.originial_buttons)
+            self.aslButton.setStyleSheet(self.originial_buttons)
+            self.helpButton.setStyleSheet(self.originial_buttons)
+            self.aboutButton.setStyleSheet(self.originial_buttons)
+            self.logoutButton.setStyleSheet(self.originial_buttons)
+            self.showAccuracyCheckbox.setStyleSheet(self.original_checkbox)
+            self.formWordCheckbox.setStyleSheet(self.original_checkbox)
+            self.videoLabel.setStyleSheet(self.original_video)
+            self.letterFrame.setStyleSheet(self.original_label)
+            self.homePage.setStyleSheet(self.originial_home)
 
     def removeLetter(self):
         word = self.wordBuilder.getWord()
@@ -143,7 +232,6 @@ class MainForm(QMainWindow):
         if type(evt) == gui.QKeyEvent:
             if evt.key() == Qt.Key_Backspace:
                 self.removeLetter()
-
 
     def checkCheckBoxes(self):
         if self.showAccuracyCheckbox.isChecked():
@@ -179,15 +267,27 @@ class MainForm(QMainWindow):
             word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
-            self.letterLabel.setText("Recognized Letter: "+letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)
+            self.letterLabel.setText(letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)
         else:
-            self.letterLabel.setText("Recognized Letter: "+letter+"\t"+word)
+            self.letterLabel.setText(letter+"\t"+word)
+        if self.first_launch:
+            self.first_launch = False
+            self.openFirstTimeDialog()
+
+    def center(self, window):
+        qr = window.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        window.move(qr.topLeft())
+
+    def center_popups(self, window):
+        qr = window.frameGeometry()
+        cp = self.availableGeometry().center()
+        qr.moveCenter(cp)
+        window.move(qr.topLeft())
 
     def showHomePage(self):
         self.stackedWidget.setCurrentIndex(0)
-        if self.first_launch:
-            self.openFirstTimeDialog()
-            self.first_launch = False
         if self.tab_history[-1] != 0:
             self.tab_history.append(0)
 
@@ -206,87 +306,18 @@ class MainForm(QMainWindow):
             self.tab_history.append(3)
         self.stackedWidget.setCurrentIndex(3)
 
-    def showLetterA(self):
-        self.alphabetStacked.setCurrentIndex(0)
-
-    def showLetterB(self):
-        self.alphabetStacked.setCurrentIndex(1)
-
-    def showLetterC(self):
-        self.alphabetStacked.setCurrentIndex(2)
-
-    def showLetterD(self):
-        self.alphabetStacked.setCurrentIndex(3)
-
-    def showLetterE(self):
-        self.alphabetStacked.setCurrentIndex(4)
-
-    def showLetterF(self):
-        self.alphabetStacked.setCurrentIndex(5)
-
-    def showLetterG(self):
-        self.alphabetStacked.setCurrentIndex(6)
-
-    def showLetterH(self):
-        self.alphabetStacked.setCurrentIndex(7)
-
-    def showLetterI(self):
-        self.alphabetStacked.setCurrentIndex(8)
-
-    def showLetterJ(self):
-        self.j_gesture.stop()
-        self.j_gesture.start()
-        self.alphabetStacked.setCurrentIndex(9)
-
-    def showLetterK(self):
-        self.alphabetStacked.setCurrentIndex(10)
-
-    def showLetterL(self):
-        self.alphabetStacked.setCurrentIndex(11)
-
-    def showLetterM(self):
-        self.alphabetStacked.setCurrentIndex(12)
-
-    def showLetterN(self):
-        self.alphabetStacked.setCurrentIndex(13)
-
-    def showLetterO(self):
-        self.alphabetStacked.setCurrentIndex(14)
-
-    def showLetterP(self):
-        self.alphabetStacked.setCurrentIndex(15)
-
-    def showLetterQ(self):
-        self.alphabetStacked.setCurrentIndex(16)
-
-    def showLetterR(self):
-        self.alphabetStacked.setCurrentIndex(17)
-
-    def showLetterS(self):
-        self.alphabetStacked.setCurrentIndex(18)
-
-    def showLetterT(self):
-        self.alphabetStacked.setCurrentIndex(19)
-
-    def showLetterU(self):
-        self.alphabetStacked.setCurrentIndex(20)
-
-    def showLetterV(self):
-        self.alphabetStacked.setCurrentIndex(21)
-
-    def showLetterW(self):
-        self.alphabetStacked.setCurrentIndex(22)
-
-    def showLetterX(self):
-        self.alphabetStacked.setCurrentIndex(23)
-
-    def showLetterY(self):
-        self.alphabetStacked.setCurrentIndex(24)
-
-    def showLetterZ(self):
-        self.z_gesture.stop()
-        self.z_gesture.start()
-        self.alphabetStacked.setCurrentIndex(25)
+    def showLetters(self, index):
+        print(index)
+        if index == 9:
+            self.j_gesture.stop()
+            self.j_gesture.start()
+            self.alphabetStacked.setCurrentIndex(index)
+        elif index == 25:
+            self.z_gesture.stop()
+            self.z_gesture.start()
+            self.alphabetStacked.setCurrentIndex(index)
+        else:
+            self.alphabetStacked.setCurrentIndex(index)
 
     @pyqtSlot()
     def logoutAction(self):
@@ -304,14 +335,21 @@ class MainForm(QMainWindow):
     def openQuitDialog(self):
         self.quitprompt = QuitPrompt(self)
         self.quitprompt.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        self.center(self.quitprompt)
         self.quitprompt.exec_()
         return self.quitprompt.getButtonPressed()
 
     def openFirstTimeDialog(self):
         self.window = FirstTimePrompt(self)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
+        self.center(self.window)
         self.window.exec_()
-        print("pressed ok")
+
+    def startTutorial(self):
+        self.tutorialPrompt = FirstTimeGuide(self)
+        self.tutorialPrompt.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
+        self.center(self.tutorialPrompt)
+        self.tutorialPrompt.exec_()
 
     def backFunction(self):
         if len(self.tab_history) != 1:

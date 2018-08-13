@@ -96,12 +96,12 @@ margin-left: 2</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(0, 0, 0);
-font: 12pt &quot;Trebuchet MS&quot;;
+font: 14pt &quot;Trebuchet MS&quot;;
 margin: 20;
 </string>
      </property>
      <property name="text">
-      <string>First Time Tips: Press back space key on your keyboard to delete the recognized letter and press enter for the application to say the word produced. Consult the help tab for more information.</string>
+      <string>Since this is your first time using the application, would you like to be guided on how it works?</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -133,7 +133,7 @@ margin: 20;
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="okayButton">
+       <widget class="QPushButton" name="yesButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -146,7 +146,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(104, 127, 149);</string>
         </property>
         <property name="text">
-         <string>Okay</string>
+         <string>Yes</string>
         </property>
         <property name="flat">
          <bool>true</bool>
@@ -157,6 +157,27 @@ background-color: rgb(104, 127, 149);</string>
        <widget class="Line" name="line">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="noButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+font: 14pt &quot;Trebuchet MS&quot;;
+background-color: rgb(104, 127, 149);</string>
+        </property>
+        <property name="text">
+         <string>No</string>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

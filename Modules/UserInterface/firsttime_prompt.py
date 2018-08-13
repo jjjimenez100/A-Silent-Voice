@@ -4,6 +4,9 @@ from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 import sys, os
 
+from Modules.UserInterface.firsttime_guide import FirstTimeGuide
+
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -22,11 +25,16 @@ class FirstTimePrompt(QDialog):
         else:
             ui = 'Modules/UserInterface/firsttime_prompt.ui'
         loadUi(ui, self)
-        self.okayButton.clicked.connect(self.closeAction)
+        self.noButton.clicked.connect(self.closeAction)
+        self.yesButton.clicked.connect(self.start_tutorial)
         self.mainWindow = mainWindow
 
     def mousePressEvent(self, event):
         self.offset = event.pos()
+
+    def start_tutorial(self):
+        self.closeAction()
+        self.mainWindow.startTutorial()
 
     def mouseMoveEvent(self, event):
         x = event.globalX()

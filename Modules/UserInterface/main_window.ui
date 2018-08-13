@@ -135,7 +135,7 @@ font: 8pt &quot;Trebuchet MS&quot;;
 margin-left: 5;</string>
               </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;An application of Convolutional Neural Networks along with various computer vision algorithms for recognizing American Sign Language&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;An application of Convolutional Neural Networks along with various computer vision algorithms for recognizing Filipino Sign Language&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="wordWrap">
                <bool>true</bool>
@@ -320,7 +320,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
-padding-left: 15px</string>
+padding-left: 15px;</string>
              </property>
              <property name="text">
               <string> Recognition</string>
@@ -339,7 +339,7 @@ padding-left: 15px</string>
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
@@ -369,10 +369,10 @@ font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
-padding-left: 15px</string>
+padding-left: 15px;</string>
              </property>
              <property name="text">
-              <string> ASL Alphabet</string>
+              <string> FSL Alphabet</string>
              </property>
              <property name="icon">
               <iconset resource="iconpack.qrc">
@@ -415,7 +415,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
-padding-left: 15px</string>
+padding-left: 15px;</string>
              </property>
              <property name="text">
               <string> Help</string>
@@ -434,7 +434,7 @@ padding-left: 15px</string>
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
@@ -463,7 +463,7 @@ padding-left: 15px</string>
 font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 Text-align: left;
-padding-left: 15px</string>
+padding-left: 15px;</string>
              </property>
              <property name="text">
               <string> About</string>
@@ -518,7 +518,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 background-color: rgb(34, 52, 66);
 alternate-background-color: rgb(34, 52, 66);
 Text-align: left;
-padding-left: 15px</string>
+padding-left: 15px;</string>
              </property>
              <property name="text">
               <string> Quit</string>
@@ -595,7 +595,7 @@ margin-left: 5;</string>
              <string notr="true">background-color: rgb(236, 240, 241);</string>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="homePage">
              <property name="styleSheet">
@@ -632,7 +632,8 @@ margin-left: 5;</string>
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">border-bottom: 1.3px solid gray;
+                 <string notr="true">border: 0px;
+border-bottom: 1.3px solid gray;
 background: white;</string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -660,7 +661,8 @@ background: white;</string>
                     </size>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;</string>
+                    <string notr="true">border: 0px;
+font: 12pt &quot;Trebuchet MS&quot;;</string>
                    </property>
                    <property name="text">
                     <string>Back</string>
@@ -696,7 +698,7 @@ background: white;</string>
                  <item>
                   <widget class="QLabel" name="label_13">
                    <property name="styleSheet">
-                    <string notr="true"/>
+                    <string notr="true">border: 0px</string>
                    </property>
                    <property name="text">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/recognition_1.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -721,7 +723,7 @@ background: white;</string>
                     <string notr="true">font: 24pt &quot;Trebuchet MS&quot;;
 text-align: right;
 margin-bottom: 1.3px;
-border-bottom: 0px;</string>
+border: 0px</string>
                    </property>
                    <property name="text">
                     <string>Recognition</string>
@@ -735,25 +737,85 @@ border-bottom: 0px;</string>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="letterLabel">
+               <widget class="QFrame" name="letterFrame">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>60</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>50</height>
+                  <height>60</height>
                  </size>
                 </property>
-                <property name="styleSheet">
-                 <string notr="true">font: 75 18pt &quot;Trebuchet MS&quot;;
-margin-bottom: 1.3px;
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QLabel" name="label_5">
+                   <property name="minimumSize">
+                    <size>
+                     <width>50</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">font: 75 18pt &quot;Trebuchet MS&quot;;
 border-bottom: 0px;
-margin-right: 10;</string>
-                </property>
-                <property name="text">
-                 <string>Recognized Letter: A</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
+padding-left: 5;
+padding-top: 5;
+border: 0;</string>
+                   </property>
+                   <property name="text">
+                    <string>Recognized Letter:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="letterLabel">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">font: 75 26pt &quot;Trebuchet MS&quot;;
+color: rgb(0, 0, 255);
+padding-bottom: 2;
+border: 0</string>
+                   </property>
+                   <property name="text">
+                    <string>A</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
                </widget>
               </item>
               <item>
@@ -761,7 +823,7 @@ margin-right: 10;</string>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>480</height>
+                  <height>410</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -783,7 +845,7 @@ color: rgb(255, 255, 255);</string>
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="horizontalFrame">
+               <widget class="QFrame" name="homeMain">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -950,7 +1012,7 @@ margin-bottom: 1.3px;
 border-bottom: 0px;</string>
                    </property>
                    <property name="text">
-                    <string>ASL Alphabet</string>
+                    <string>FSL Alphabet</string>
                    </property>
                   </widget>
                  </item>
@@ -3086,9 +3148,9 @@ border-bottom: 0px;</string>
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>-11</y>
+                     <y>-132</y>
                      <width>767</width>
-                     <height>532</height>
+                     <height>653</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -3203,56 +3265,33 @@ border-radius: 0;
 margin: 10</string>
                          </property>
                          <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;3. If you are unsatisfied with the letter, press &lt;span style=&quot; font-weight:600;&quot;&gt;backspace&lt;/span&gt; on your keyboard to &lt;span style=&quot; font-weight:600;&quot;&gt;erase&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;3. Place your hand on the blue gridlines as shown on the image. The distance of the hand from the computer is recommended as well.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                          </property>
                          <property name="wordWrap">
                           <bool>true</bool>
                          </property>
                         </widget>
                        </item>
-                      </layout>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QFrame" name="horizontalFrame">
-                      <property name="styleSheet">
-                       <string notr="true">border: 1.3px solid gray;
-border-radius: 2px;
-background: white;</string>
-                      </property>
-                      <layout class="QHBoxLayout" name="help_step3">
-                       <property name="spacing">
-                        <number>6</number>
-                       </property>
-                       <property name="leftMargin">
-                        <number>9</number>
-                       </property>
-                       <property name="topMargin">
-                        <number>9</number>
-                       </property>
-                       <property name="rightMargin">
-                        <number>9</number>
-                       </property>
-                       <property name="bottomMargin">
-                        <number>9</number>
-                       </property>
                        <item>
-                        <widget class="QLabel" name="label_31">
+                        <widget class="QLabel" name="label_4">
+                         <property name="maximumSize">
+                          <size>
+                           <width>256</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
                          <property name="styleSheet">
-                          <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
-margin-left: 15px;
-text-align: right;
-margin-bottom: 1.3px;
-border-bottom: 0px;
-border: 0;
-border-radius: 0;
-margin: 10</string>
+                          <string notr="true">border: 0;
+border-radius: 0;</string>
                          </property>
                          <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;4. If you are satisfied with the generted word, press &lt;span style=&quot; font-weight:600;&quot;&gt;enter&lt;/span&gt; to &lt;span style=&quot; font-weight:600;&quot;&gt;hear&lt;/span&gt; the word.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/Black Icons/Icons/sample_distance_large.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
-                         <property name="wordWrap">
-                          <bool>true</bool>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                          </property>
                         </widget>
                        </item>
@@ -3293,7 +3332,38 @@ border-radius: 0;
 margin: 10</string>
                          </property>
                          <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are unsure about the letter, you could always check by clicking on the &lt;span style=&quot; font-weight:600;&quot;&gt;ASL Alphabet&lt;/span&gt; button on the left side of the applicaiton.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are unsure about the gesture, you could always check by clicking on the &lt;span style=&quot; font-weight:600;&quot;&gt;FSL Alphabet.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="wordWrap">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="help_step2_4">
+                      <property name="styleSheet">
+                       <string notr="true">border: 1.3px solid gray;
+border-radius: 2px;
+background: white;</string>
+                      </property>
+                      <layout class="QHBoxLayout" name="step2_4">
+                       <item>
+                        <widget class="QLabel" name="label_61">
+                         <property name="styleSheet">
+                          <string notr="true">font: 12pt &quot;Trebuchet MS&quot;;
+margin-left: 15px;
+text-align: right;
+margin-bottom: 1.3px;
+border-bottom: 0px;
+border: 0;
+border-radius: 0;
+margin: 10</string>
+                         </property>
+                         <property name="text">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are having a hard time getting your gestures recognized, you could always switch backgrounds or try somewhere that has better lighting.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="wordWrap">
                           <bool>true</bool>
@@ -3324,7 +3394,7 @@ border-radius: 0;
 margin: 10</string>
                          </property>
                          <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are lost, the back button is available. &lt;span style=&quot; font-weight:600;&quot;&gt;DO NOT&lt;/span&gt; press the X button on the top right to exit the tab as this will exit the application.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are lost, the back button is available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="wordWrap">
                           <bool>true</bool>
@@ -3335,6 +3405,15 @@ margin: 10</string>
                      </widget>
                     </item>
                    </layout>
+                   <zorder>label_22</zorder>
+                   <zorder>help_step1</zorder>
+                   <zorder>help_step2</zorder>
+                   <zorder>horizontalFrame_2</zorder>
+                   <zorder>label_25</zorder>
+                   <zorder>help_step2_2</zorder>
+                   <zorder>help_step2_3</zorder>
+                   <zorder>label_61</zorder>
+                   <zorder>help_step2_4</zorder>
                   </widget>
                  </widget>
                 </item>
@@ -3488,8 +3567,8 @@ border-bottom: 0px;</string>
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>767</width>
-                     <height>971</height>
+                     <width>526</width>
+                     <height>1047</height>
                     </rect>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
