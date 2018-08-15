@@ -5,15 +5,10 @@ class Recorder:
     def __init__(self, width, height, saveLocation="", frameName=''):
         self.dir = [saveLocation, saveLocation+"/frames/", saveLocation+"/frames/rgb/",
                     saveLocation + "/frames/greyscale/", saveLocation+"/frames/processed/"]
-        for i in range(27):
-            if i == 26:
-                self.dir.append(os.path.dirname(self.dir[2] + "ily/"))
-                self.dir.append(os.path.dirname(self.dir[3] + "ily/"))
-                self.dir.append(os.path.dirname(self.dir[4] + "ily/"))
-            else:
-                self.dir.append(os.path.dirname(self.dir[2] + chr(i + 65)+"/"))
-                self.dir.append(os.path.dirname(self.dir[3] + chr(i + 65)+"/"))
-                self.dir.append(os.path.dirname(self.dir[4] + chr(i + 65)+"/"))
+        for i in range(26):
+            self.dir.append(os.path.dirname(self.dir[2] + chr(i + 65)+"/"))
+            self.dir.append(os.path.dirname(self.dir[3] + chr(i + 65)+"/"))
+            self.dir.append(os.path.dirname(self.dir[4] + chr(i + 65)+"/"))
 
         self.__checkSaveLocation__(self.dir)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')

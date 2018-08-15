@@ -8,11 +8,11 @@ import Modules.ProcessImage as process
 MAIN_DIR = "D:\ds-8318"
 
 #Frame snapshot counter
-FRAME_SAVE_MAX = 100
+FRAME_SAVE_MAX = 25
 
-# vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
+vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
 process.createHSVTrackBars()
-vid = cv.VideoCapture(1)
+# vid = cv.VideoCapture(0)
 
 
 
