@@ -2,22 +2,25 @@ import cv2 as cv
 from Modules.OpenCVWrapper import displayImage, convertToGrayscale
 import Modules.DatasetRecording.VideoRecorder as vr
 import Modules.ProcessImage as process
-
+import Modules.CNN.TFModel as tf
+import Modules.RecognitionThread as rt
 
 #DIRECTORIES TO SAVE IN
-MAIN_DIR = "D:\ds-8318"
+MAIN_DIR = r"C:\School\thesis\frames 8-16-18"
 
 #Frame snapshot counter
 FRAME_SAVE_MAX = 25
 
-vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
+# vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
 process.createHSVTrackBars()
-# vid = cv.VideoCapture(0)
+vid = cv.VideoCapture(0)
 
 
 
 def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFrameSaving=False):
-
+    model = tf.TFModel("output_graph.pb", "output_labels.txt", "Placeholder", "final_result")
+    thread = rt.Recoginize(model)
+    thread.daemon = True
     record = vr.Recorder(len(device.read()[1][1]),len(device.read()[1]), saveLocation=MAIN_DIR)
     current=ord('A')
     recordedCount = 0
@@ -27,7 +30,9 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
 
     flipped = True
     paused = False
+    showLetter = False
 
+    thread.start()
 
     while(True):
         k = cv.waitKey(5) & 0xFF
@@ -44,6 +49,13 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
 
         roi = process.extractRegionofInterest(snapshot)
         noBackground = process.thresholdHSVBackground(roi)
+        gs = process.convertToGrayscale(roi)
+        thread.predict(gs)
+        letter, acc = thread.getPrediction()
+        if showLetter:
+            cv.putText(snapshot, letter+" - " + str(round(acc,2)),
+                       (50, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                       cv.LINE_AA)
         #displayImage(noBackground, "no bg")
 
         #PART OF FRAME/VIDEO RECORDING
@@ -70,6 +82,8 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
 
         snapshot = process.drawBoundingRectangle(snapshot)
         displayImage(snapshot, "Original")
+        if k == ord(' '):
+            showLetter = not showLetter
         if k == 27:
             record.onDone()
             break
