@@ -37,11 +37,14 @@ class FirstTimePrompt(QDialog):
         self.mainWindow.startTutorial()
 
     def mouseMoveEvent(self, event):
-        x = event.globalX()
-        y = event.globalY()
-        x_w = self.offset.x()
-        y_w = self.offset.y()
-        self.move(x - x_w, y - y_w)
+        try:
+            x = event.globalX()
+            y = event.globalY()
+            x_w = self.offset.x()
+            y_w = self.offset.y()
+            self.move(x - x_w, y - y_w)
+        except:
+            print('crash in firstime_prompt.py')
 
     @pyqtSlot()
     def closeAction(self):

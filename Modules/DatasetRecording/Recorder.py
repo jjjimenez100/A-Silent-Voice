@@ -9,7 +9,7 @@ import Modules.RecognitionThread as rt
 MAIN_DIR = r"C:\School\thesis\frames 8-16-18"
 
 #Frame snapshot counter
-FRAME_SAVE_MAX = 25
+FRAME_SAVE_MAX = 50
 
 # vid = cv.VideoCapture("F:\School Folder\Thesis Images\Images\\7-7-2018.mp4")
 process.createHSVTrackBars()
@@ -40,12 +40,6 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
 
         if flipped:
             snapshot = cv.flip(snapshot, 1)
-
-        if enableRecording:
-            if recordStart:
-                record.recordFrame(snapshot)
-                cv.putText(snapshot, "REC", (len(snapshot[1])-100, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
-                            cv.LINE_AA)
 
         roi = process.extractRegionofInterest(snapshot)
         noBackground = process.thresholdHSVBackground(roi)
@@ -81,6 +75,13 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
                             cv.LINE_AA)
 
         snapshot = process.drawBoundingRectangle(snapshot)
+        if enableRecording:
+            if recordStart:
+                record.recordFrame(snapshot)
+                if not enableFrameSaving:
+                    cv.putText(snapshot, "REC", (len(snapshot[1])-100, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                                cv.LINE_AA)
+
         displayImage(snapshot, "Original")
         if k == ord(' '):
             showLetter = not showLetter
@@ -96,6 +97,7 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
                 if k == ord('p'):
                     recordStart = False
                     paused = True
+    vid.release()
 
 
-startVideoCapture(vid,enableRecording=False,enableFrameSaving=True)
+startVideoCapture(vid,enableRecording=True,enableFrameSaving=True)

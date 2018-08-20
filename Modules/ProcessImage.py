@@ -1,6 +1,6 @@
 import cv2
 import numpy
-from Modules.OpenCVWrapper import createNewWindow, createTrackbar
+from Modules.OpenCVWrapper import createNewWindow, createTrackbar, displayImage
 
 BOX_Y = 80
 BOX_X = 80
@@ -25,6 +25,14 @@ def thresholdHSVBackground(image):
     # [0] - H, [1] - S, [2] - V
     greyscaleImage = numpy.dsplit(blurImage, blurImage.shape[-1])[2]
     ret, thresh = cv2.threshold(greyscaleImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    #display images
+    # displayImage(imageMask, '[1] imgMask')
+    # displayImage(noBackground, '[2] no BG')
+    # displayImage(blurImage, '[3] blurred')
+    # displayImage(greyscaleImage, '[4] greyscaled')
+    # displayImage(thresh, '[5] thresholded')
+
 
     return thresh
 
