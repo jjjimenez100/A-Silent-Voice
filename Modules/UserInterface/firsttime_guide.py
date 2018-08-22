@@ -3,17 +3,9 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 import sys, os
+from Modules.FileFinder import resource_path
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
+# Class to show the first time guide pop up
 class FirstTimeGuide(QDialog):
     def __init__(self, mainWindow):
         super().__init__()
@@ -43,7 +35,6 @@ class FirstTimeGuide(QDialog):
                 self.nextButton.setText('Done')
         print(self.step_count)
         self.tutorial_steps.setCurrentIndex(self.step_count)
-
 
     def prevAction(self):
         print(self.step_count)

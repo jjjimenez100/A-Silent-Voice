@@ -1,5 +1,7 @@
 import tensorflow as tf
 import numpy as np
+
+
 class TFModel:
     def __init__(self, modelPath: str, labelPath: str, inputLayer: str, outputLayer: str):
         self.modelFile = modelPath
@@ -62,5 +64,5 @@ class TFModel:
         results = np.squeeze(results)
         topResults = results.argsort()[-1:][::-1]
         return self.labels[topResults[0]], results[topResults[0]]
-        #for i in topResults:
-            #print(self.labels[i], results[i])
+        # for i in topResults:
+        # print(self.labels[i], results[i])

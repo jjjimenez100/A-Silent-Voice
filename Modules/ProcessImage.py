@@ -4,10 +4,12 @@ from Modules.OpenCVWrapper import createNewWindow, createTrackbar, displayImage
 
 BOX_Y = 80
 BOX_X = 80
-BOX_WIDTH = 300 #300
-BOX_HEIGHT = 300 #300
+BOX_WIDTH = 300  # 300
+BOX_HEIGHT = 300  # 300
 
 
+# Turns an RGB image into a thresholded black and white images
+# where white colors are darkened and everything else is white
 def thresholdHSVBackground(image):
     l_h = cv2.getTrackbarPos('L - h', 'HSV Values')
     u_h = cv2.getTrackbarPos('U - h', 'HSV Values')
@@ -21,20 +23,20 @@ def thresholdHSVBackground(image):
 
     imageMask = cv2.inRange(image, MIN_HSV, MAX_HSV)
     noBackground = cv2.bitwise_and(image, image, mask=imageMask)
-    blurImage = cv2.medianBlur(cv2.GaussianBlur(noBackground, (11,11), 0), 15)
+    blurImage = cv2.medianBlur(cv2.GaussianBlur(noBackground, (11, 11), 0), 15)
     # [0] - H, [1] - S, [2] - V
     greyscaleImage = numpy.dsplit(blurImage, blurImage.shape[-1])[2]
     ret, thresh = cv2.threshold(greyscaleImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-    #display images
+    # display images
     # displayImage(imageMask, '[1] imgMask')
     # displayImage(noBackground, '[2] no BG')
     # displayImage(blurImage, '[3] blurred')
     # displayImage(greyscaleImage, '[4] greyscaled')
     # displayImage(thresh, '[5] thresholded')
 
-
     return thresh
+
 
 # Function to create HSV trackbars
 def createHSVTrackBars():
@@ -48,20 +50,24 @@ def createHSVTrackBars():
     createTrackbar('L - v', 'HSV Values', 0, 255)
     createTrackbar('U - v', 'HSV Values', 255, 255)
 
-def extractRegionofInterest(snapshot):
-    return snapshot[BOX_Y:BOX_Y+BOX_HEIGHT,BOX_X:BOX_X+BOX_WIDTH]
 
+# Extracts the region of interest of a image
+def extractRegionofInterest(snapshot):
+    return snapshot[BOX_Y:BOX_Y + BOX_HEIGHT, BOX_X:BOX_X + BOX_WIDTH]
+
+
+# Draws a blue rectangle in a image (default: X = 80, Y = 80, WIDTH = 300, HEIGHT = 300)
 def drawBoundingRectangle(snapshot):
-    width = int(BOX_WIDTH/3)
-    height = int(BOX_HEIGHT/3)
+    width = int(BOX_WIDTH / 3)
+    height = int(BOX_HEIGHT / 3)
     for i in range(3):
         for j in range(3):
-            x = BOX_X+(width*i)
-            y = BOX_Y+(height*j)
-            snapshot = cv2.rectangle(snapshot, (x, y), (x+width,y+height), (255,0,0),2)
+            x = BOX_X + (width * i)
+            y = BOX_Y + (height * j)
+            snapshot = cv2.rectangle(snapshot, (x, y), (x + width, y + height), (255, 0, 0), 2)
     return snapshot
-    #return cv2.rectangle(snapshot, (BOX_X, BOX_Y),
-    #                     (BOX_X+BOX_WIDTH,BOX_Y+BOX_HEIGHT), (255,0,0),2)
 
+
+# Conversts a image from an RGB image to Grayscale
 def convertToGrayscale(snapshot):
     return cv2.cvtColor(snapshot, cv2.COLOR_BGR2GRAY)

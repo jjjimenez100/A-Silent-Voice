@@ -3,17 +3,9 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic.properties import QtGui
 from PyQt5.uic import loadUi
+from Modules.FileFinder import resource_path
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
-
+# Class to show the quit prompt when exiting the program
 class QuitPrompt(QDialog):
     def __init__(self, mainWindow):
         super().__init__()
@@ -48,16 +40,8 @@ class QuitPrompt(QDialog):
     def logoutAction(self):
         self.ans = True
         self.hide()
-        # self.close()
-        # #self.mainWindow.Q
-        # sys.exit(QtGui.QApplication(sys.argv).exec_())
-        #self.loginWindow.show()
 
     @pyqtSlot()
     def closePrompt(self):
         self.ans = False
         self.hide()
-        # self.close()
-        # self.loginWindow.show()
-
-

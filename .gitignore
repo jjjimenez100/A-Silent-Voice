@@ -3,3 +3,10 @@ venv/
 pycache/
 output_graph.pb
 output_labels.txt
+Modules/CNN/__pycache__/
+Modules/DatasetRecording/__pycache__/
+Modules/DatasetRecording/img.jpg
+Modules/UserInterface/__pycache__/
+__pycache__/
+build/
+dist/

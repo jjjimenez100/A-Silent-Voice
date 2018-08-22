@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import OpenCVWrapper as wrap
+import Modules.OpenCVWrapper as wrap
 from threading import Thread
 
 

@@ -2,10 +2,8 @@ from PyQt5.QtGui import QImage, QPixmap, QMovie
 import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
-from PyQt5.uic.properties import QtGui
 
 from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
-import Modules.UserInterface.iconpack
 import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
@@ -16,19 +14,13 @@ from Modules.UserInterface.firsttime_guide import FirstTimeGuide
 from Modules.UserInterface.quitController import QuitPrompt
 from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
 
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
+from Modules.FileFinder import resource_path
 
-    return os.path.join(base_path, relative_path)
-
+# Seperate thread for image processing to not make the main thread freeze
 class Thread(QThread):
     changePixmap = pyqtSignal(QImage, str, float)
-    def __init__(self, model, fps=7, camera=0,):# recognitionThread=rt.Recoginize):
+
+    def __init__(self, model, fps=7, camera=0, ):
         super(Thread, self).__init__()
         self.thread = rt.Recoginize(model)
         self.thread.daemon = True
@@ -36,6 +28,7 @@ class Thread(QThread):
         self.camera = camera
         self.cap = ''
 
+    # Starts the thread
     def run(self):
         self.thread.start()
         self.cap = cv2.VideoCapture(self.camera)
@@ -46,18 +39,14 @@ class Thread(QThread):
             roi = extractRegionofInterest(frame)
             gs = convertToGrayscale(roi)
             self.thread.predict(gs)
-            # self.queue.put(gs)
             rect = drawBoundingRectangle(frame)
             rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
             convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
             p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-            # frame = extractRegionofInterest(frame)
-            # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            # self.thread.predict(frame)
             letter, acc = self.thread.getPrediction()
-            #print('letter:',letter)
             self.changePixmap.emit(p, letter, acc)
 
+# Main window for the user interface
 class MainForm(QMainWindow):
     def __init__(self, model, cameraCount):
         print("mf")
@@ -73,7 +62,6 @@ class MainForm(QMainWindow):
             self.j_gesture = QMovie("Modules/UserInterface/Icons/alphabet/J.gif")
             self.z_gesture = QMovie("Modules/UserInterface/Icons/alphabet/Z.gif")
         self.tab_history = [0]
-        #self.camera = cv2.VideoCapture(0)
         self.stackedWidget.setCurrentIndex(0)
         self.jLabel.setMovie(self.j_gesture)
         self.zLabel.setMovie(self.z_gesture)
@@ -134,17 +122,17 @@ class MainForm(QMainWindow):
         self.original_checkbox = self.formWordCheckbox.styleSheet()
         self.tutorial_stylesheet = "border: 3.5px solid red;"
 
-        #self.setComboBoxes()
         self.createThread()
-        #def setFormWords(self):
         self.center(self)
 
+    # Creates the thread for image processing and viewer
     def createThread(self, fps=7, camera=0):
         if self.cameraCount > 0:
             self.thread = Thread(self.model, fps, camera)
             self.thread.changePixmap.connect(self.setImage)
             self.thread.start()
 
+    # Shows the first time tutorial on launch
     def firsttime_tutorial(self, number):
         if number == 0:
             self.stackedWidget.setCurrentIndex(0)
@@ -222,16 +210,21 @@ class MainForm(QMainWindow):
             self.letterFrame.setStyleSheet(self.original_label)
             self.homePage.setStyleSheet(self.originial_home)
 
+    # Removes the letter in the word if form words is chosen
     def removeLetter(self):
         word = self.wordBuilder.getWord()
         if word:
             self.wordBuilder.setWord(word[:-1])
 
+    # Gets the keypressed event
+    # Current events are:
+    #   BACKSPACE -> removeLetter()
     def keyPressEvent(self, evt):
         if type(evt) == gui.QKeyEvent:
             if evt.key() == Qt.Key_Backspace:
                 self.removeLetter()
 
+    # Checks the checkboxes in the Recognition tab and sets the values accordingly
     def checkCheckBoxes(self):
         if self.showAccuracyCheckbox.isChecked():
             self.showAcc = True
@@ -243,15 +236,18 @@ class MainForm(QMainWindow):
             self.showWord = False
             self.wordBuilder.setWord("")
 
+    # Checks the window size to change the size of the window to normal or maximum
     def minmaxWindow(self):
         if self.minmaxButton.isChecked():
             self.showMaximized()
         else:
             self.showNormal()
 
+    # Gets the mouse position every mouse click
     def mousePressEvent(self, event):
         self.offset = event.pos()
 
+    # Gets the mouse position every mouse movement
     def mouseMoveEvent(self, event):
         try:
             x = event.globalX()
@@ -262,6 +258,8 @@ class MainForm(QMainWindow):
         except:
             pass
 
+    # Signal with the recognition thread to create a word or shows the accuracy
+    # and passes it to the given labels in the user interface
     @pyqtSlot(QImage, str, float)
     def setImage(self, image, letter, acc):
         word = ''
@@ -269,9 +267,9 @@ class MainForm(QMainWindow):
             word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
-            self.letterLabel.setText(letter+" - "+str(round(acc*100,2))+"%"+"\t"+word)
+            self.letterLabel.setText(letter + " - " + str(round(acc * 100, 2)) + "%" + "\t" + word)
         else:
-            self.letterLabel.setText(letter+"\t"+word)
+            self.letterLabel.setText(letter + "\t" + word)
 
     def center(self, window):
         qr = window.frameGeometry()
@@ -331,8 +329,8 @@ class MainForm(QMainWindow):
             except OSError:
                 pass
         self.quitprompt.close()
-        #self.close()
-        #self.loginWindow.show()
+        # self.close()
+        # self.loginWindow.show()
 
     def openQuitDialog(self):
         self.quitprompt = QuitPrompt(self)

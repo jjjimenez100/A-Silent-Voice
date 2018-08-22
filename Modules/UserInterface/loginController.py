@@ -2,29 +2,18 @@ from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-from os import path
 import sys
-#os.environ["CUDA_VISIBLE_DEVICES"]="-1"
+# os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 from PyQt5.QtCore import QThread, pyqtSignal
 from Modules.CNN.TFModel import TFModel
 from Modules.UserInterface.mainController import MainForm
 from cv2 import VideoCapture
-from queue import Queue
 import Modules.RecognitionThread as rt
-
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = path.abspath(".")
-
-    return path.join(base_path, relative_path)
+from Modules.FileFinder import resource_path
 
 
+# Loading class to load modules needed for the main thread
 class Loading(QThread):
-
     progress = pyqtSignal("PyQt_PyObject", int)
 
     def __init__(self, label):
@@ -34,7 +23,8 @@ class Loading(QThread):
     def run(self):
         print("starting", flush=True)
         print("bueno")
-        model = TFModel(resource_path("output_graph.pb"), resource_path("output_labels.txt"), "Placeholder", "final_result")
+        model = TFModel(resource_path("output_graph.pb"), resource_path("output_labels.txt"), "Placeholder",
+                        "final_result")
         print("model loaded")
         self.label_load.setText("Loading: Model")
         count = 0
@@ -46,7 +36,7 @@ class Loading(QThread):
             available.append(count)
             count += 1
         print(count)
-        if count>0:
+        if count > 0:
             vid = VideoCapture(0)
             _, frame = vid.read()
 
@@ -83,42 +73,29 @@ class LogInForm(QDialog):
         movie.start()
         self.update_loading("Loading: Graphical User Interface")
         print("loading main form")
-        #self.button_skip.clicked.connect(self.openMainForm)
         self.task = Loading(self.labelLoad)
         self.task.progress.connect(self.setMainForm)
         self.task.finished.connect(self.openMainForm)
-        #self.labelLoad.setText("Loading: Dependencies")
         self.task.start()
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.show()
-        #self.button_skip.clicked.connect(self.loadMainForm)
 
+    # Updates the loading message
     def update_loading(self, message):
         self.labelLoad.setText(message)
 
+    # Signal receiver to get loaded data
     @pyqtSlot("PyQt_PyObject", int)
     def setMainForm(self, model, count):
         self.model = model
         self.available = count
 
-    # def openMainForm(self):
-    #     print(self.available)
-    #     self.window = MainForm(self, self.model, self.available)
-    #     self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
-    #
-    #     self.window.show()
-    #     self.window.showHomePage()
-    #     self.hide()
-
-    @pyqtSlot("PyQt_PyObject", int)
-    def setMainForm(self, model, cameraCount):
-        self.model = model
-        self.cameraCount = cameraCount
-
+    # Starts the main form and finishes the loading sequence
     def openMainForm(self):
+        self.update_loading('Opening Main form')
         self.task.wait()
         self.task.quit()
-        
+
         self.window = MainForm(self.model, self.cameraCount)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
