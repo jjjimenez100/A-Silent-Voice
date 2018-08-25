@@ -2,7 +2,7 @@ from PyQt5.QtGui import QImage, QPixmap, QMovie
 import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
-
+import Modules.UserInterface.iconpack
 from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
 import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
@@ -223,6 +223,12 @@ class MainForm(QMainWindow):
         if type(evt) == gui.QKeyEvent:
             if evt.key() == Qt.Key_Backspace:
                 self.removeLetter()
+            elif self.tab_history[-1] == 1:
+                for i in range(0, 26):
+                    if evt.key() == i+65:
+                        button = 'self.'+chr(i+65)+'_button.click()'
+                        exec(button)
+
 
     # Checks the checkboxes in the Recognition tab and sets the values accordingly
     def checkCheckBoxes(self):
@@ -305,6 +311,7 @@ class MainForm(QMainWindow):
 
     def showLetters(self, index):
         print(index)
+
         if index == 9:
             self.j_gesture.stop()
             self.j_gesture.start()
@@ -318,19 +325,7 @@ class MainForm(QMainWindow):
 
     @pyqtSlot()
     def logoutAction(self):
-        if self.openQuitDialog():
-            if self.thread.cap:
-                self.thread.cap.release()
-            self.thread.terminate()
-            self.thread.wait()
-            self.close()
-            try:
-                os.remove("img.jpg")
-            except OSError:
-                pass
-        self.quitprompt.close()
-        # self.close()
-        # self.loginWindow.show()
+        self.close()
 
     def openQuitDialog(self):
         self.quitprompt = QuitPrompt(self)
@@ -364,3 +359,18 @@ class MainForm(QMainWindow):
                 self.helpButton.setChecked(True)
             elif self.tab_history[-1] == 3:
                 self.aboutButton.setChecked(True)
+
+    def closeEvent(self, event):
+        if self.openQuitDialog():
+            if self.thread.cap:
+                self.thread.cap.release()
+            self.thread.terminate()
+            self.thread.wait()
+            self.close()
+            try:
+                os.remove("img.jpg")
+            except OSError:
+                pass
+        else:
+            event.ignore()
+        self.quitprompt.close()

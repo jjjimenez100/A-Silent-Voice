@@ -56,7 +56,7 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
             if recordedCount >= FRAME_SAVE_MAX:
                 print("done with", totalCount, "files", chr(current))
                 recordedCount = 0
-                # recordStart = False
+                recordStart = False
                 current += 1
             if recordStart:
                 recordedCount += 1
@@ -65,8 +65,8 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
                 record.saveFrame(roi, 'RGB', letter=current)
                 record.saveFrame(noBackground, 'BW', letter=current)
                 record.saveFrame(convertToGrayscale(roi), 'GREY', letter=current)
-                # cv.putText(snapshot, "SNAPSHOT REC ["+chr(current)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-430, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
-                #             cv.LINE_AA)
+                cv.putText(snapshot, "SNAPSHOT REC ["+chr(current)+"]"+str(recordedCount/FRAME_SAVE_MAX*100), (len(snapshot[1])-430, 50), cv.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                            cv.LINE_AA)
             if paused and not recordStart:
                 cv.putText(snapshot,
                            "PAUSED SNAPSHOT REC [" + chr(current) + "]" + str(recordedCount / FRAME_SAVE_MAX * 100),
@@ -100,4 +100,4 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
     vid.release()
 
 
-startVideoCapture(vid, enableRecording=True, enableFrameSaving=True)
+startVideoCapture(vid, enableRecording=False, enableFrameSaving=True)

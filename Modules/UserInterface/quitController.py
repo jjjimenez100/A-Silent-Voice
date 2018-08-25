@@ -17,7 +17,7 @@ class QuitPrompt(QDialog):
         self.quitYesButton.clicked.connect(self.logoutAction)
         self.quitNoButton.clicked.connect(self.closePrompt)
         self.mainWindow = mainWindow
-        self.ans = True
+        self.ans = False
 
     def mousePressEvent(self, event):
         self.offset = event.pos()
