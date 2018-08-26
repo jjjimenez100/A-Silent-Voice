@@ -6,7 +6,7 @@ import Modules.CNN.TFModel as tf
 import Modules.RecognitionThread as rt
 
 # DIRECTORIES TO SAVE IN
-MAIN_DIR = r"C:\School\thesis\frames 8-16-18"
+MAIN_DIR = r"C:\GitHub\A-Silent-Voice"
 
 # Frame snapshot counter
 FRAME_SAVE_MAX = 50
@@ -100,4 +100,4 @@ def startVideoCapture(device: cv.VideoCapture, enableRecording=False, enableFram
     vid.release()
 
 
-startVideoCapture(vid, enableRecording=False, enableFrameSaving=True)
+startVideoCapture(vid, enableRecording=False, enableFrameSaving=False)

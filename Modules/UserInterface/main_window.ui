@@ -754,14 +754,91 @@ border: 0px</string>
                  <property name="spacing">
                   <number>0</number>
                  </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
-                  <widget class="QLabel" name="label_5">
+                  <widget class="QFrame" name="horizontalFrame">
                    <property name="minimumSize">
                     <size>
-                     <width>50</width>
+                     <width>400</width>
                      <height>0</height>
                     </size>
                    </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>400</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">font: 75 18pt &quot;Trebuchet MS&quot;;
+border-bottom: 0px;
+padding-left: 5;
+padding-top: 5;
+border: 0;</string>
+                      </property>
+                      <property name="text">
+                       <string>Recognized Letter:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="letterLabel">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">font: 75 26pt &quot;Trebuchet MS&quot;;
+color: rgb(0, 0, 255);
+padding-bottom: 2;
+padding-top: 3;
+border: 0;
+</string>
+                      </property>
+                      <property name="text">
+                       <string>A - 100.00%</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_6">
                    <property name="styleSheet">
                     <string notr="true">font: 75 18pt &quot;Trebuchet MS&quot;;
 border-bottom: 0px;
@@ -770,35 +847,22 @@ padding-top: 5;
 border: 0;</string>
                    </property>
                    <property name="text">
-                    <string>Recognized Letter:</string>
+                    <string>Word:</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLabel" name="letterLabel">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
+                  <widget class="QLabel" name="wordLabel">
                    <property name="styleSheet">
                     <string notr="true">font: 75 26pt &quot;Trebuchet MS&quot;;
 color: rgb(0, 0, 255);
 padding-bottom: 2;
-border: 0</string>
+padding-top: 3;
+border: 0;
+</string>
                    </property>
                    <property name="text">
-                    <string>A</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    <string>APPLE</string>
                    </property>
                   </widget>
                  </item>
@@ -3148,9 +3212,9 @@ border-bottom: 0px;</string>
                    <property name="geometry">
                     <rect>
                      <x>0</x>
-                     <y>-132</y>
-                     <width>767</width>
-                     <height>653</height>
+                     <y>0</y>
+                     <width>430</width>
+                     <height>826</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -3412,7 +3476,6 @@ margin: 10</string>
                    <zorder>label_25</zorder>
                    <zorder>help_step2_2</zorder>
                    <zorder>help_step2_3</zorder>
-                   <zorder>label_61</zorder>
                    <zorder>help_step2_4</zorder>
                   </widget>
                  </widget>

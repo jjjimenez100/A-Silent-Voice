@@ -2,8 +2,8 @@ from PyQt5.QtCore import pyqtSlot, Qt
 from PyQt5.QtGui import QMovie
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-import sys
-# os.environ["CUDA_VISIBLE_DEVICES"]="-1"
+import sys, os
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 from PyQt5.QtCore import QThread, pyqtSignal
 from Modules.CNN.TFModel import TFModel
 from Modules.UserInterface.mainController import MainForm
@@ -18,7 +18,7 @@ class Loading(QThread):
 
     def __init__(self, label):
         super(Loading, self).__init__()
-        self.label_load = label
+        # self.label_load = label
 
     def run(self):
         print("starting", flush=True)
@@ -26,7 +26,7 @@ class Loading(QThread):
         model = TFModel(resource_path("output_graph.pb"), resource_path("output_labels.txt"), "Placeholder",
                         "final_result")
         print("model loaded")
-        self.label_load.setText("Loading: Model")
+        # self.label_load.setText("Loading: Model")
         count = 0
         available = []
         while True:
@@ -50,9 +50,9 @@ class Loading(QThread):
             load.join()
             vid.release()
             print("model loaded")
-            self.label_load.setText("Loaded Model")
+            # self.label_load.setText("Loaded Model")
         print("donezo")
-        self.label_load.setText("Finalizing")
+        # self.label_load.setText("Finalizing")
         self.progress.emit(model, len(available))
 
 
@@ -96,7 +96,7 @@ class LogInForm(QDialog):
         self.task.wait()
         self.task.quit()
 
-        self.window = MainForm(self.model, self.cameraCount)
+        self.window = MainForm(self.model, self.available)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.window.show()
         self.close()

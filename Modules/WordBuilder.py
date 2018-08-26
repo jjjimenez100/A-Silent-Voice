@@ -24,7 +24,7 @@ class WordBuilder:
     def checkLetter(self, letter):
         if self.currentLetter == "":
             self.currentLetter = letter
-        elif self.consecutiveCount >= 85:
+        elif self.consecutiveCount >= 60:
             self.currentWord += self.currentLetter
             self.currentLetter = ""
             self.consecutiveCount = 0
@@ -56,5 +56,5 @@ class WordBuilder:
     # Changes the word to the inputted word
     # DEPRECATED
     def setWord(self, word):
-        # self.currentWord = word
+        self.currentWord = word
         pass

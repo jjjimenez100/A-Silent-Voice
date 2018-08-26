@@ -9,10 +9,12 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
 import Modules.WordBuilder as wb
 import sys, os
+import numpy as np
 
 from Modules.UserInterface.firsttime_guide import FirstTimeGuide
 from Modules.UserInterface.quitController import QuitPrompt
 from Modules.UserInterface.firsttime_prompt import FirstTimePrompt
+from Modules.UserInterface.webcam_disconnect import WebcamPrompt
 
 from Modules.FileFinder import resource_path
 
@@ -34,17 +36,27 @@ class Thread(QThread):
         self.cap = cv2.VideoCapture(self.camera)
         self.cap.set(cv2.CAP_PROP_FPS, self.fps)
         while True:
-            ret, frame = self.cap.read()
-            frame = cv2.flip(frame, 1)
-            roi = extractRegionofInterest(frame)
-            gs = convertToGrayscale(roi)
-            self.thread.predict(gs)
-            rect = drawBoundingRectangle(frame)
-            rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
-            convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
-            p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-            letter, acc = self.thread.getPrediction()
-            self.changePixmap.emit(p, letter, acc)
+            try:
+                ret, frame = self.cap.read()
+                frame = cv2.flip(frame, 1)
+                roi = extractRegionofInterest(frame)
+                gs = convertToGrayscale(roi)
+                self.thread.predict(gs)
+                rect = drawBoundingRectangle(frame)
+                rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
+                convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
+                p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
+                letter, acc = self.thread.getPrediction()
+                self.changePixmap.emit(p, letter, acc)
+            except Exception as ex:
+                self.changePixmap.emit(p, 'error', 0)
+                print('error', ex)
+                rgbImage = np.zeros((640,480,3), np.uint8)
+                convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
+                p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
+                self.changePixmap.emit(p, letter, acc)
+                break
+
 
 # Main window for the user interface
 class MainForm(QMainWindow):
@@ -268,14 +280,19 @@ class MainForm(QMainWindow):
     # and passes it to the given labels in the user interface
     @pyqtSlot(QImage, str, float)
     def setImage(self, image, letter, acc):
+        if letter == 'error':
+            self.openWebcamDialog(1)
+            return
         word = ''
         if self.showWord and self.tab_history[-1] == 0:
             word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
-            self.letterLabel.setText(letter + " - " + str(round(acc * 100, 2)) + "%" + "\t" + word)
+            self.letterLabel.setText(letter + " - " + str(round(acc * 100, 2)) + "%")
+            self.wordLabel.setText(word)
         else:
-            self.letterLabel.setText(letter + "\t" + word)
+            self.letterLabel.setText(letter)
+            self.wordLabel.setText(word)
 
     def center(self, window):
         qr = window.frameGeometry()
@@ -327,6 +344,19 @@ class MainForm(QMainWindow):
     def logoutAction(self):
         self.close()
 
+    def openWebcamDialog(self, error_type):
+        self.webcamPrompt = WebcamPrompt(self)
+        if error_type == 1:
+            self.webcamPrompt.change_label("Web-camera has been disconnected. Please restart the application.")
+        else:
+            self.webcamPrompt.change_label("No web-camera detected. Please close the application.")
+        self.webcamPrompt.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
+        self.center(self.webcamPrompt)
+        self.webcamPrompt.exec_()
+        if error_type == 1:
+            self.logoutAction()
+
+
     def openQuitDialog(self):
         self.quitprompt = QuitPrompt(self)
         self.quitprompt.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
@@ -336,6 +366,8 @@ class MainForm(QMainWindow):
 
     def openFirstTimeDialog(self):
         print("FTD")
+        if not self.cameraCount > 0:
+            self.openWebcamDialog('pls')
         self.window = FirstTimePrompt(self)
         self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
         self.center(self.window)
