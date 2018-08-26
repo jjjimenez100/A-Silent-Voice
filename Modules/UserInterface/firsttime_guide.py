@@ -61,4 +61,10 @@ class FirstTimeGuide(QDialog):
     @pyqtSlot()
     def closeAction(self):
         print("cuim")
+        self.step_count += 1
         self.close()
+
+    def closeEvent(self, evt):
+        print(evt)
+        if not self.step_count > 11:
+            evt.ignore()
