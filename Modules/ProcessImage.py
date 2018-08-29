@@ -7,6 +7,15 @@ BOX_X = 80
 BOX_WIDTH = 300  # 300
 BOX_HEIGHT = 300  # 300
 
+SHOW_ACC = False
+
+def showAcc(bool):
+    global SHOW_ACC
+    SHOW_ACC = bool
+
+def changeROIPlacement(x,y):
+    BOX_X = x
+    BOX_Y = y
 
 # Turns an RGB image into a thresholded black and white images
 # where white colors are darkened and everything else is white
@@ -57,7 +66,7 @@ def extractRegionofInterest(snapshot):
 
 
 # Draws a blue rectangle in a image (default: X = 80, Y = 80, WIDTH = 300, HEIGHT = 300)
-def drawBoundingRectangle(snapshot):
+def drawBoundingRectangle(snapshot, acc=''):
     width = int(BOX_WIDTH / 3)
     height = int(BOX_HEIGHT / 3)
     for i in range(3):
@@ -65,6 +74,10 @@ def drawBoundingRectangle(snapshot):
             x = BOX_X + (width * i)
             y = BOX_Y + (height * j)
             snapshot = cv2.rectangle(snapshot, (x, y), (x + width, y + height), (255, 0, 0), 2)
+    if type(acc) == type(numpy.float32(0)) and SHOW_ACC:
+        cv2.putText(snapshot, str(round(acc*100,2))+"%",
+                   (BOX_X, BOX_Y-15), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2,
+                   cv2.LINE_AA)
     return snapshot
 
 

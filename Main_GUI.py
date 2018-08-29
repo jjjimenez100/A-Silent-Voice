@@ -1,5 +1,9 @@
 print("Initializing")
 
+import Modules.tendo.singleton as singleton
+me = singleton.SingleInstance()
+
+
 import Modules.UserInterface.loginController as login
 from PyQt5.QtWidgets import QApplication as app
 

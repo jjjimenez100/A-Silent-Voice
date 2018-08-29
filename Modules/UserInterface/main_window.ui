@@ -827,7 +827,7 @@ border: 0;
 </string>
                       </property>
                       <property name="text">
-                       <string>A - 100.00%</string>
+                       <string></string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -862,7 +862,7 @@ border: 0;
 </string>
                    </property>
                    <property name="text">
-                    <string>APPLE</string>
+                    <string></string>
                    </property>
                   </widget>
                  </item>
@@ -3697,7 +3697,7 @@ border-radius: 0;
 margin: 10</string>
                            </property>
                            <property name="text">
-                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Datasets&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For each gesture, 1200 greyscaled and thresholded images were used to train the model. The developers have decided to flip 1200 of these images to give consideration to both right and left handed users. A total of 2400 images are used per gesture. Datasets are uploaded on google drive as the developers consider them too large to be uploaded on an online repository.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Datasets&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;For each gesture, 1300 greyscaled and thresholded images were used to train the model. The developers have decided to flip 1300 of these images to give consideration to both right and left handed users. A total of 2600 images are used per gesture. Datasets are uploaded on google drive as the developers consider them too large to be uploaded on an online repository.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                            </property>
                            <property name="alignment">
                             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

@@ -3,7 +3,7 @@ import PyQt5.QtGui as gui
 from PyQt5.QtCore import pyqtSignal, QThread, pyqtSlot, Qt
 import cv2
 import Modules.UserInterface.iconpack
-from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale
+from Modules.ProcessImage import drawBoundingRectangle, extractRegionofInterest, convertToGrayscale, showAcc, changeROIPlacement
 import Modules.RecognitionThread as rt
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import *
@@ -37,24 +37,24 @@ class Thread(QThread):
         self.cap.set(cv2.CAP_PROP_FPS, self.fps)
         while True:
             try:
+                acc = 0
                 ret, frame = self.cap.read()
                 frame = cv2.flip(frame, 1)
                 roi = extractRegionofInterest(frame)
                 gs = convertToGrayscale(roi)
                 self.thread.predict(gs)
-                rect = drawBoundingRectangle(frame)
+                letter, acc = self.thread.getPrediction()
+                rect = drawBoundingRectangle(frame,acc)
                 rgbImage = cv2.cvtColor(rect, cv2.COLOR_BGR2RGB)
                 convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
                 p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-                letter, acc = self.thread.getPrediction()
-                self.changePixmap.emit(p, letter, acc)
+                self.changePixmap.emit(p, letter.upper(), acc)
             except Exception as ex:
-                self.changePixmap.emit(p, 'error', 0)
                 print('error', ex)
                 rgbImage = np.zeros((640,480,3), np.uint8)
                 convertToQtFormat = QImage(rgbImage.data, rgbImage.shape[1], rgbImage.shape[0], QImage.Format_RGB888)
                 p = convertToQtFormat.scaled(640, 480, Qt.KeepAspectRatio)
-                self.changePixmap.emit(p, letter, acc)
+                self.changePixmap.emit(p, 'error', 0)
                 break
 
 
@@ -288,9 +288,11 @@ class MainForm(QMainWindow):
             word = self.wordBuilder.checkLetter(letter)
         self.videoLabel.setPixmap(QPixmap.fromImage(image))
         if self.showAcc:
-            self.letterLabel.setText(letter + " - " + str(round(acc * 100, 2)) + "%")
+            self.letterLabel.setText(letter)# + " - " + str(round(acc * 100, 2)) + "%")
+            showAcc(True)
             self.wordLabel.setText(word)
         else:
+            showAcc(False)
             self.letterLabel.setText(letter)
             self.wordLabel.setText(word)
 
@@ -368,10 +370,11 @@ class MainForm(QMainWindow):
         print("FTD")
         if not self.cameraCount > 0:
             self.openWebcamDialog('pls')
-        self.window = FirstTimePrompt(self)
-        self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
-        self.center(self.window)
-        self.window.exec_()
+        else:
+            self.window = FirstTimePrompt(self)
+            self.window.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnBottomHint)
+            self.center(self.window)
+            self.window.exec_()
 
     def startTutorial(self):
         self.tutorialPrompt = FirstTimeGuide(self)

@@ -10,7 +10,7 @@ class WebcamPrompt(QDialog):
     def __init__(self, mainWindow):
         super().__init__()
         if getattr(sys, 'frozen', False):
-            ui = resource_path('quit_prompt.ui')
+            ui = resource_path('webcam_disconnected.ui')
         else:
             ui = 'Modules/UserInterface/webcam_disconnected.ui'
         loadUi(ui, self)
@@ -32,7 +32,7 @@ class WebcamPrompt(QDialog):
             y_w = self.offset.y()
             self.move(x - x_w, y - y_w)
         except:
-            print("crash in quitcontroller.py")
+            print("crash in", __name__)
 
     def getButtonPressed(self):
         print(self.ans)

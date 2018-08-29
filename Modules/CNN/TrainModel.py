@@ -10,7 +10,7 @@ from keras.layers.convolutional import MaxPooling2D
 from keras.callbacks import ModelCheckpoint
 from keras.utils import np_utils
 from Modules.CNN.Constants import *
-import numpy
+import numpy, os
 import pickle
 
 
