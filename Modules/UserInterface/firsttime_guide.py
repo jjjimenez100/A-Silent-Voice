@@ -22,16 +22,18 @@ class FirstTimeGuide(QDialog):
         self.tutorial_steps.setCurrentIndex(0)
 
     def nextAction(self):
+        if self.step_count == 0:
+            self.tutorial_steps.setCurrentIndex(0)
+
         if self.nextButton.text() == "Done":
-            self.mainWindow.firsttime_tutorial(11)
+            self.mainWindow.firsttime_tutorial(12)
             self.closeAction()
             return
         else:
-
-            if self.step_count < 11:
+            if self.step_count < 12:
                 self.step_count += 1
                 self.mainWindow.firsttime_tutorial(self.step_count)
-            if self.step_count >= 11:
+            if self.step_count >= 12:
                 self.nextButton.setText('Done')
         print(self.step_count)
         self.tutorial_steps.setCurrentIndex(self.step_count)
@@ -41,7 +43,7 @@ class FirstTimeGuide(QDialog):
         if self.step_count > 0:
             self.step_count -= 1
             self.mainWindow.firsttime_tutorial(self.step_count)
-        if self.step_count < 11:
+        if self.step_count < 12:
             self.nextButton.setText('Next')
         self.tutorial_steps.setCurrentIndex(self.step_count)
 
@@ -66,5 +68,5 @@ class FirstTimeGuide(QDialog):
 
     def closeEvent(self, evt):
         print(evt)
-        if not self.step_count > 11:
+        if not self.step_count > 12:
             evt.ignore()

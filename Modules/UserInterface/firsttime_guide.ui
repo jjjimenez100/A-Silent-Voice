@@ -95,7 +95,7 @@ margin-left: 2</string>
    <item>
     <widget class="QStackedWidget" name="tutorial_steps">
      <property name="currentIndex">
-      <number>8</number>
+      <number>12</number>
      </property>
      <widget class="QWidget" name="page_1">
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -129,7 +129,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 1.1&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Recognition&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, this is where your current screen is at. You can perform the Filipino Sign Language and it will recognize your gestures.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 2&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Recognition&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, this is where your current screen is at. You can perform the Filipino Sign Language and it will recognize your gestures.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -151,7 +151,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 1.2&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;FSL Alphabet&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, you can use this as reference for performing gestures. We recommened that you take your time to view it if you're a first time user of the application.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 3&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;FSL Alphabet&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, you can use this as reference for performing gestures. We recommened that you take your time to view it if you're a first time user of the application.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -173,7 +173,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 1.3&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Help&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, you can consult this for further information about the application after the tutorial.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 4&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Help&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, you can consult this for further information about the application after the tutorial.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -195,7 +195,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 1.4&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;About&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, there is information here about the application itself, who made it, licensing, etc.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 5&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;About&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; tab, there is information here about the application itself, who made it, licensing, etc.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -217,7 +217,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 1.5&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Quit&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; button, use this, or the x button on the top right corner if you want to exit the application.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 6&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Here is the &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Quit&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; button, use this, or the x button on the top right corner if you want to exit the application.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -239,7 +239,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 2&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is what it looks like within the Recognition tab. You have your recognized letter, video feed, and two check boxes to form words or show accuracy.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 7&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;This is what it looks like within the Recognition tab. You have your recognized letter, video feed, two check boxes to form words or show accuracy, and which hand to be used.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -261,7 +261,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 3&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;All of your recognized letters, recognized words, and how accurate your gesture shall appear here.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 8&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;All of your recognized letters, recognized words, and how accurate your gesture is shall appear here.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -283,7 +283,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 4&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;You can perform gestures by placing your left hand inside the blue box with gridlines. A white background is recommended and the ideal distance is shown on the picture.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 9&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;You can perform gestures by placing your left hand inside the blue box with gridlines. A white background is recommended and the ideal distance is shown on the picture.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -315,7 +315,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 5&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The form words check box will enable the ability to form words. After a few short seconds of performing the gesture, the letter will be added to the feed on top. If you are unsatisfied with the letter, you can press backspace on your keyboard to remove it.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 10&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The form words check box will enable the ability to form words. After a few short seconds of performing the gesture, the letter will be added to the feed on top. If you are unsatisfied with the letter, you can press backspace on your keyboard to remove it.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -337,7 +337,29 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 6&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Ticking the show accuracy check box will display how accurate are you with performing the gesture right next to the recognized letter.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 11&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Ticking the show accuracy check box will display how accurate are you with performing the gesture right next to the recognized letter.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page">
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 0, 0);
+font: 14pt &quot;Trebuchet MS&quot;;
+</string>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 12&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Hand to be used is where you can change on which hand should be detected. The Blue Box will move positions for your comfort. It is suggested that the left hand is preferred when signing towards someone. The left hand is selected by default. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -359,7 +381,7 @@ font: 14pt &quot;Trebuchet MS&quot;;
 </string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 7&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;That's it! If you are feeling lost, you could always consult the help tab for more information.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Step 13&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;That's it! If you are feeling lost, you could always consult the help tab for more information.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

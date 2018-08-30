@@ -770,15 +770,18 @@ border: 0px</string>
                   <widget class="QFrame" name="horizontalFrame">
                    <property name="minimumSize">
                     <size>
-                     <width>400</width>
+                     <width>300</width>
                      <height>0</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>400</width>
+                     <width>300</width>
                      <height>16777215</height>
                     </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border: 0px;</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
                     <property name="spacing">
@@ -788,8 +791,14 @@ border: 0px</string>
                      <widget class="QLabel" name="label_5">
                       <property name="minimumSize">
                        <size>
-                        <width>50</width>
+                        <width>220</width>
                         <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>220</width>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="styleSheet">
@@ -808,13 +817,13 @@ border: 0;</string>
                      <widget class="QLabel" name="letterLabel">
                       <property name="minimumSize">
                        <size>
-                        <width>0</width>
+                        <width>50</width>
                         <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>16777215</width>
+                        <width>50</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -827,12 +836,25 @@ border: 0;
 </string>
                       </property>
                       <property name="text">
-                       <string></string>
+                       <string/>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                       </property>
                      </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_2">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
                     </item>
                    </layout>
                   </widget>
@@ -862,7 +884,7 @@ border: 0;
 </string>
                    </property>
                    <property name="text">
-                    <string></string>
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -887,7 +909,7 @@ border: 0;
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>410</height>
+                  <height>300</height>
                  </size>
                 </property>
                 <property name="styleSheet">
@@ -895,7 +917,7 @@ border: 0;
 color: rgb(255, 255, 255);</string>
                 </property>
                 <property name="text">
-                 <string>Video Feed</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;WEB CAMERA NOT DETECTED&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;(Please restart the application after connecting the web camera)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="scaledContents">
                  <bool>true</bool>
@@ -909,20 +931,35 @@ color: rgb(255, 255, 255);</string>
                </widget>
               </item>
               <item>
-               <widget class="QFrame" name="homeMain">
+               <widget class="QFrame" name="homeOptions">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>50</height>
+                  <height>65</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>50</height>
+                  <height>65</height>
                  </size>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_37">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
                  <item>
                   <widget class="QCheckBox" name="formWordCheckbox">
                    <property name="styleSheet">
@@ -943,8 +980,140 @@ font: 15pt &quot;Trebuchet MS&quot;;
 margin-left: 10;</string>
                    </property>
                    <property name="text">
-                    <string>Show Accuracy</string>
+                    <string>Show Confidence</string>
                    </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="handToBeUsedLayout">
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="styleSheet">
+                       <string notr="true">border:0px;
+font: 12pt &quot;Trebuchet MS&quot;;</string>
+                      </property>
+                      <property name="text">
+                       <string>Hand to Be Used</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="horit">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_5">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QPushButton" name="leftHandButton">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="autoFillBackground">
+                          <bool>false</bool>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(0, 0, 0);
+font: 11pt &quot;Trebuchet MS&quot;;
+Text-align: center;</string>
+                         </property>
+                         <property name="text">
+                          <string>Left</string>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="iconpack.qrc">
+                           <normaloff>:/SettingsIcons/Icons/unchecked.png</normaloff>
+                           <normalon>:/SettingsIcons/Icons/checked.png</normalon>:/SettingsIcons/Icons/unchecked.png</iconset>
+                         </property>
+                         <property name="checkable">
+                          <bool>true</bool>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
+                         </property>
+                         <property name="autoExclusive">
+                          <bool>true</bool>
+                         </property>
+                         <property name="flat">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="rightHandButton">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="autoFillBackground">
+                          <bool>false</bool>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true">color: rgb(0, 0, 0);
+font: 11pt &quot;Trebuchet MS&quot;;
+Text-align: center;</string>
+                         </property>
+                         <property name="text">
+                          <string>Right</string>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="iconpack.qrc">
+                           <normaloff>:/SettingsIcons/Icons/unchecked.png</normaloff>
+                           <normalon>:/SettingsIcons/Icons/checked.png</normalon>:/SettingsIcons/Icons/unchecked.png</iconset>
+                         </property>
+                         <property name="checkable">
+                          <bool>true</bool>
+                         </property>
+                         <property name="autoExclusive">
+                          <bool>true</bool>
+                         </property>
+                         <property name="flat">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
                   </widget>
                  </item>
                 </layout>

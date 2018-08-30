@@ -52,6 +52,8 @@
     <file>Icons/min.png</file>
   </qresource>
   <qresource prefix="SettingsIcons">
+    <file>Icons/unchecked.png</file>
+    <file>Icons/checked.png</file>
     <file>Icons/settings-cog.png</file>
     <file>Icons/speaker.png</file>
     <file>Icons/webcam.png</file>

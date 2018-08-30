@@ -132,7 +132,8 @@ class MainForm(QMainWindow):
         self.original_label = self.letterFrame.styleSheet()
         self.original_video = self.videoLabel.styleSheet()
         self.original_checkbox = self.formWordCheckbox.styleSheet()
-        self.tutorial_stylesheet = "border: 3.5px solid red;"
+        self.original_layout = self.handToBeUsedLayout.styleSheet()
+        self.tutorial_stylesheet = "border: 2px solid red;"
 
         self.createThread()
         self.center(self)
@@ -169,7 +170,7 @@ class MainForm(QMainWindow):
             self.aslButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
         else:
             self.aslButton.setStyleSheet(self.originial_buttons)
-        if number == 3 or number == 11:
+        if number == 3 or number == 12:
             self.stackedWidget.setCurrentIndex(2)
             self.helpButton.setStyleSheet(self.originial_buttons + self.tutorial_stylesheet)
         else:
@@ -210,6 +211,11 @@ class MainForm(QMainWindow):
         else:
             self.showAccuracyCheckbox.setStyleSheet(self.original_checkbox)
         if number == 11:
+            self.stackedWidget.setCurrentIndex(0)
+            self.handToBeUsedLayout.setStyleSheet(self.original_layout + self.tutorial_stylesheet)
+        else:
+            self.handToBeUsedLayout.setStyleSheet(self.original_layout)
+        if number == 12:
             self.stackedWidget.setCurrentIndex(0)
             self.homeButton.setStyleSheet(self.originial_buttons)
             self.aslButton.setStyleSheet(self.originial_buttons)
